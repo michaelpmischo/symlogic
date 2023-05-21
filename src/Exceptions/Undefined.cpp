@@ -1,0 +1,128 @@
+// ============================================================================
+//! @file Undefined.cpp
+//! @author Michael P. MIscho
+//! @date April 29, 2023
+//! @brief This file is the header for the Integer number type header.
+//! @see https://en.wikipedia.org/wiki/Complex_number
+// ____________________________________________________________________________
+//! @copyright Copyright (C) 2024 Michael P. Mischo - All Rights Reserved
+//! You may use, distribute and modify this code under the terms of the GPL
+//! license. You should have received a copy of the GPL license with this 
+//! file. If not, please write to: , or visit :
+//! https://www.gnu.org/licenses/gpl-3.0.en.html
+// ============================================================================
+#include <Exceptions/Undefined.h>
+#include <codecvt>
+#include <string>
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Exceptions::Undefined::Undefined(const wchar_t* explanation_in) :
+    std::exception(),
+    explanation(L"Value is Undefined! ")
+{
+    this->explanation.append(explanation_in);
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Exceptions::Undefined::Undefined(
+        const Expressions::Token_t& explanation_in) :
+    std::exception(),
+    explanation(L"Value is Undefined! ")
+{
+    this->explanation.append(explanation_in);
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Exceptions::Undefined::Undefined(const Undefined& rhs) :
+    std::exception(),
+    explanation(rhs.explanation)
+{
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Exceptions::Undefined::Undefined(const Undefined&& rhs) :
+    std::exception(),
+    explanation(rhs.explanation)
+{
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Exceptions::Undefined& 
+Mathematics::Exceptions::Undefined::operator=(const Undefined& rhs)
+{
+    this->explanation = rhs.explanation;
+    return *this;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Exceptions::Undefined& 
+Mathematics::Exceptions::Undefined::operator=(Undefined&& rhs)
+{
+    this->explanation = rhs.explanation;
+    return *this;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+const char* Mathematics::Exceptions::Undefined::what() const noexcept
+{
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	std::string error = converter.to_bytes(this->explanation);
+    return error.c_str();
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Token_t 
+Mathematics::Exceptions::Undefined::what_utf16() const noexcept
+{
+	return this->explanation;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Undefined                                                         |
+// | Function: Constructor                                                    |
+// |__________________________________________________________________________|
+Mathematics::Exceptions::Undefined::~Undefined()
+{
+}
