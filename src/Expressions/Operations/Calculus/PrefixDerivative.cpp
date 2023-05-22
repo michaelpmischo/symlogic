@@ -32,7 +32,7 @@
 const Mathematics::Expressions::Operations::Calculus::Derivative::DerivativeHash_t
 Mathematics::Expressions::Operations::Calculus::PrefixDerivative::operations = 
 {
-    {L"derivative",	&PrefixDerivative::differentiate},
+    {"derivative",	&PrefixDerivative::differentiate},
 };
 
 //  __________________________________________________________________________
@@ -122,7 +122,7 @@ Mathematics::Expressions::Operations::Calculus::PrefixDerivative::operator=(
 // | Class: PrefixDerivative                                                  |
 // | Function: expression                                                     |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t
+Mathematics::TokenList_t
 Mathematics::Expressions::Operations::Calculus::PrefixDerivative::infix() const
 {
     TokenList_t output;
@@ -231,7 +231,7 @@ bool Mathematics::Expressions::Operations::Calculus::PrefixDerivative::is_token(
 // | Class: PrefixDerivative                                                  |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Calculus::PrefixDerivative::get_precedence(
         Type_t type_in,
         const Token_t& token_in)

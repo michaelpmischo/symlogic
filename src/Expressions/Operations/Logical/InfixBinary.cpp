@@ -32,30 +32,30 @@
 const Mathematics::Expressions::Operations::Binary::LogicalBinaryHash_t 
 Mathematics::Expressions::Operations::Logical::InfixBinary::operations = 
 {
-    {L"=",		&InfixBinary::equal},
-    {L"!=",		&InfixBinary::not_equal},
-    {L">",		&InfixBinary::greater_than},
-    {L"<",		&InfixBinary::less_than},
-    {L">=",		&InfixBinary::greater_than_or_equal},
-    {L"<=",		&InfixBinary::less_than_or_equal},
-    {L"->",		&InfixBinary::implies},
-    {L"and",	&InfixBinary::and},
-    {L"or",		&InfixBinary::or},
+    {"=",		&InfixBinary::equal},
+    {"!=",		&InfixBinary::not_equal},
+    {">",		&InfixBinary::greater_than},
+    {"<",		&InfixBinary::less_than},
+    {">=",		&InfixBinary::greater_than_or_equal},
+    {"<=",		&InfixBinary::less_than_or_equal},
+    {"->",		&InfixBinary::implies},
+    {"and",	&InfixBinary::and},
+    {"or",		&InfixBinary::or},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"≈",		&InfixBinary::approximation},
-    {L"≠",		&InfixBinary::not_equal},
-    {L"≥",		&InfixBinary::greater_than_or_equal},
-    {L"≤",		&InfixBinary::less_than_or_equal},
-    {L"⋀",		&InfixBinary:: and},
-    {L"⋁",		&InfixBinary:: or},
+    {"≈",		&InfixBinary::approximation},
+    {"≠",		&InfixBinary::not_equal},
+    {"≥",		&InfixBinary::greater_than_or_equal},
+    {"≤",		&InfixBinary::less_than_or_equal},
+    {"⋀",		&InfixBinary:: and},
+    {"⋁",		&InfixBinary:: or},
 #endif
 };
 
 
-const Mathematics::Expressions::PrecedenceHash_t
+const Mathematics::PrecedenceHash_t
 Mathematics::Expressions::Operations::Logical::InfixBinary::precedences =
 {
 };
@@ -148,7 +148,7 @@ Mathematics::Expressions::Operations::Logical::InfixBinary::operator=(
 // | Class: InfixBinary                                                       |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Logical::InfixBinary::infix() const
 {
     TokenList_t output;
@@ -254,7 +254,7 @@ bool Mathematics::Expressions::Operations::Logical::InfixBinary::is_token(
 // | Class: InfixBinary                                                       |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Logical::InfixBinary::get_precedence(
         Type_t type_in,
         const Token_t& token_in)

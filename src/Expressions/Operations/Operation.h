@@ -47,8 +47,8 @@ class Operation : public Expression
 {
 public:
     Operation(const Token_t& token_in, 
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argument_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argument_parentheses_in = { "","" });
     Operation(const Operation& rhs);
     Operation(const Operation& rhs, 
             const TokenPair_t& parentheses_in);
@@ -90,8 +90,8 @@ private:
 // |__________________________________________________________________________|
 bool Mathematics::Expressions::Operations::Operation::areguments_parenthesized() const 
 {
-    return ((this->argumant_parentheses.first != L"") &&
-        (this->argumant_parentheses.second != L""));
+    return ((this->argumant_parentheses.first != "") &&
+        (this->argumant_parentheses.second != ""));
 }
 
 

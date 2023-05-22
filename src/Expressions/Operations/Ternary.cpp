@@ -150,7 +150,7 @@ bool Mathematics::Expressions::Operations::Ternary::operator==(
 // | Class: Ternary                                                           |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Ternary::prefix() const
 {
     TokenList_t output;
@@ -171,7 +171,7 @@ Mathematics::Expressions::Operations::Ternary::prefix() const
 // | Class: Ternary                                                           |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Ternary::postfix() const
 {
     TokenList_t output;
@@ -244,7 +244,7 @@ bool Mathematics::Expressions::Operations::Ternary::contains_variable() const
 // | Class: Ternary                                                           |
 // | Function: get_variables                                                  |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Ternary::get_variables() const
 {
     TokenList_t variables;
@@ -286,7 +286,7 @@ bool Mathematics::Expressions::Operations::Ternary::is_token(
 // | Class: Ternary                                                           |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Ternary::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)
@@ -317,16 +317,16 @@ void Mathematics::Expressions::Operations::Ternary::print(
         const Token_t& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-            this->get_token() << L")" << std::endl;
+    stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
+            this->get_token() << ")" << std::endl;
 
-    std::wstring new_prefix = prefix_in + (!is_last ? L"│   " : L"    ");
+    std::wstring new_prefix = prefix_in + (!is_last ? "│   " : "    ");
 
     // Enter the next tree level - left and right branch
-    stream << new_prefix << L"│   " << std::endl;
+    stream << new_prefix << "│   " << std::endl;
     this->get_left()->print(stream, new_prefix, false);
-    stream << new_prefix << L"│   " << std::endl;
+    stream << new_prefix << "│   " << std::endl;
     this->get_middle()->print(stream, new_prefix, false);
-    stream << new_prefix << L"│   " << std::endl;
+    stream << new_prefix << "│   " << std::endl;
     this->get_right()->print(stream, new_prefix, true);
 }

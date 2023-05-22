@@ -29,7 +29,7 @@
 // ============================================================================
 #ifndef __MATHEMATICS_EXPRESSIONS_EXPRESSION_H_
 #define __MATHEMATICS_EXPRESSIONS_EXPRESSION_H_
-#include <Expressions/Tokens.h>
+#include <Types.h>
 
 namespace Mathematics
 {
@@ -100,9 +100,9 @@ public:
     };
 
     Expression(const Token_t& token_in, 
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     Expression(Real number_in, 
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     Expression(const Expression& token_in);
     Expression(Expression&& token_in);
 
@@ -143,7 +143,7 @@ public:
 
     // Management Operations
     virtual Expression* copy(
-            const TokenPair_t& parentheses_in = { L"",L"" }) const = 0;
+            const TokenPair_t& parentheses_in = { "","" }) const = 0;
 
     // This should be protected but because this is a tree the inherited
     // node types cannot call this function on a cousin instance of a
@@ -209,7 +209,7 @@ private:
 // | Class: Expression                                                        |
 // | Function: get_token                                                      |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Token_t 
+Mathematics::Token_t 
 Mathematics::Expressions::Expression::get_token() const
 {
     return this->token;
@@ -288,8 +288,8 @@ void Mathematics::Expressions::Expression::add_close_parentheses(
 // |__________________________________________________________________________|
 bool Mathematics::Expressions::Expression::parenthesized() const
 {
-    return ((this->parentheses.first != L"") &&
-        (this->parentheses.second != L""));
+    return ((this->parentheses.first != "") &&
+        (this->parentheses.second != ""));
 }
 
 

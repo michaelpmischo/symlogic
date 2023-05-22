@@ -13,7 +13,7 @@
 // ============================================================================
 #ifndef __MATHEMATICS_MALFORMED_H_
 #define __MATHEMATICS_MALFORMED_H_
-#include <Expressions/Tokens.h>
+#include <Types.h>
 #include <exception>
 #include <string>
 
@@ -25,10 +25,10 @@ class Malformed : public std::exception
 {
 public:
     Malformed(const wchar_t* explanation_in, 
-            const Expressions::Token_t& malformaed_expression_in,
+            const Token_t& malformaed_expression_in,
             size_t malformed_location_in);
-    Malformed(const Expressions::Token_t& explanation_in,
-            const Expressions::Token_t& malformaed_expression_in,
+    Malformed(const Token_t& explanation_in,
+            const Token_t& malformaed_expression_in,
             size_t malformed_location_in);
 
     Malformed(const Malformed& rhs);
@@ -43,14 +43,13 @@ public:
     //! the exception object from which it is obtained is destroyed, or until 
     //! a non-const member function on the exception object is called.
     virtual const char* what() const noexcept override;
-    virtual Expressions::Token_t what_utf16() const noexcept;
 
     ~Malformed();
 
 protected:
-    Expressions::Token_t                         explanation;
-    Expressions::Token_t                         malformed_expression;
-    Expressions::Token_t                         malformed_location;
+    Token_t                         explanation;
+    Token_t                         malformed_expression;
+    Token_t                         malformed_location;
 }; // class Malformed
 } // namespace Exceptions
 } // namespace Mathematics

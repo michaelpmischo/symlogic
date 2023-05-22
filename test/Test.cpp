@@ -29,7 +29,7 @@
 // ============================================================================
 #include <Test.h>
 
-Mathematics::Tests::Test::Test(const Expressions::Token_t& log_name) :
+Mathematics::Tests::Test::Test(const Token_t& log_name) :
 	total(0U),
 	passed(0U),
 	test_number(0U)
@@ -47,7 +47,7 @@ Mathematics::Tests::Test::~Test()
 	this->log.close();
 }
 
-Mathematics::float64_t Mathematics::Tests::Test::grade() const
+float64_t Mathematics::Tests::Test::grade() const
 {
 	if (this->total > 0)
 	{
@@ -62,7 +62,7 @@ Mathematics::float64_t Mathematics::Tests::Test::grade() const
 
 }
 
-void Mathematics::Tests::Test::summary(Expressions::TokenOutputStream_t& stream) const
+void Mathematics::Tests::Test::summary(TokenOutputStream_t& stream) const
 {
 	stream << DIVIDER0 << std::endl;
 	stream << "Test Results Summary" << std::endl;

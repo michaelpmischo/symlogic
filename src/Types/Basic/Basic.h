@@ -74,14 +74,12 @@ typedef unsigned long long umax_t;
   #define uint128_t umax_t;
 #endif
 
-#if defined(__WCHAR_IO__)
+#if defined(__WCHAR_IO__) || defined(__UTF32_IO__) || defined(__UTF16_IO__)
   typedef std::wostream ostream_t;
   typedef std::wistream istream_t;
   #define __IO__ std::wostream& stdout_t = std::wcout; \
                  std::wistream& stdin_t = std::wcin; \
                  std::wostream& stderr_t = std::wcerr;
-#elif defined(__UTF32_IO__)
-#elif defined(__UTF16_IO__)
 #else
   typedef std::ostream ostream_t;
   typedef std::istream istream_t;

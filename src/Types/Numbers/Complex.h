@@ -93,10 +93,10 @@ public:
         if (number_in.imaginary != 0.0)
         {
             stream << ((number_in.imaginary < 0.0) ?
-#ifdef ____WCHAR_IO__
-			 L"-ⅈ" : L"+ⅈ");
+#ifdef __WCHAR_IO__
+			 "-ⅈ" : "+ⅈ");
 #else
-            L"-i" : L"+i");
+            "-i" : "+i");
 #endif
 			stream << abs(number_in.imaginary);
         }

@@ -135,7 +135,7 @@ bool Mathematics::Expressions::Operations::Functional::operator==(
 // | Class: Functional                                                        |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Functional::prefix() const
 {
     TokenList_t output;
@@ -154,7 +154,7 @@ Mathematics::Expressions::Operations::Functional::prefix() const
 // | Class: Functional                                                        |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Functional::postfix() const
 {
     TokenList_t output;
@@ -218,7 +218,7 @@ bool Mathematics::Expressions::Operations::Functional::contains_variable() const
 // | Class: Functional                                                        |
 // | Function: get_variables                                                  |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Functional::get_variables() const
 {
     TokenList_t variables;
@@ -262,7 +262,7 @@ bool Mathematics::Expressions::Operations::Functional::is_token(
 // | Class: Functional                                                        |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Functional::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)
@@ -291,12 +291,12 @@ void Mathematics::Expressions::Operations::Functional::print(
         const Token_t& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-        this->get_token() << L")" << std::endl;
+    stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
+        this->get_token() << ")" << std::endl;
 
-    std::wstring new_prefix = prefix_in + (!is_last ? L"│   " : L"    ");
+    std::wstring new_prefix = prefix_in + (!is_last ? "│   " : "    ");
 
     // Enter the next tree level - function and right branch
-    stream << new_prefix << L"│   " << std::endl;
+    stream << new_prefix << "│   " << std::endl;
     this->get_function()->print(stream, new_prefix, true);
 }

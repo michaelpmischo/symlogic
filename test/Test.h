@@ -29,7 +29,7 @@
 // ============================================================================
 #ifndef __TEST_H_
 #define __TEST_H_
-#include <Expressions/Tokens.h>
+#include <Types.h>
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -37,35 +37,36 @@
 
 namespace Mathematics
 {
-	static const Expressions::Token_t DIVIDER0(L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-	static const Expressions::Token_t DIVIDER1(L"*******************************************************************************");
-	static const Expressions::Token_t DIVIDER2(L"===============================================================================");
-	static const Expressions::Token_t DIVIDER3(L"-------------------------------------------------------------------------------");
-	static const Expressions::Token_t DIVIDER4(L"_______________________________________________________________________________");
-	static const Expressions::Token_t DIVIDER5(L"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	static const Expressions::Token_t VERIFY(L" -- Verifying ...");
+	static const Token_t DIVIDER0(L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+	static const Token_t DIVIDER1(L"*******************************************************************************");
+	static const Token_t DIVIDER2(L"===============================================================================");
+	static const Token_t DIVIDER3(L"-------------------------------------------------------------------------------");
+	static const Token_t DIVIDER4(L"_______________________________________________________________________________");
+	static const Token_t DIVIDER5(L"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	static const Token_t VERIFY(L" -- Verifying ...");
 
 namespace Tests
 {
 class Test
 {
 public:
-	Test(const Expressions::Token_t& log_name = L"test.log");
+	Test(const Token_t& log_name = L"test.log");
 	virtual void run() = 0;
 
 	float64_t grade() const;
-	void summary(Expressions::TokenOutputStream_t& steam) const;
+	void summary(TokenOutputStream_t& steam) const;
 
 	// Declare the variables stdout_t, stdin_t, stderr_t
 	__IO__
 
 protected:
-	typedef std::deque<std::deque<Expressions::Token_t>> Record_t;
+	typedef std::deque<std::deque<Token_t>> Record_t;
 	virtual ~Test();
 
 	inline void reset();
 	inline void begin_test();
 	inline void end_test();
+	inline void push_heading(const Token_t& heading_in);
 
 	template <typename T>
 	void verify_eq(const T& a, const T& b);
@@ -101,10 +102,15 @@ void Mathematics::Tests::Test::end_test()
 	this->test_number++;
 }
 
+void Mathematics::Tests::Test::push_heading(const Token_t& heading_in)
+{
+	this->results[this->test_number].push_back(heading_in);
+}
+
 template <typename T>
 void Mathematics::Tests::Test::verify_eq(const T& a, const T& b)
 {
-	Expressions::TokenStream_t stream;
+	TokenStream_t stream;
 	stdout_t << VERIFY << std::endl;
 	this->total++;
 	if (a == b)
@@ -123,7 +129,7 @@ void Mathematics::Tests::Test::verify_eq(const T& a, const T& b)
 template<typename T>
 void Mathematics::Tests::Test::verify_ne(const T& a, const T& b)
 {
-	Expressions::TokenStream_t stream;
+	TokenStream_t stream;
 	stdout_t << VERIFY << std::endl;
 	this->total++;
 	if (a != b)

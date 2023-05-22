@@ -35,45 +35,45 @@
 const Mathematics::Expressions::Operations::Unary::ArithmaticUnaryHash_t
 Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::operations =
 {
-    {L"~",		&PrefixUnary::negate},
-    {L"ln",		&PrefixUnary::ln},
-    {L"sqrt",	&PrefixUnary::sqrt},
-    {L"exp",	&PrefixUnary::exp},
-    {L"abs",	&PrefixUnary::abs},
+    {"~",		&PrefixUnary::negate},
+    {"ln",		&PrefixUnary::ln},
+    {"sqrt",	&PrefixUnary::sqrt},
+    {"exp",	&PrefixUnary::exp},
+    {"abs",	&PrefixUnary::abs},
 
     // Trigonometric Operations
-    {L"sin",	&PrefixUnary::sin},
-    {L"cos",	&PrefixUnary::cos},
-    {L"tan",	&PrefixUnary::tan},
-    {L"csc",	&PrefixUnary::csc},
-    {L"sec",	&PrefixUnary::sec},
-    {L"cot",	&PrefixUnary::cot},
+    {"sin",	&PrefixUnary::sin},
+    {"cos",	&PrefixUnary::cos},
+    {"tan",	&PrefixUnary::tan},
+    {"csc",	&PrefixUnary::csc},
+    {"sec",	&PrefixUnary::sec},
+    {"cot",	&PrefixUnary::cot},
 
-    {L"asin",	&PrefixUnary::asin},
-    {L"acos",	&PrefixUnary::acos},
-    {L"atan",	&PrefixUnary::atan},
-    {L"acsc",	&PrefixUnary::acsc},
-    {L"asec",	&PrefixUnary::asec},
-    {L"acot",	PrefixUnary::acot},
+    {"asin",	&PrefixUnary::asin},
+    {"acos",	&PrefixUnary::acos},
+    {"atan",	&PrefixUnary::atan},
+    {"acsc",	&PrefixUnary::acsc},
+    {"asec",	&PrefixUnary::asec},
+    {"acot",	PrefixUnary::acot},
 
-    {L"sinh",	&PrefixUnary::sinh},
-    {L"cosh",	&PrefixUnary::cosh},
-    {L"tanh",	&PrefixUnary::tanh},
-    {L"csch",	&PrefixUnary::csch},
-    {L"sech",	&PrefixUnary::sech},
-    {L"coth",	&PrefixUnary::coth},
-    {L"asinh",	&PrefixUnary::asinh},
-    {L"acosh",	&PrefixUnary::acosh},
-    {L"atanh",	&PrefixUnary::atanh},
-    {L"acsch",	&PrefixUnary::acsch},
-    {L"asech",	&PrefixUnary::asech},
-    {L"acoth",	&PrefixUnary::acoth},
+    {"sinh",	&PrefixUnary::sinh},
+    {"cosh",	&PrefixUnary::cosh},
+    {"tanh",	&PrefixUnary::tanh},
+    {"csch",	&PrefixUnary::csch},
+    {"sech",	&PrefixUnary::sech},
+    {"coth",	&PrefixUnary::coth},
+    {"asinh",	&PrefixUnary::asinh},
+    {"acosh",	&PrefixUnary::acosh},
+    {"atanh",	&PrefixUnary::atanh},
+    {"acsch",	&PrefixUnary::acsch},
+    {"asech",	&PrefixUnary::asech},
+    {"acoth",	&PrefixUnary::acoth},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"√",		&PrefixUnary::sqrt},
-    {L"ℯ^",		&PrefixUnary::exp},
+    {"√",		&PrefixUnary::sqrt},
+    {"ℯ^",		&PrefixUnary::exp},
 #endif
 };
 
@@ -163,7 +163,7 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::operator=(
 // | Class: PrefixUnary                                                       |
 // | Function: expression                                                     |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::infix() const
 {
     TokenList_t output;
@@ -269,7 +269,7 @@ bool Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::is_token(
 // | Class: PrefixUnary                                                       |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

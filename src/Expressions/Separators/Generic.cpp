@@ -29,13 +29,13 @@
 // ============================================================================
 #include <Expressions/Separators/Generic.h>
 
-const Mathematics::Expressions::TokenSet_t 
+const Mathematics::TokenSet_t 
 Mathematics::Expressions::Separators::Generic::generics =
 {
-    L",",
-    L" ",
-    L":",
-    L";",
+    ",",
+    " ",
+    ":",
+    ";",
 };
 
 
@@ -126,7 +126,7 @@ Mathematics::Expressions::Separators::Generic::operator=(Generic&& rhs)
 // | Class: Generic                                                           |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Generic::prefix() const
 {
     TokenList_t tokens;
@@ -141,7 +141,7 @@ Mathematics::Expressions::Separators::Generic::prefix() const
 // | Class: Generic                                                           |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Generic::infix() const
 {
     return this->prefix();
@@ -153,7 +153,7 @@ Mathematics::Expressions::Separators::Generic::infix() const
 // | Class: Generic                                                           |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Generic::postfix() const
 {
     TokenList_t tokens;
@@ -240,7 +240,7 @@ Mathematics::Real Mathematics::Expressions::Separators::Generic::solution(
 // | Class: Generic                                                           |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Generic::get_variables() const
 {
     return this->get_next()->get_variables();
@@ -311,7 +311,7 @@ bool Mathematics::Expressions::Separators::Generic::is_token(
 // | Class: Generic                                                           |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t
+Mathematics::TokenPrecedence_t
 Mathematics::Expressions::Separators::Generic::get_precedence(
         Type_t type_in,
         const Token_t& token_in)
@@ -340,13 +340,13 @@ void Mathematics::Expressions::Separators::Generic::print(
         const Token_t& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-        this->get_token() << L")" << std::endl;
+    stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
+        this->get_token() << ")" << std::endl;
 
-    std::wstring new_prefix = prefix_in + (!is_last ? L"│   " : L"    ");
+    std::wstring new_prefix = prefix_in + (!is_last ? "│   " : "    ");
 
     // Enter the next tree level - next and right branch
-    stream << new_prefix << L"│   " << std::endl;
+    stream << new_prefix << "│   " << std::endl;
     this->get_next()->print(stream, new_prefix, true);
 }
 

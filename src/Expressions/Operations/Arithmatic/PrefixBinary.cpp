@@ -33,27 +33,27 @@
 const Mathematics::Expressions::Operations::Binary::ArithmaticBinaryHash_t
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::operations = 
 {
-    {L"log",	&PrefixBinary::log},
-    {L"nrt",	&PrefixBinary::nrt},
+    {"log",	&PrefixBinary::log},
+    {"nrt",	&PrefixBinary::nrt},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"n√",		&PrefixBinary::nrt},
+    {"n√",		&PrefixBinary::nrt},
 #endif
 };
 
 
-const Mathematics::Expressions::PrecedenceHash_t
+const Mathematics::PrecedenceHash_t
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::precedences =
 {
-    {L"log", 50U},
-    {L"nrt", 50U},
+    {"log", 50U},
+    {"nrt", 50U},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"n√",	50U},
+    {"n√",	50U},
 #endif
 };
 
@@ -144,7 +144,7 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::operator=(
 // | Class: PrefixBinary                                                      |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::infix() const
 {
     TokenList_t output;
@@ -251,7 +251,7 @@ bool Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::is_token(
 // | Class: PrefixBinary                                                      |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::get_precedence(
         Type_t type_in,
         const Token_t& token_in)

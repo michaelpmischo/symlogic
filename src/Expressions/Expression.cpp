@@ -80,7 +80,7 @@ Mathematics::Expressions::Expression::Expression(
 // |__________________________________________________________________________|
 Mathematics::Expressions::Expression::Expression(Real number_in,
 		const TokenPair_t& parentheses_in) :
-	token(L""),
+	token(""),
 	type(Type_t::UNKNOWN),
 	parentheses(parentheses_in)
 {
@@ -223,11 +223,11 @@ Mathematics::Expressions::Expression::get_type(const Token_t& token_in)
 // | Class: Expression                                                        |
 // | Function: print                                                          |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Token_t 
+Mathematics::Token_t 
 Mathematics::Expressions::Expression::print() const
 {
 	TokenStream_t stream;
-	this->print(stream, L"", true);
+	this->print(stream, "", true);
 	return stream.str();
 }
 
@@ -237,7 +237,7 @@ Mathematics::Expressions::Expression::print() const
 // | Class: Expression                                                        |
 // | Function: precedence                                                     |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Expression::get_precedence(
 		Type_t type_in,
 		const Token_t& token_in)

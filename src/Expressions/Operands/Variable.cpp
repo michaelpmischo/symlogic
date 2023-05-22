@@ -53,6 +53,10 @@ Mathematics::Expressions::Operands::Variable::Variable(
 	Operand(token_in, parentheses_in)
 #endif
 {
+    if (this->get_type() != Type_t::VARIABLE)
+    {
+        throw("Variable is Not a Variable");
+    }
 }
 
 
@@ -155,8 +159,8 @@ Mathematics::Expressions::Operands::Variable::derivative(
     }
     else
     {
-        return new Operations::Arithmatic::InfixBinary(L"*",
-            new Operations::Calculus::PostfixDerivative(L"'",
+        return new Operations::Arithmatic::InfixBinary("*",
+            new Operations::Calculus::PostfixDerivative("'",
                 new Variable(token_in),
                 this->copy()),
             this->copy());
@@ -175,11 +179,11 @@ Mathematics::Expressions::Operands::Variable::integral(
 {
     if (this->contains(token_in))
     {
-        return new Operations::Arithmatic::InfixBinary(L"/", 
-            new Operations::Arithmatic::InfixBinary(L"^", 
+        return new Operations::Arithmatic::InfixBinary("/", 
+            new Operations::Arithmatic::InfixBinary("^", 
                 this->copy(),
                 new Number(2),
-                { L"(",L")" }),
+                { "(",")" }),
             new Number(2));
     }
     else
@@ -214,7 +218,7 @@ Mathematics::Expressions::Operands::Variable::solution(
 // | Class: Variable                                                          |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operands::Variable::get_variables() const
 {
     return {this->get_token()};
@@ -229,9 +233,14 @@ Mathematics::Expressions::Operands::Variable::get_variables() const
 bool Mathematics::Expressions::Operands::Variable::is_token(
         const Token_t& token_in)
 {
+	if (token_in.empty())
+	{
+		return false;
+	}
+
     return (!Constant::is_token(token_in) && !Number::is_token(token_in) && 
         token_in.find_first_not_of(
-            L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._"
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._"
         ) != Token_t::npos);
 }
 
@@ -241,7 +250,7 @@ bool Mathematics::Expressions::Operands::Variable::is_token(
 // | Class: Variable                                                          |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t
+Mathematics::TokenPrecedence_t
 Mathematics::Expressions::Operands::Variable::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

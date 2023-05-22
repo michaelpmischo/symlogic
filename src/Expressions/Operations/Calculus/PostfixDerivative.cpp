@@ -32,7 +32,7 @@
 const Mathematics::Expressions::Operations::Calculus::Derivative::DerivativeHash_t
 Mathematics::Expressions::Operations::Calculus::PostfixDerivative::operations =
 {
-	{L"'",		&PostfixDerivative::prime},
+	{"'",		&PostfixDerivative::prime},
 };
 
 
@@ -123,7 +123,7 @@ Mathematics::Expressions::Operations::Calculus::PostfixDerivative::operator=(
 // | Class: PostfixDerivative                                                 |
 // | Function: expression                                                     |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Calculus::PostfixDerivative::infix() const
 {
     TokenList_t output;
@@ -232,7 +232,7 @@ bool Mathematics::Expressions::Operations::Calculus::PostfixDerivative::is_token
 // | Class: PostfixDerivative                                                 |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Calculus::PostfixDerivative::get_precedence(
         Type_t type_in,
         const Token_t& token_in)

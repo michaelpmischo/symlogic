@@ -63,8 +63,8 @@ public:
             Expression* left_in,
             Expression* middle_in,
             Expression* right_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
 
     Ternary(const Ternary& rhs);
     Ternary(const Ternary& rhs,

@@ -55,8 +55,8 @@ public:
 
     Unary(const Token_t& token_in,
             Expression* operand_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
 
     Unary(const Unary& rhs);
     Unary(const Unary& rhs,

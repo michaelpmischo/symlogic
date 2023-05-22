@@ -51,11 +51,11 @@ public:
     PostfixDerivative(const Token_t& token_in,
             Expression* variable_in,
             Expression* function_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
     PostfixDerivative(const PostfixDerivative& rhs);
     PostfixDerivative(const PostfixDerivative& rhs,
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     PostfixDerivative(PostfixDerivative&& rhs);
 
     PostfixDerivative& operator=(const PostfixDerivative& rhs);
@@ -68,7 +68,7 @@ public:
     virtual Expression* integral(const Token_t& token_in) const override;
     virtual Real solution(const TokenValueMap_t& values_in = {}) const override;
     virtual Expression* copy(
-            const TokenPair_t& parentheses_in = { L"",L"" }) const override;
+            const TokenPair_t& parentheses_in = { "","" }) const override;
 
     // Static Functions
     static bool is_token(const Token_t& token_in);

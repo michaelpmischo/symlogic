@@ -158,7 +158,7 @@ bool Mathematics::Expressions::Separators::Separator::is_token(
 // | Class: Separator                                                         |
 // | Function: is_token                                                       |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t 
+Mathematics::TokenPrecedence_t 
 Mathematics::Expressions::Separators::Separator::get_precedence(
 		Type_t type_in, 
 		const Token_t& token_in)

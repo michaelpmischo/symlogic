@@ -233,8 +233,8 @@ Mathematics::Complex Mathematics::Complex::operator/(const Complex& rhs) const
     else
     {
         std::wstringstream error;
-        error << L"Operation : (" << *this << 
-                L")/(" << rhs << L") is Undefined!";
+        error << "Operation : (" << *this << 
+                ")/(" << rhs << ") is Undefined!";
         throw Exceptions::Undefined(error.str());
     }
     return out;
@@ -276,8 +276,8 @@ Mathematics::Complex Mathematics::Complex::operator%(const Complex& rhs) const
     else
     {
         std::wstringstream error;
-        error << L"Operation : (" << *this << 
-                L")/(" << rhs << L") is Undefined!";
+        error << "Operation : (" << *this << 
+                ")/(" << rhs << ") is Undefined!";
         throw Exceptions::Undefined(error.str());
     }
     return out;

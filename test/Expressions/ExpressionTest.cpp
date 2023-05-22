@@ -42,7 +42,7 @@
 // | Class: ExpressionTest                                                    |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Tests::ExpressionTest::ExpressionTest() :
+Mathematics::Tests::ExpressionTest::ExpressionTest() :
 	Test(L"ExpressionTest.log")
 {
 }
@@ -53,10 +53,10 @@ Mathematics::Expressions::Tests::ExpressionTest::ExpressionTest() :
 // | Class: ExpressionTest                                                    |
 // | Function: run                                                            |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Tests::ExpressionTest::run()
+void Mathematics::Tests::ExpressionTest::run()
 {
 	stdout_t << DIVIDER0 << std::endl;
-	stdout_t << typeid(Expression).name() << 
+	stdout_t << typeid(Expressions::Expression).name() << 
 		L" Test" << std::endl;
 	stdout_t << DIVIDER0 << std::endl;
 	stdout_t << std::endl;
@@ -85,16 +85,17 @@ void Mathematics::Expressions::Tests::ExpressionTest::run()
 // | Class: ExpressionTest                                                    |
 // | Function: execute_test                                                   |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Tests::ExpressionTest::execute_test(
+void Mathematics::Tests::ExpressionTest::execute_test(
 		const ExpressionTestCase_t& test_case_in)
 {
 	uint64_t exceptions = 0;
 	stdout_t << DIVIDER2 << std::endl;
 	stdout_t << test_case_in.name << std::endl;
+	this->push_heading(test_case_in.name);
 	stdout_t << L"Expression: " << test_case_in.expression << std::endl;
 	stdout_t << DIVIDER2 << std::endl;
 
-	Parser parser;
+	Expressions::Parser parser;
 
 	stdout_t << L"Tokenizeing Expression: " << test_case_in.expression << std::endl;
 	stdout_t << parser.get_tokens(test_case_in.expression) << std::endl;
@@ -102,17 +103,18 @@ void Mathematics::Expressions::Tests::ExpressionTest::execute_test(
 
 	stdout_t << DIVIDER3 << std::endl;
 	stdout_t << L"Parsing Expression: " << test_case_in.expression << std::endl;
-	Expression* tree = nullptr;
+	Expressions::Expression* tree = nullptr;
 	try
 	{
 		tree = parser.parse(test_case_in.expression);
 		stdout_t << L"Parsing Complete..." << std::endl;
 		stdout_t << std::endl;
 		this->verify_ne<void*>(tree, nullptr);
-		this->verify_eq<uint64_t>(test_case_in.verify.exceptions, 0U);
+		this->verify_eq<bool>(test_case_in.verify.exception, false);
 		stdout_t << std::endl;
 		stdout_t << std::endl;
 
+		
 		stdout_t << DIVIDER3 << std::endl;
 		stdout_t << L"Post Parse Expression: " << std::endl;
 		TokenList_t tokens = tree->infix();
@@ -163,8 +165,8 @@ void Mathematics::Expressions::Tests::ExpressionTest::execute_test(
 	}
 	catch (Mathematics::Exceptions::Malformed& error)
 	{
-		stdout_t << L"Error: " << error.what_utf16() << std::endl;
-		this->verify_ne<uint64_t>(test_case_in.verify.exceptions, 0U);
+		stdout_t << L"Error: " << error.what(nullptr) << std::endl;
+		this->verify_eq<bool>(test_case_in.verify.exception, true);
 	}
 }
 
@@ -174,13 +176,14 @@ void Mathematics::Expressions::Tests::ExpressionTest::execute_test(
 // | Class: ExpressionTest                                                    |
 // | Function: derivative_test                                                |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Tests::ExpressionTest::derivative_test(
+void Mathematics::Tests::ExpressionTest::derivative_test(
 	const ExpressionTestCase_t& test_case_in,
-	const Expression* tree_in)
+	const Expressions::Expression* tree_in)
 {
+	this->push_heading(test_case_in.name + L" Derivative Tests");
 	stdout_t << DIVIDER2 << std::endl;
 	stdout_t << L"Taking Derivative: " << test_case_in.expression << std::endl;
-	Expression* derivative = tree_in->derivative(L"x");
+	Expressions::Expression* derivative = tree_in->derivative(L"x");
 	stdout_t << L"Differentiation Complete..." << std::endl;
 	stdout_t << std::endl;
 
@@ -236,13 +239,14 @@ void Mathematics::Expressions::Tests::ExpressionTest::derivative_test(
 // | Class: ExpressionTest                                                    |
 // | Function: integral_test                                                  |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Tests::ExpressionTest::integral_test(
+void Mathematics::Tests::ExpressionTest::integral_test(
 	const ExpressionTestCase_t& test_case_in,
-	const Expression* tree_in)
+	const Expressions::Expression* tree_in)
 {
+	this->push_heading(test_case_in.name + L" Integral Tests");
 	stdout_t << DIVIDER2 << std::endl;
 	stdout_t << L"Taking Integral: " << test_case_in.expression << std::endl;
-	Expression* integral = tree_in->integral(L"x");
+	Expressions::Expression* integral = tree_in->integral(L"x");
 	stdout_t << L"Integration Complete..." << std::endl;
 	stdout_t << std::endl;
 

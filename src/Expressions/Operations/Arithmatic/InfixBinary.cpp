@@ -35,33 +35,33 @@
 const Mathematics::Expressions::Operations::Binary::ArithmaticBinaryHash_t
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operations =
 {
-    {L"^",		&InfixBinary::pow},
-    {L"*",		&InfixBinary::mul},
-    {L"/",		&InfixBinary::div},
-    {L"+",		&InfixBinary::add},
-    {L"-",		&InfixBinary::sub},
+    {"^",		&InfixBinary::pow},
+    {"*",		&InfixBinary::mul},
+    {"/",		&InfixBinary::div},
+    {"+",		&InfixBinary::add},
+    {"-",		&InfixBinary::sub},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"⨉",		&InfixBinary::mul},
-    {L"÷",		&InfixBinary::div},
+    {"⨉",		&InfixBinary::mul},
+    {"÷",		&InfixBinary::div},
 #endif
 };
 
 
-const Mathematics::Expressions::PrecedenceHash_t
+const Mathematics::PrecedenceHash_t
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary::precedences =
 {
-    {L"^",		5U},
-    {L"*",		3U},
-    {L"/",		3U},
-    {L"+",		1U},
-    {L"-",		1U},
+    {"^",		5U},
+    {"*",		3U},
+    {"/",		3U},
+    {"+",		1U},
+    {"-",		1U},
 
 #ifdef __UTF16_EXPRESSIONS__
-    {L"⨉",		3U},
-    {L"÷",		3U},
+    {"⨉",		3U},
+    {"÷",		3U},
 #endif
 };
 
@@ -71,7 +71,8 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::precedences =
 // | Class: InfixBinary                                                       |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(const Token_t& token_in,
+Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(
+        const Token_t& token_in,
         Expression* left_in,
         Expression* right_in,
         const TokenPair_t& parentheses_in,
@@ -87,8 +88,9 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(const
 // | Class: InfixBinary                                                       |
 // | Function: Copy Constructor                                               |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(const InfixBinary& rhs) :
-        Binary(rhs)
+Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(
+        const InfixBinary& rhs) :
+    Binary(rhs)
 {
 }
 
@@ -98,7 +100,8 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(const
 // | Class: InfixBinary                                                       |
 // | Function: Copy Constructor                                               |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(const InfixBinary& rhs,
+Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(
+        const InfixBinary& rhs,
         const TokenPair_t& parentheses_in) :
     Binary(rhs, parentheses_in)
 {
@@ -110,7 +113,8 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(const
 // | Class: InfixBinary                                                       |
 // | Function: Move Constructor                                               |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(InfixBinary&& rhs) :
+Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(
+        InfixBinary&& rhs) :
     Binary(rhs)
 {
 }
@@ -122,7 +126,8 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(Infix
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary&
-Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operator=(const InfixBinary& rhs)
+Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operator=(
+        const InfixBinary& rhs)
 {
     Binary::operator=(rhs);
     return *this;
@@ -135,7 +140,8 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operator=(const I
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary&
-Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operator=(InfixBinary&& rhs)
+Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operator=(
+        InfixBinary&& rhs)
 {
     Binary::operator=(rhs);
     return *this;
@@ -147,7 +153,7 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operator=(InfixBi
 // | Class: InfixBinary                                                       |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary::infix() const
 {
     TokenList_t output;
@@ -259,7 +265,7 @@ bool Mathematics::Expressions::Operations::Arithmatic::InfixBinary::is_token(
 // | Class: InfixBinary                                                       |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t
+Mathematics::TokenPrecedence_t
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

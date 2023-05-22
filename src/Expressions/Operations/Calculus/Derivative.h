@@ -78,8 +78,8 @@ public:
     Derivative(const Token_t& token_in,
             Expression* variable_in,
             Expression* function_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
     Derivative(const Derivative& rhs);
     Derivative(const Derivative& rhs, 
             const TokenPair_t& parentheses_in);

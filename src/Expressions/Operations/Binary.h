@@ -57,8 +57,8 @@ public:
     Binary(const Token_t& token_in,
             Expression* left_in, 
             Expression* right_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
     Binary(const Binary& rhs);
     Binary(const Binary& rhs,
             const TokenPair_t& parentheses_in);

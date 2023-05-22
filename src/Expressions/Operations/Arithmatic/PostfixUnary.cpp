@@ -33,7 +33,7 @@
 const Mathematics::Expressions::Operations::Unary::ArithmaticUnaryHash_t
 Mathematics::Expressions::Operations::Arithmatic::PostfixUnary::operations = 
 {
-    {L"!", &PostfixUnary::fact},
+    {"!", &PostfixUnary::fact},
 };
 
 
@@ -122,7 +122,7 @@ Mathematics::Expressions::Operations::Arithmatic::PostfixUnary::operator=(
 // | Class: PostfixUnary                                                      |
 // | Function: expression                                                     |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Operations::Arithmatic::PostfixUnary::infix() const
 {
     TokenList_t output;
@@ -221,7 +221,7 @@ bool Mathematics::Expressions::Operations::Arithmatic::PostfixUnary::is_token(
 // | Class: PostfixUnary                                                      |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t
+Mathematics::TokenPrecedence_t
 Mathematics::Expressions::Operations::Arithmatic::PostfixUnary::get_precedence(
         Type_t type_in,
         const Token_t& token_in)

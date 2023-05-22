@@ -80,18 +80,23 @@
       #define __SETMODE__
     #endif
   #endif
-#else // not __UTF16_EXPRESSIONS__
+#elif defined(__UTF8_EXPRESSIONS__)
   #define LITERAL_PREFIX u8
   #ifndef __SETMODE__
     #ifdef _WIN32
-      #define __SETMODE__ _setmode(_fileno(stdout), _O_TEXT); \
-                          _setmode(_fileno(stdin), _O_TEXT); \
-                          _setmode(_fileno(stderr), _O_TEXT);
+      #define __SETMODE__ _setmode(_fileno(stdout), _O_U8TEXT); \
+                          _setmode(_fileno(stdin), _O_U8TEXT); \
+                          _setmode(_fileno(stderr), _O_U8TEXT);
     #else
       #define __SETMODE__
     #endif
   #endif
-#endif // __UTF16_EXPRESSIONS__
+#else
+  #define LITERAL_PREFIX
+  #ifndef __SETMODE__
+    #define __SETMODE__
+  #endif
+#endif
 
 #ifndef __UNSETMODE__
   #ifdef _WIN32

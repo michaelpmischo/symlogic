@@ -29,17 +29,17 @@
 // ============================================================================
 #include <Expressions/Separators/Brackets/Close.h>
 
-const Mathematics::Expressions::TokenMap_t 
+const Mathematics::TokenMap_t 
 Mathematics::Expressions::Separators::Brackets::Close::brackets =
 {
 	// "[]"
-	{L"]", L"["},
+	{"]", "["},
 
 	// "{}"
-	{L"}", L"{"},
+	{"}", "{"},
 
 	// "()"
-	{L")", L"("},
+	{")", "("},
 };
 
 
@@ -111,7 +111,7 @@ Mathematics::Expressions::Separators::Brackets::Close::operator=(Close&& rhs)
 // | Class: Close                                                             |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::prefix() const
 {
 	return { this->get_token() };
@@ -123,7 +123,7 @@ Mathematics::Expressions::Separators::Brackets::Close::prefix() const
 // | Class: Close                                                             |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::infix() const
 {
 	return this->prefix();
@@ -135,7 +135,7 @@ Mathematics::Expressions::Separators::Brackets::Close::infix() const
 // | Class: Close                                                             |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::postfix() const
 {
 	return this->prefix();
@@ -221,7 +221,7 @@ Mathematics::Expressions::Separators::Brackets::Close::solution(
 // | Class: Close                                                             |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenList_t 
+Mathematics::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::get_variables() const
 {
 	return {};
@@ -281,7 +281,7 @@ bool Mathematics::Expressions::Separators::Brackets::Close::is_token(
 // | Class: Close                                                             |
 // | Function: is_token                                                       |
 // |__________________________________________________________________________|
-Mathematics::Expressions::TokenPrecedence_t
+Mathematics::TokenPrecedence_t
 Mathematics::Expressions::Separators::Brackets::Close::get_precedence(
 		Type_t type_in,
 		const Token_t& token_in)
@@ -295,7 +295,7 @@ Mathematics::Expressions::Separators::Brackets::Close::get_precedence(
 // | Class: Close                                                             |
 // | Function: opposing                                                       |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Token_t
+Mathematics::Token_t
 Mathematics::Expressions::Separators::Brackets::Close::get_opposing(
 		const Token_t& token_in)
 {
@@ -305,7 +305,7 @@ Mathematics::Expressions::Separators::Brackets::Close::get_opposing(
 	}
 	else
 	{
-		return L"";
+		return "";
 	}
 }
 
@@ -320,7 +320,7 @@ void Mathematics::Expressions::Separators::Brackets::Close::print(
 		const Token_t& prefix_in,
 		bool is_last) const
 {
-	stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-		this->get_token() << L")" << std::endl;
+	stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
+		this->get_token() << ")" << std::endl;
 }
 

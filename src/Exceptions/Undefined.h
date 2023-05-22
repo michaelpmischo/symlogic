@@ -13,7 +13,6 @@
 // ============================================================================
 #ifndef __MATHEMATICS_UNDEFINED_H_
 #define __MATHEMATICS_UNDEFINED_H_
-#include <Expressions/Tokens.h>
 #include <exception>
 #include <string>
 
@@ -25,7 +24,7 @@ namespace Mathematics
         {
         public:
             Undefined(const wchar_t* explanation_in);
-            Undefined(const Expressions::Token_t& explanation_in);
+            Undefined(const std::string& explanation_in);
 
             Undefined(const Undefined& rhs);
             Undefined(const Undefined&& rhs);
@@ -39,12 +38,11 @@ namespace Mathematics
             //! the exception object from which it is obtained is destroyed, or until 
             //! a non-const member function on the exception object is called.
             virtual const char* what() const noexcept override;
-            virtual Expressions::Token_t what_utf16() const noexcept;
 
             ~Undefined();
 
         protected:
-            Expressions::Token_t                     explanation;
+            std::string                     explanation;
         }; // class Undefined
     } // namespace Exceptions
 } // namespace Mathematics

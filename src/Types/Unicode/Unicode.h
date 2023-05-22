@@ -29,162 +29,172 @@
 // ============================================================================
 #ifndef __MATHEMATICS_UNICODE_H_
 #define __MATHEMATICS_UNICODE_H_
-#include <Expressions/Tokens.h>
+#include <string>
+#include <map>
+#include <vector>
 
 namespace Mathematics
 {
-namespace Expressions
-{
-const TokenMap_t AEITHMATIC_OPERATORS =
+#if defined(__UTF32_EXPRESSIONS__)
+typedef std::basic_string<char32_t> string_t;
+#elif defined(__UTF16_EXPRESSIONS__)
+typedef std::basic_string<char16_t> string_t;
+#else
+typedef std::basic_string<wchar_t> string_t;
+#endif
+
+typedef std::map<string_t, string_t> UnicodeMap_t;
+
+const UnicodeMap_t AEITHMATIC_OPERATORS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    { L"*",				    L"∙" },
-    { L"/",				    L"÷" },
-    { L"exp",			    L"ℯ^" },
-    { L"nrt",               L"n\u221A" },
-    { L"sqrt",			    L"\u221A" },
-    { L"sum",			    L"\u2211" },        // Not Implemented
-    { L"product",		    L"\u220F" },        // Not Implemented
-    { L"coproduct",		    L"\u2210" },        // Not Implemented
+    { "*",				    "∙" },
+    { "/",				    "÷" },
+    { "exp",			    "ℯ^" },
+    { "nrt",               "n\u221A" },
+    { "sqrt",			    "\u221A" },
+    { "sum",			    "\u2211" },        // Not Implemented
+    { "product",		    "\u220F" },        // Not Implemented
+    { "coproduct",		    "\u2210" },        // Not Implemented
 #endif
 }; // AEITHMATIC_OPERATORS
 
 
-const TokenMap_t CALCULUS_OPERATORS =
+const UnicodeMap_t CALCULUS_OPERATORS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-	{ L"integral",          L"\u222B" },            // Not Implemented
-	{ L"partial",		    L"\u2202\u2202?" },     // Not Implemented
+	{ "integral",          "\u222B" },            // Not Implemented
+	{ "partial",		    "\u2202\u2202?" },     // Not Implemented
 #endif
 }; // CALCULUS_OPERATORS
 
-const TokenMap_t LOGICAL_OPERATORS =
+const UnicodeMap_t LOGICAL_OPERATORS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    { L"~=",                L"\u2248" },
-    { L"!=",                L"\u2260"},
-	{ L">=",				L"\u2265" },
-	{ L"=<",				L"\u2264"},
-	{ L"and",			    L"\u2227"},     // Not Implemented
-	{ L"or",				L"\u2228"},     // Not Implemented
-	{ L"there_exists",      L"\u2203"},     // Not Implemented
-	{ L"not_exists",        L"\u2204"},     // Not Implemented
+    { "~=",                "\u2248" },
+    { "!=",                "\u2260"},
+	{ ">=",				"\u2265" },
+	{ "=<",				"\u2264"},
+	{ "and",			    "\u2227"},     // Not Implemented
+	{ "or",				"\u2228"},     // Not Implemented
+	{ "there_exists",      "\u2203"},     // Not Implemented
+	{ "not_exists",        "\u2204"},     // Not Implemented
 #endif
 }; // LOGICAL_OPERATORS
 
-const TokenMap_t SET_OPERATORS =
+const UnicodeMap_t SET_OPERATORS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    { L"intersection",	    L"\u2229" },    // Not Implemented
-    { L"union",			    L"\u222A" },    // Not Implemented
-    { L"subset",		    L"\u2282" },    // Not Implemented
-    { L"superset",		    L"\u2283" },    // Not Implemented
-    { L"not_subset",	    L"\u2284" },    // Not Implemented
-    { L"not_superset",	    L"\u2285" },    // Not Implemented
-    { L"element_of",		L"\u22F2" },    // Not Implemented
-    { L"not_element_of",	L"\u2209" },    // Not Implemented
-    { L"contain",		    L"\u22FA" },    // Not Implemented
-    { L"not_constain",	    L"\u220C" },    // Not Implemented
-    { L"for_all",		    L"\u2200" },    // Not Implemented
+    { "intersection",	    "\u2229" },    // Not Implemented
+    { "union",			    "\u222A" },    // Not Implemented
+    { "subset",		    "\u2282" },    // Not Implemented
+    { "superset",		    "\u2283" },    // Not Implemented
+    { "not_subset",	    "\u2284" },    // Not Implemented
+    { "not_superset",	    "\u2285" },    // Not Implemented
+    { "element_of",		"\u22F2" },    // Not Implemented
+    { "not_element_of",	"\u2209" },    // Not Implemented
+    { "contain",		    "\u22FA" },    // Not Implemented
+    { "not_constain",	    "\u220C" },    // Not Implemented
+    { "for_all",		    "\u2200" },    // Not Implemented
 #endif
 }; // SET_OPERATORS
 
-const TokenMap_t SETS =
+const UnicodeMap_t SETS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"{}",				    L"\u2205"},     // The Empty Set
-    {L"{REAL}",			    L"\u211D"},     // All Real Numbers
-    {L"{NATURAL}",		    L"\u2115"},     // All Natural Numbers
-    {L"{COMPLEX}",		    L"\u2102"},     // All Complex Numbers
-    {L"{INTEGERS}",		    L"\u2124"},     // All Integer Numbers
-    {L"{RATIONAL}",		    L"\u211A"},     // All Rational Numbers
+    {"{}",				    "\u2205"},     // The Empty Set
+    {"{REAL}",			    "\u211D"},     // All Real Numbers
+    {"{NATURAL}",		    "\u2115"},     // All Natural Numbers
+    {"{COMPLEX}",		    "\u2102"},     // All Complex Numbers
+    {"{INTEGERS}",		    "\u2124"},     // All Integer Numbers
+    {"{RATIONAL}",		    "\u211A"},     // All Rational Numbers
 #endif
 }; // SETS
 
-const TokenMap_t UNITS =
+const UnicodeMap_t UNITS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"Ohms",			    L"\u2126"},
-    {L"Celsius",		    L"\u2103"},
-    {L"Fahrenheit",		    L"\u2109"},
+    {"Ohms",			    "\u2126"},
+    {"Celsius",		    "\u2103"},
+    {"Fahrenheit",		    "\u2109"},
 #endif
 }; // UNITS
 
-const TokenMap_t GREEK =
+const UnicodeMap_t GREEK =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__)
 	// Uppercase
-    {L"ALPHA",		        L"\u0391"},
-    {L"BETA",		        L"\u0392"},
-    {L"GAMMA",		        L"\u0393"},
-    {L"DELTA",		        L"\u0394"},
-    {L"EPSILON",	        L"\u0395"},
-    {L"ZETA",		        L"\u0396"},
-    {L"ETA",		        L"\u0397"},
-    {L"THETA",		        L"\u0398"},
-    {L"IOTA",		        L"\u0399"},
-    {L"KAPPA",		        L"\u039A"},
-    {L"LAMBDA",		        L"\u039B"},
-    {L"MU",			        L"\u039C"},
-    {L"NU",			        L"\u039D"},
-    {L"XI",			        L"\u039E"},
-    {L"OMICRON",	        L"\u039F"},
-    {L"PI",			        L"\u03A0"},
-    {L"RHO",		        L"\u03A1"},
-    {L"SIGMA",		        L"\u03A3"},
-    {L"TAU",		        L"\u03A4"},
-    {L"UPSILON",	        L"\u03A5"},
-    {L"PHI",		        L"\u03A6"},
-    {L"CHI",		        L"\u03A7"},
-    {L"PSI",		        L"\u03A8"},
-    {L"OMEGA",		        L"\u03A9"},
+    {"ALPHA",		        "\u0391"},
+    {"BETA",		        "\u0392"},
+    {"GAMMA",		        "\u0393"},
+    {"DELTA",		        "\u0394"},
+    {"EPSILON",	        "\u0395"},
+    {"ZETA",		        "\u0396"},
+    {"ETA",		        "\u0397"},
+    {"THETA",		        "\u0398"},
+    {"IOTA",		        "\u0399"},
+    {"KAPPA",		        "\u039A"},
+    {"LAMBDA",		        "\u039B"},
+    {"MU",			        "\u039C"},
+    {"NU",			        "\u039D"},
+    {"XI",			        "\u039E"},
+    {"OMICRON",	        "\u039F"},
+    {"PI",			        "\u03A0"},
+    {"RHO",		        "\u03A1"},
+    {"SIGMA",		        "\u03A3"},
+    {"TAU",		        "\u03A4"},
+    {"UPSILON",	        "\u03A5"},
+    {"PHI",		        "\u03A6"},
+    {"CHI",		        "\u03A7"},
+    {"PSI",		        "\u03A8"},
+    {"OMEGA",		        "\u03A9"},
 
     // Lowercase
-    {L"alpha",		        L"\u03B1"},
-    {L"beta",		        L"\u03B2"},
-    {L"gamma",		        L"\u03B3"},
-    {L"delta",		        L"\u03B4"},
-    {L"epsilon",	        L"\u03B5"},
-    {L"zeta",		        L"\u03B6"},
-    {L"eta",		        L"\u03B7"},
-    {L"theta",		        L"\u03B8"},
-    {L"iota",		        L"\u03B9"},
-    {L"kappa",		        L"\u03BA"},
-    {L"lambda",	            L"\u03BB"},
-    {L"mL",			        L"\u03BC"},
-    {L"nL",			        L"\u03BD"},
-    {L"xi",			        L"\u03BE"},
-    {L"omicron",	        L"\u03BF"},
-    {L"pi",			        L"\u03C0"},
-    {L"rho",		        L"\u03C1"},
-    {L"sigma",		        L"\u03C3"},
-    {L"taL",		        L"\u03C4"},
-    {L"upsilon",	        L"\u03C5"},
-    {L"phi",		        L"\u03C6"},
-    {L"chi",		        L"\u03C7"},
-    {L"psi",		        L"\u03C8"},
-    {L"omega",		        L"\u03C9"},
+    {"alpha",		        "\u03B1"},
+    {"beta",		        "\u03B2"},
+    {"gamma",		        "\u03B3"},
+    {"delta",		        "\u03B4"},
+    {"epsilon",	        "\u03B5"},
+    {"zeta",		        "\u03B6"},
+    {"eta",		        "\u03B7"},
+    {"theta",		        "\u03B8"},
+    {"iota",		        "\u03B9"},
+    {"kappa",		        "\u03BA"},
+    {"lambda",	            "\u03BB"},
+    {"m",			        "\u03BC"},
+    {"n",			        "\u03BD"},
+    {"xi",			        "\u03BE"},
+    {"omicron",	        "\u03BF"},
+    {"pi",			        "\u03C0"},
+    {"rho",		        "\u03C1"},
+    {"sigma",		        "\u03C3"},
+    {"ta",		        "\u03C4"},
+    {"upsilon",	        "\u03C5"},
+    {"phi",		        "\u03C6"},
+    {"chi",		        "\u03C7"},
+    {"psi",		        "\u03C8"},
+    {"omega",		        "\u03C9"},
 #endif
 #ifdef __UTF32_EXPRESSIONS__
     // Uppercase
-    {U"ALPHA",		U"𝜜"},
-    {U"BETA",		U"𝜝"},
-    {U"GAMMA",		U"𝜞"},
-    {U"DELTA",		U"𝜟"},
-    {U"EPSILON",	U"𝜠"},
+    {U"ALPHA",		U"\u0001\uD6A8"},
+    {U"BETA",		U"\u0001\uD6A9"},
+    {U"GAMMA",		U"\u0001\uD6AA"},
+    {U"DELTA",		U"\u0001\uD6AB"},
+    {U"EPSILON",	U"\u0001\uD6AC"},
     {U"ZETA",		U"𝜡"},
     {U"ETA",		U"𝜢"},
     {U"THETA",		U"𝜣"},
@@ -217,14 +227,14 @@ const TokenMap_t GREEK =
 	{U"iota",		U"𝜾"},
 	{U"kappa",		U"𝜿"},
 	{U"lambda",	    U"𝝀"},
-	{U"mL",			U"𝝁"},
-	{U"nL",			U"𝝂"},
+	{U"m",			U"𝝁"},
+	{U"n",			U"𝝂"},
 	{U"xi",			U"𝝃"},
 	{U"omicron",	U"𝝄"},
 	{U"pi",			U"𝝅"},
 	{U"rho",		U"𝝆"},
 	{U"sigma",		U"𝝈"},
-	{U"taL",		U"𝝉"},
+	{U"ta",		U"𝝉"},
 	{U"upsilon",	U"𝝊"},
 	{U"phi",		U"𝝓"},
 	{U"chi",		U"𝝌"},
@@ -233,7 +243,7 @@ const TokenMap_t GREEK =
 #endif
 }; // GREEK
 
-inline Token_t replace(const Token_t& token_in)
+inline string_t replace(const string_t& token_in)
 {
     if (AEITHMATIC_OPERATORS.find(token_in) != 
             AEITHMATIC_OPERATORS.end())
@@ -273,7 +283,7 @@ inline Token_t replace(const Token_t& token_in)
     }
 }
 
-const TokenMap_t PRETTY =
+const UnicodeMap_t PRETTY =
 {
 #ifdef __UTF32_EXPRESSIONS__
     // Uppercase
@@ -324,7 +334,7 @@ const TokenMap_t PRETTY =
 	{U"r",		U"\u0001\uD493"},
 	{U"s",		U"\u0001\uD494"},
 	{U"t",		U"\u0001\uD495"},
-	{U"L",		U"\u0001\uD496"},
+	{U"",		U"\u0001\uD496"},
 	{U"v",		U"\u0001\uD497"},
 	{U"w",		U"\u0001\uD498"},
 	{U"x",		U"\u0001\uD499"},
@@ -345,12 +355,12 @@ const TokenMap_t PRETTY =
 #endif
 }; // PRETTY
 
-inline Token_t pretty(const Token_t& token_in)
+inline string_t pretty(const string_t& token_in)
 {
-    Token_t output;
+    string_t output;
     for (size_t i = 0U; i < token_in.length(); i++)
     {
-		const TokenMap_t::const_iterator iter = 
+		const UnicodeMap_t::const_iterator iter =
                 PRETTY.find(token_in.substr(i, 1));
 		output.append(((iter != PRETTY.end()) ? (iter->second) : 
                 (token_in.substr(i, 1))));
@@ -360,104 +370,103 @@ inline Token_t pretty(const Token_t& token_in)
 
 typedef struct
 {
-	Token_t super;
-	Token_t sub;
+	string_t super;
+    string_t sub;
 } Script_t;
 
-typedef std::map<Token_t, Script_t> ScriptMap_t;
+typedef std::map<string_t, std::vector<string_t>> ScriptMap_t;
 
 const ScriptMap_t SCRIPTS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-	{L"0", { L"\u2070",L"\u2080" }},
-	{L"1", { L"\u00B9",L"\u2081" }},
-	{L"2", { L"\u00B2",L"\u2082" }},
-	{L"3", { L"\u00B3",L"\u2083" }},
-	{L"4", { L"\u2074",L"\u2084" }},
-	{L"5", { L"\u2075",L"\u2085" }},
-	{L"6", { L"\u2076",L"\u2086" }},
-	{L"7", { L"\u2077",L"\u2087" }},
-	{L"8", { L"\u2078",L"\u2088" }},
-	{L"9", { L"\u2079",L"\u2089" }},
+	{"0", { "\u2070","\u2080" }},
+	{"1", { "\u00B9","\u2081" }},
+	{"2", { "\u00B2","\u2082" }},
+	{"3", { "\u00B3","\u2083" }},
+	{"4", { "\u2074","\u2084" }},
+	{"5", { "\u2075","\u2085" }},
+	{"6", { "\u2076","\u2086" }},
+	{"7", { "\u2077","\u2087" }},
+	{"8", { "\u2078","\u2088" }},
+	{"9", { "\u2079","\u2089" }},
 
-	{L"+", { L"⁺\u207A",L"\u208A" }},
-	{L"-", { L"\u207B",L"\u208B" }},
+	{"+", { "⁺\u207A","\u208A" }},
+	{"-", { "\u207B","\u208B" }},
 
-	{L"(", { L"\u207D",L"\u208D" }},
-	{L")", { L"\u207E",L"\u208E" }},
+	{"(", { "\u207D","\u208D" }},
+	{")", { "\u207E","\u208E" }},
 #endif
 };
 
-inline Token_t script(const Token_t& token_in, bool superscript_in)
+enum class ScriptType_t : size_t
+{
+    SUB = 0U,
+    SUPER,
+};
+inline string_t script(const string_t& token_in, ScriptType_t type_in)
 {
 	const ScriptMap_t::const_iterator iter = 
             SCRIPTS.find(token_in);
     return ((iter != SCRIPTS.end()) ?
-        ((superscript_in) ? 
-            (iter->second.super) : 
-            (iter->second.sub)) : 
+        (iter->second[static_cast<size_t>(type_in)]) :
         (token_in));
 }
 
-const TokenMap_t EXTENDED_BRACKETS =
+const UnicodeMap_t EXTENDED_BRACKETS =
 {
 #if defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF16_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
     // These are the upper and lower integral brackets.
-    { L"integral_upper",                    L"\u2320" },
-    { L"integral_extension",                L"u\23AE" },
-    { L"integral_lower",                    L"\u2320" },
+    { "integral_upper",                    "\u2320" },
+    { "integral_extension",                "u\23AE" },
+    { "integral_lower",                    "\u2320" },
 
     //! These are the summation ("Sigma") large brackets.
-	{ L"summation_half_upper",              L"\u23B2" },
-	{ L"summation_half_lower",              L"\u23B3" },
+	{ "summation_half_upper",              "\u23B2" },
+	{ "summation_half_lower",              "\u23B3" },
 
     // These are the left and right floor brackets.
-    { L"left_floor",                        L"\u2308" },
-    { L"right_floor",                       L"\u2309" },
+    { "left_floor",                        "\u2308" },
+    { "right_floor",                       "\u2309" },
 
     // These are the left and right ceiling brackets.
-    { L"left_ceiling",                      L"\u230A" },
-    { L"right_ceiling",                     L"\u230B" },
+    { "left_ceiling",                      "\u230A" },
+    { "right_ceiling",                     "\u230B" },
 
     // These are the left and right parentheses brackets.
-	{ L"left_parentheses_upper",            L"\u239B" },
-	{ L"left_parentheses_extension",        L"\u239C" },
-	{ L"left_parentheses_lower",            L"\u239D" },
-	{ L"right_parentheses_upper",           L"\u238E" },
-	{ L"right_parentheses_extension",       L"\u239F" },
-	{ L"right_parentheses_lower",           L"\u23A0" },
+	{ "left_parentheses_upper",            "\u239B" },
+	{ "left_parentheses_extension",        "\u239C" },
+	{ "left_parentheses_lower",            "\u239D" },
+	{ "right_parentheses_upper",           "\u238E" },
+	{ "right_parentheses_extension",       "\u239F" },
+	{ "right_parentheses_lower",           "\u23A0" },
 
     // These are the left and right square brackets.
-	{ L"left_square_upper",                 L"\u23A1" },
-    { L"left_square_extension",             L"\u23A2" },
-    { L"left_square_lower",                 L"\u23A3" },
-	{ L"right_square_upper",                L"\u23A4" },
-	{ L"right_square_extension",            L"\u23A5" },
-	{ L"right_square_lower",                L"\u23A6" },
+	{ "left_square_upper",                 "\u23A1" },
+    { "left_square_extension",             "\u23A2" },
+    { "left_square_lower",                 "\u23A3" },
+	{ "right_square_upper",                "\u23A4" },
+	{ "right_square_extension",            "\u23A5" },
+	{ "right_square_lower",                "\u23A6" },
 
 	// These are the left and right curly brackets.
-    { L"upper_left_lower_right_half_curly", L"\u23B0" },
-    { :"lower_left_upper_right_half_curly", L"\u23B0" },
-	{ L"left_curly_upper",                  L"\u23A7" },
-	{ L"left_curly_middle",                 L"\u23A8" },
-	{ L"left_curly_lower",                  L"\u23A9" },
-    { L"left_curly_extension",              L"\u23AA" },
-	{ L"right_curly_upper",                 L"\u23AB" },
-	{ L"right_curly_middle",                L"\u23AC" },
-	{ L"right_curly_lower",                 L"\u23AD" },
-	{ L"right_curly_extension",             L"\u23AE" },
+    { "upper_left_lower_right_half_curly", "\u23B0" },
+    { "lower_left_upper_right_half_curly", "\u23B0" },
+	{ "left_curly_upper",                  "\u23A7" },
+	{ "left_curly_middle",                 "\u23A8" },
+	{ "left_curly_lower",                  "\u23A9" },
+    { "left_curly_extension",              "\u23AA" },
+	{ "right_curly_upper",                 "\u23AB" },
+	{ "right_curly_middle",                "\u23AC" },
+	{ "right_curly_lower",                 "\u23AD" },
+	{ "right_curly_extension",             "\u23AE" },
 
-    { L"radical_botom",                     L"\u23B7" },
-
-
-
+    { "radical_botom",                     "\u23B7" },
 #endif
 };
-} // namespace Expressions
 } // namespace Mathematics
 
-#endif // __MATHEMATICS_EXPRESSIONS_UNICODE_H_
+#endif // __MATHEMATICS_UNICODE_H_

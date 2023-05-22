@@ -48,8 +48,8 @@ class Functional : public Operation
 public:
     Functional(const Token_t& token_in,
             Expression* function_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
 
     Functional(const Functional& rhs);
     Functional(const Functional& rhs,

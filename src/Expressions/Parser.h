@@ -75,6 +75,7 @@ private:
     typedef std::list<TokenNode_t> TokenNodeList_t;
 
     TokenNodeList_t tokenize(const Token_t& token_in) const;
+    bool complete(Expression::Type_t type_in) const;
 
     void process_open_bracket(ExpressionStack_t& expressions_in,
         OperatorStack_t& operators_in,

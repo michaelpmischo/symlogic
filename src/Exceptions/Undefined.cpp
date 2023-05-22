@@ -21,9 +21,9 @@
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined::Undefined(const wchar_t* explanation_in) :
+Mathematics::Exceptions::Undefined::Undefined(const char* explanation_in) :
     std::exception(),
-    explanation(L"Value is Undefined! ")
+    explanation("Value is Undefined! ")
 {
     this->explanation.append(explanation_in);
 }
@@ -35,9 +35,9 @@ Mathematics::Exceptions::Undefined::Undefined(const wchar_t* explanation_in) :
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
 Mathematics::Exceptions::Undefined::Undefined(
-        const Expressions::Token_t& explanation_in) :
+        const std::string& explanation_in) :
     std::exception(),
-    explanation(L"Value is Undefined! ")
+    explanation("Value is Undefined! ")
 {
     this->explanation.append(explanation_in);
 }
@@ -103,18 +103,6 @@ const char* Mathematics::Exceptions::Undefined::what() const noexcept
 	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	std::string error = converter.to_bytes(this->explanation);
     return error.c_str();
-}
-
-
-//  __________________________________________________________________________
-// |                                                                          |
-// | Class: Undefined                                                         |
-// | Function: Constructor                                                    |
-// |__________________________________________________________________________|
-Mathematics::Expressions::Token_t 
-Mathematics::Exceptions::Undefined::what_utf16() const noexcept
-{
-	return this->explanation;
 }
 
 
