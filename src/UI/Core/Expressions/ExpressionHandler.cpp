@@ -202,6 +202,7 @@ void Mathematics::UI::Core::ExpressionHandler::list() const
 {
 	size_t i = 0U;
 	std::stringstream stream;
+	stream.precision(std::numeric_limits<Real>::max_digits10);
 	stream << std::endl;
 	stream << "Expressions: " << std::endl;
 	for (auto expression : this->expressions)

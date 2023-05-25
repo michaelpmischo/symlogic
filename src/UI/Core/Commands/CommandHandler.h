@@ -70,6 +70,7 @@ private:
 	typedef std::deque<StringInfo_t> StringInfos_t;
 	typedef struct
 	{
+		std::string raw;
 		StringInfo_t command;
 		StringInfos_t arguments;
 	} CommandInfo_t;
