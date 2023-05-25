@@ -31,6 +31,7 @@
 #include <UI/Core/Commands/CommandHandler.h>
 #include <UI/Core/Expressions/ExpressionHandler.h>
 #include <Exceptions/Commands/Syntax.h>
+#include <Exceptions/Expressions/Malformed.h>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -76,6 +77,10 @@ int Mathematics::UI::Core::Terminal::run()
 			count++;
 		}
 		catch (Syntax& error)
+		{
+			this->output(error.what());
+		}
+		catch (Expressions::Malformed& error)
 		{
 			this->output(error.what());
 		}

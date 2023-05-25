@@ -28,7 +28,6 @@
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
 #include <UI/Core/Expressions/ExpressionHandler.h>
-#include <Exceptions/Expressions/Malformed.h>
 #include <Expressions/Operands/Constant.h>
 #include <Expressions/Operands/Number.h>
 #include <UI/Core/Terminal.h>
@@ -62,19 +61,12 @@ Mathematics::UI::Core::ExpressionHandler::instance()
 void Mathematics::UI::Core::ExpressionHandler::handle(
 		const std::string& raw_expression_in)
 {
-	try
-	{
-		Expressions::Expression* parsed_expression = 
-				this->parser.parse(raw_expression_in);
-		this->expressions.push_back(parsed_expression);
-		std::stringstream stream;
-		stream << std::endl << parsed_expression->pretty_tree();
-		Terminal::instance()->output(stream.str());
-	}
-	catch (Mathematics::Expressions::Malformed& error)
-	{
-		Terminal::instance()->output(error.what());
-	}
+	Expressions::Expression* parsed_expression = 
+			this->parser.parse(raw_expression_in);
+	this->expressions.push_back(parsed_expression);
+	std::stringstream stream;
+	stream << std::endl << parsed_expression->pretty_tree();
+	Terminal::instance()->output(stream.str());
 }
 
 
