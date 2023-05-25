@@ -228,10 +228,10 @@ Mathematics::Expressions::Parser::parse(
 
     // There should only be one expression on the stack. If there are
     // more then the expression is malformed.
-    if (expression_stack.size() > 1U)
+    if (expression_stack.size() != 1U)
     {
         throw Malformed(
-            "Too many Operands and not enough Operators!",
+            "The expression's operators and operands are mismatched.",
             this->passed_expression,
             expression_stack.top().location);
     }

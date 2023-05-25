@@ -118,7 +118,7 @@ void Mathematics::UI::Core::CommandHandler::process_command(
 	// If this is not a command. Then we assume it is an expression.
 	if (COMMANDS.find(command_info_in.command.string) == COMMANDS.end())
 	{
-		ExpressionHandler::instance()->handle(command_info_in.command.string);
+		ExpressionHandler::instance()->handle(command_info_in.raw);
 	}
 
 	else if (command_info_in.command.string == "set")
@@ -380,6 +380,7 @@ Mathematics::UI::Core::CommandHandler::parse_command(
 		const std::string& command_in, size_t location_in) const
 {
 	CommandInfo_t command;
+	command.raw = command_in;
 	
 	// An open parentheses indicates arguments are provided.
 	size_t arguments_begin = command_in.find_first_of("(");
