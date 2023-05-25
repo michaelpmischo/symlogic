@@ -1,9 +1,8 @@
-// ============================================================================
+// ____________________________________________________________________________
 //! @file Types.h
 //! @author Michael P. MIscho
 //! @date May 20, 2023
-//! @brief This file is the header for the Integer number type header.
-//! @see https://en.wikipedia.org/wiki/Complex_number
+//! @brief
 // ____________________________________________________________________________
 //! @copyright Copyright (C) 2023 Michael P. Mischo - All Rights Reserved
 //! 
@@ -25,12 +24,13 @@
 //! You may use, distribute and modify this code under the terms of the GPL
 //! license. You should have received a copy of the GPL license with this 
 //! file. If not, please write to: , or visit :
-//! https://www.gnu.org/licenses/gpl-3.0.en.html
-// ============================================================================
+//! https://www.gnu.org/licenses/
+// ____________________________________________________________________________
 #ifndef __MATHEMATICS_TYPES_H_
 #define __MATHEMATICS_TYPES_H_
 #include <Types/Basic/Basic.h>
 #include <Types/Numbers/Constants.h>
 #include <Types/Unicode/Unicode.h>
+
 
 #endif // __MATHEMATICS_TYPES_H_

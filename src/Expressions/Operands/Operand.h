@@ -51,9 +51,9 @@ class Operand : public Expression
 {
 public:
     Operand(const Token_t& token_in, 
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     Operand(Real numer_in,
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     Operand(const Operand& rhs);
     Operand(const Operand& rhs, const TokenPair_t& parentheses_in);
     Operand(Operand&& rhs);
@@ -82,7 +82,7 @@ public:
 
 protected:
     // Private Pure Virtual Functions
-    virtual void print(TokenStream_t& stream, const Token_t& prefix_in,
+    virtual void pretty_tree(std::stringstream& stream, const std::string& prefix_in,
         bool is_last) const override;
 }; // class Operand
 } // namespace Operands

@@ -28,13 +28,14 @@
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
 #include <Test.h>
+#include <sstream>
 
-Mathematics::Tests::Test::Test(const Expressions::Token_t& log_name) :
+Mathematics::Test::Test(const std::string& log_name) :
 	total(0U),
 	passed(0U),
 	test_number(0U)
 {
-	this->log.open(log_name, std::wostream::out | std::wostream::trunc);
+	this->log.open(log_name, std::ostream::out | std::ostream::trunc);
 	if (!this->log.is_open())
 	{
 		std::cerr << "Failed to open the test log." << std::endl;
@@ -42,12 +43,12 @@ Mathematics::Tests::Test::Test(const Expressions::Token_t& log_name) :
 	this->reset();
 }
 
-Mathematics::Tests::Test::~Test()
+Mathematics::Test::~Test()
 {
 	this->log.close();
 }
 
-Mathematics::float64_t Mathematics::Tests::Test::grade() const
+float64_t Mathematics::Test::grade() const
 {
 	if (this->total > 0)
 	{
@@ -62,7 +63,7 @@ Mathematics::float64_t Mathematics::Tests::Test::grade() const
 
 }
 
-void Mathematics::Tests::Test::summary(Expressions::TokenOutputStream_t& stream) const
+void Mathematics::Test::summary(std::ostream& stream) const
 {
 	stream << DIVIDER0 << std::endl;
 	stream << "Test Results Summary" << std::endl;
@@ -83,4 +84,41 @@ void Mathematics::Tests::Test::summary(Expressions::TokenOutputStream_t& stream)
 	stream << DIVIDER0 << std::endl;
 	stream << std::endl;
 	stream << std::endl;
+}
+
+
+void Mathematics::Test::verify_true(bool a)
+{
+	std::stringstream stream;
+	std::cout << VERIFY << std::endl;
+	this->total++;
+	if (a)
+	{
+		stream << PASS << "[" << (a ? "true " : "false ") << " == true]";
+		this->passed++;
+	}
+	else
+	{
+		stream << FAIL << "[" << (a ? "true " : "false ") << " == true]";
+	}
+	this->results[this->test_number].push_back(stream.str());
+	std::cout << stream.str() << std::endl << std::endl;
+}
+
+void Mathematics::Test::verify_false(bool a)
+{
+	std::stringstream stream;
+	std::cout << VERIFY << std::endl;
+	this->total++;
+	if (!a)
+	{
+		stream << PASS << "[" << (a ? "true " : "false ") << " != true]";
+		this->passed++;
+	}
+	else
+	{
+		stream << FAIL << "[" << (a ? "true " : "false ") << " != true]";
+	}
+	this->results[this->test_number].push_back(stream.str());
+	std::cout << stream.str() << std::endl << std::endl;
 }

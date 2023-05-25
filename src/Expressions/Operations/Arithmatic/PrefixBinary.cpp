@@ -33,13 +33,13 @@
 const Mathematics::Expressions::Operations::Binary::ArithmaticBinaryHash_t
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::operations = 
 {
-    {L"log",	&PrefixBinary::log},
-    {L"nrt",	&PrefixBinary::nrt},
+    {"log",	&PrefixBinary::log},
+    {"nrt",	&PrefixBinary::nrt},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"n√",		&PrefixBinary::nrt},
+    {"n√",		&PrefixBinary::nrt},
 #endif
 };
 
@@ -47,13 +47,13 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::operations =
 const Mathematics::Expressions::PrecedenceHash_t
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::precedences =
 {
-    {L"log", 50U},
-    {L"nrt", 50U},
+    {"log", 50U},
+    {"nrt", 50U},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"n√",	50U},
+    {"n√",	50U},
 #endif
 };
 
@@ -71,6 +71,12 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::PrefixBinary(
     Binary(token_in, left_in, right_in, parentheses_in, 
             argument_parentheses_in)
 {
+    if (this->get_type() != Type_t::ARITHMATIC_PREFIX_BINARY)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an PrefixBinary!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 

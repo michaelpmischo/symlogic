@@ -100,9 +100,9 @@ public:
     };
 
     Expression(const Token_t& token_in, 
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     Expression(Real number_in, 
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     Expression(const Expression& token_in);
     Expression(Expression&& token_in);
 
@@ -113,7 +113,7 @@ public:
     bool operator!=(const Expression& token_in) const;
     bool operator==(const Expression& token_in) const;
 
-    Token_t print() const;
+    std::string pretty_tree() const;
 
     // Public Pure Virtual Functions
 
@@ -143,13 +143,14 @@ public:
 
     // Management Operations
     virtual Expression* copy(
-            const TokenPair_t& parentheses_in = { L"",L"" }) const = 0;
+            const TokenPair_t& parentheses_in = { "","" }) const = 0;
 
     // This should be protected but because this is a tree the inherited
     // node types cannot call this function on a cousin instance of a
     // child class. So, it is declared public here. Terrible...
-    virtual void print(TokenStream_t& stream, 
-            const Token_t& prefix_in, 
+    virtual void pretty_tree(
+            std::stringstream& stream, 
+            const std::string& prefix_in, 
             bool is_last) const = 0;
 
     // Getters.
@@ -187,6 +188,7 @@ public:
     virtual ~Expression();
 
 protected:
+    inline std::wstring get_wtoken() const;
     inline void add_open_parentheses(TokenList_t& tokens_in) const;
     inline void add_close_parentheses(TokenList_t& tokens_in) const;
 
@@ -199,7 +201,7 @@ private:
     // If this expression is wrapped in parentheses or other separator
     // this is where they are stored.
     TokenPair_t                     parentheses;
-};
+}; // class Expression
 } // namespace Expressions
 } // namespace Mathematics
 
@@ -213,6 +215,27 @@ Mathematics::Expressions::Token_t
 Mathematics::Expressions::Expression::get_token() const
 {
     return this->token;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Expression                                                        |
+// | Function: get_token                                                      |
+// |__________________________________________________________________________|
+std::wstring Mathematics::Expressions::Expression::get_wtoken() const
+{
+    std::wstring out;
+    WConverter_t                    wide_converter;
+#if defined(__WCHAR_EXPRESSIONS__) || \
+    defined(__UTF16_EXPRESSIONS__) || \
+    defined(__UTF32_EXPRESSIONS__)
+    out = std::wstring(reinterpret_cast<wchar_t*>(this->token.c_str()));
+#else
+    out = wide_converter.from_bytes(this->token);
+#endif
+    
+return out;
 }
 
 
@@ -288,8 +311,8 @@ void Mathematics::Expressions::Expression::add_close_parentheses(
 // |__________________________________________________________________________|
 bool Mathematics::Expressions::Expression::parenthesized() const
 {
-    return ((this->parentheses.first != L"") &&
-        (this->parentheses.second != L""));
+    return ((this->parentheses.first != "") &&
+        (this->parentheses.second != ""));
 }
 
 

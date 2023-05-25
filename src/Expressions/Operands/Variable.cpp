@@ -44,15 +44,14 @@
 Mathematics::Expressions::Operands::Variable::Variable(
         const Token_t& token_in,
         const TokenPair_t& parentheses_in) :
-#ifdef __UTF16_EXPRESSIONS__
-    Operand(((unicode(token_in) != token_in) ? 
-        (unicode(token_in)) : 
-        (pretty(token_in))), 
-        parentheses_in)
-#else
 	Operand(token_in, parentheses_in)
-#endif
 {
+    if (this->get_type() != Type_t::VARIABLE)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an Variable!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 
@@ -155,8 +154,8 @@ Mathematics::Expressions::Operands::Variable::derivative(
     }
     else
     {
-        return new Operations::Arithmatic::InfixBinary(L"*",
-            new Operations::Calculus::PostfixDerivative(L"'",
+        return new Operations::Arithmatic::InfixBinary("*",
+            new Operations::Calculus::PostfixDerivative("'",
                 new Variable(token_in),
                 this->copy()),
             this->copy());
@@ -175,11 +174,11 @@ Mathematics::Expressions::Operands::Variable::integral(
 {
     if (this->contains(token_in))
     {
-        return new Operations::Arithmatic::InfixBinary(L"/", 
-            new Operations::Arithmatic::InfixBinary(L"^", 
+        return new Operations::Arithmatic::InfixBinary("/", 
+            new Operations::Arithmatic::InfixBinary("^", 
                 this->copy(),
                 new Number(2),
-                { L"(",L")" }),
+                { "(",")" }),
             new Number(2));
     }
     else
@@ -229,10 +228,15 @@ Mathematics::Expressions::Operands::Variable::get_variables() const
 bool Mathematics::Expressions::Operands::Variable::is_token(
         const Token_t& token_in)
 {
+	if (token_in.empty())
+	{
+		return false;
+	}
+
     return (!Constant::is_token(token_in) && !Number::is_token(token_in) && 
         token_in.find_first_not_of(
-            L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._"
-        ) != Token_t::npos);
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._"
+        ) == Token_t::npos);
 }
 
 

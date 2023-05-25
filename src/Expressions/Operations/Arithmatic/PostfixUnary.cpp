@@ -33,7 +33,7 @@
 const Mathematics::Expressions::Operations::Unary::ArithmaticUnaryHash_t
 Mathematics::Expressions::Operations::Arithmatic::PostfixUnary::operations = 
 {
-    {L"!", &PostfixUnary::fact},
+    {"!", &PostfixUnary::fact},
 };
 
 
@@ -49,6 +49,12 @@ Mathematics::Expressions::Operations::Arithmatic::PostfixUnary::PostfixUnary(
         const TokenPair_t& argument_parentheses_in) :
     Unary(token_in, left_in, parentheses_in, argument_parentheses_in)
 {
+    if (this->get_type() != Type_t::ARITHMATIC_POSTFIX_UNARY)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an PrefixUnary!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 

@@ -55,8 +55,8 @@ public:
 
     Unary(const Token_t& token_in,
             Expression* operand_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
 
     Unary(const Unary& rhs);
     Unary(const Unary& rhs,
@@ -90,7 +90,7 @@ public:
 protected:
 
     // Private Pure Virtual Functions
-    virtual void print(TokenStream_t& stream, const Token_t& prefix_in,
+    virtual void pretty_tree(std::stringstream& stream, const std::string& prefix_in,
             bool left_in) const override;
 
 private:

@@ -32,25 +32,25 @@
 const Mathematics::Expressions::Operations::Binary::LogicalBinaryHash_t 
 Mathematics::Expressions::Operations::Logical::InfixBinary::operations = 
 {
-    {L"=",		&InfixBinary::equal},
-    {L"!=",		&InfixBinary::not_equal},
-    {L">",		&InfixBinary::greater_than},
-    {L"<",		&InfixBinary::less_than},
-    {L">=",		&InfixBinary::greater_than_or_equal},
-    {L"<=",		&InfixBinary::less_than_or_equal},
-    {L"->",		&InfixBinary::implies},
-    {L"and",	&InfixBinary::and},
-    {L"or",		&InfixBinary::or},
+    {"=",		&InfixBinary::equal},
+    {"!=",		&InfixBinary::not_equal},
+    {">",		&InfixBinary::greater_than},
+    {"<",		&InfixBinary::less_than},
+    {">=",		&InfixBinary::greater_than_or_equal},
+    {"<=",		&InfixBinary::less_than_or_equal},
+    {"->",		&InfixBinary::implies},
+    {"and",	&InfixBinary::and},
+    {"or",		&InfixBinary::or},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-    {L"≈",		&InfixBinary::approximation},
-    {L"≠",		&InfixBinary::not_equal},
-    {L"≥",		&InfixBinary::greater_than_or_equal},
-    {L"≤",		&InfixBinary::less_than_or_equal},
-    {L"⋀",		&InfixBinary:: and},
-    {L"⋁",		&InfixBinary:: or},
+    {"≈",		&InfixBinary::approximation},
+    {"≠",		&InfixBinary::not_equal},
+    {"≥",		&InfixBinary::greater_than_or_equal},
+    {"≤",		&InfixBinary::less_than_or_equal},
+    {"⋀",		&InfixBinary:: and},
+    {"⋁",		&InfixBinary:: or},
 #endif
 };
 

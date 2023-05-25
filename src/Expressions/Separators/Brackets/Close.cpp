@@ -33,13 +33,13 @@ const Mathematics::Expressions::TokenMap_t
 Mathematics::Expressions::Separators::Brackets::Close::brackets =
 {
 	// "[]"
-	{L"]", L"["},
+	{"]", "["},
 
 	// "{}"
-	{L"}", L"{"},
+	{"}", "{"},
 
 	// "()"
-	{L")", L"("},
+	{")", "("},
 };
 
 
@@ -305,7 +305,7 @@ Mathematics::Expressions::Separators::Brackets::Close::get_opposing(
 	}
 	else
 	{
-		return L"";
+		return "";
 	}
 }
 
@@ -315,12 +315,13 @@ Mathematics::Expressions::Separators::Brackets::Close::get_opposing(
 // | Class: Close                                                             |
 // | Function: print                                                          |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Separators::Brackets::Close::print(
-		TokenStream_t& stream, 
-		const Token_t& prefix_in,
+void Mathematics::Expressions::Separators::Brackets::Close::pretty_tree(
+		std::stringstream& stream, 
+		const std::string& prefix_in,
 		bool is_last) const
 {
-	stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-		this->get_token() << L")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 }
 

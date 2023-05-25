@@ -51,7 +51,7 @@ class Variable : public Operand
 {
 public:
     Variable(const Token_t& token_in,
-        const TokenPair_t& parentheses_in = { L"",L"" });
+        const TokenPair_t& parentheses_in = { "","" });
     Variable(const Variable& rhs);
     Variable(const Variable& rhs,
         const TokenPair_t& parentheses_in);
@@ -67,7 +67,7 @@ public:
     virtual Real solution(const TokenValueMap_t& values_in = {}) const override;
     virtual TokenList_t get_variables() const override;
     virtual Expression* copy(
-        const TokenPair_t& parentheses_in = {L"",L"" }) const override;
+        const TokenPair_t& parentheses_in = {"","" }) const override;
 
     static bool is_token(const Token_t& token_in);
     static TokenPrecedence_t get_precedence(Type_t type_in, 

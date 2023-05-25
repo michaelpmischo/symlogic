@@ -54,7 +54,7 @@ public:
     typedef std::map<Token_t, Real> ConstantHash_t;
 
     Constant(const Token_t& token_in, 
-            const TokenPair_t& parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" });
     Constant(const Constant& rhs);
     Constant(const Constant& rhs, 
             const TokenPair_t& parentheses_in);
@@ -70,11 +70,12 @@ public:
     virtual Real solution(const TokenValueMap_t& values_in = {}) const override;
     virtual TokenList_t get_variables() const override;
     virtual Expression* copy(
-            const TokenPair_t& parentheses_in = { L"",L"" }) const override;
+            const TokenPair_t& parentheses_in = { "","" }) const override;
 
     static bool is_token(const Token_t& token_in);
     static TokenPrecedence_t get_precedence(Type_t type_in, 
             const Token_t& token_in);
+    static Real value(const Token_t& token_in);
 
     virtual ~Constant() = default;
 

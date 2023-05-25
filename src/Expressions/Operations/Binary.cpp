@@ -316,19 +316,20 @@ Mathematics::Expressions::Operations::Binary::~Binary()
 // | Class: Binary                                                            |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Operations::Binary::print(
-        TokenStream_t& stream, 
-        const Token_t& prefix_in,
+void Mathematics::Expressions::Operations::Binary::pretty_tree(
+        std::stringstream& stream, 
+        const std::string& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-        this->get_token() << L")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 
-    std::wstring new_prefix = prefix_in + (!is_last ? L"│   " : L"    ");
+	std::string new_prefix = prefix_in + (!is_last ? "\xB3   " : "    ");
 
-    // Enter the next tree level - left and right branch
-    stream << new_prefix << L"│   " << std::endl;
-    this->get_left()->print(stream, new_prefix, false);
-    stream << new_prefix << L"│   " << std::endl;
-    this->get_right()->print(stream, new_prefix, true);
+	// Enter the next tree level - left and right branch
+	stream << new_prefix << "\xB3   " << std::endl;
+	this->get_left()->pretty_tree(stream, new_prefix, false);
+	stream << new_prefix << "\xB3   " << std::endl;
+	this->get_right()->pretty_tree(stream, new_prefix, true);
 }

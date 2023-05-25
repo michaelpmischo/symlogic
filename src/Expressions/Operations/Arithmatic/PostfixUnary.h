@@ -50,8 +50,8 @@ class PostfixUnary : public Unary
 public:
     PostfixUnary(const Token_t& token_in,
             Expression* left_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
     PostfixUnary(const PostfixUnary& rhs);
     PostfixUnary(const PostfixUnary& rhs,
             const TokenPair_t& parentheses_in);
@@ -67,7 +67,7 @@ public:
     virtual Expression* integral(const Token_t& token_in) const override;
     virtual Real solution(const TokenValueMap_t& values_in = {}) const override;
     virtual Expression* copy(
-            const TokenPair_t& parentheses_in = { L"",L"" }) const override;
+            const TokenPair_t& parentheses_in = { "","" }) const override;
 
     // Static Functions
     static bool is_token(const Token_t& token_in);

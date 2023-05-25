@@ -51,7 +51,7 @@ class Separator : public Expression
 {
 public:
     Separator(const Token_t& token_in,
-            const TokenPair_t& parenethesis_in = { L"",L"" });
+            const TokenPair_t& parenethesis_in = { "","" });
     Separator(const Separator& rhs);
     Separator(const Separator& rhs,
             const TokenPair_t& parenethesis_in);

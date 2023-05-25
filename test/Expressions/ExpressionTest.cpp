@@ -13,7 +13,7 @@
 //! (at your option) any later version.
 //!
 //! This program is distributed in the hope that it will be useful,
-//! but WITHstdout_t ANY WARRANTY; without even the implied warranty of
+//! but WITHstd::cout ANY WARRANTY; without even the implied warranty of
 //! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
 //! GNU General Public License for more details.
 //! 
@@ -33,7 +33,7 @@
 #include <Expressions/Expression.h>
 #include <Expressions/Parser.h>
 
-#include <Exceptions/Malformed.h>
+#include <Exceptions/Expressions/Malformed.h>
 #include <Exceptions/Undefined.h>
 
 
@@ -43,7 +43,7 @@
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
 Mathematics::Expressions::Tests::ExpressionTest::ExpressionTest() :
-	Test(L"ExpressionTest.log")
+	Test("ExpressionTest.log")
 {
 }
 
@@ -55,28 +55,28 @@ Mathematics::Expressions::Tests::ExpressionTest::ExpressionTest() :
 // |__________________________________________________________________________|
 void Mathematics::Expressions::Tests::ExpressionTest::run()
 {
-	stdout_t << DIVIDER0 << std::endl;
-	stdout_t << typeid(Expression).name() << 
-		L" Test" << std::endl;
-	stdout_t << DIVIDER0 << std::endl;
-	stdout_t << std::endl;
+	std::cout << DIVIDER0 << std::endl;
+	std::cout << typeid(Expression).name() << 
+		" Test" << std::endl;
+	std::cout << DIVIDER0 << std::endl;
+	std::cout << std::endl;
 
 	for (auto test_case : Tests::expression_tests)
 	{
 		this->begin_test();
 		this->execute_test(test_case);
 		this->end_test();
-		stdout_t << std::endl;
+		std::cout << std::endl;
 	}
 
-	stdout_t << std::endl;
+	std::cout << std::endl;
 	this->summary(this->log);
-	this->summary(stdout_t);
-	stdout_t << std::endl;
-	stdout_t << L"End of Test." << std::endl;
-	stdout_t << DIVIDER0 << std::endl;
-	stdout_t << std::endl;
-	stdout_t << std::endl;
+	this->summary(std::cout);
+	std::cout << std::endl;
+	std::cout << "End of Test." << std::endl;
+	std::cout << DIVIDER0 << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 }
 
 
@@ -89,82 +89,84 @@ void Mathematics::Expressions::Tests::ExpressionTest::execute_test(
 		const ExpressionTestCase_t& test_case_in)
 {
 	uint64_t exceptions = 0;
-	stdout_t << DIVIDER2 << std::endl;
-	stdout_t << test_case_in.name << std::endl;
-	stdout_t << L"Expression: " << test_case_in.expression << std::endl;
-	stdout_t << DIVIDER2 << std::endl;
+	std::cout << DIVIDER2 << std::endl;
+	std::cout << test_case_in.name << std::endl;
+	this->push_heading(test_case_in.name);
+	std::cout << "Expression: " << test_case_in.expression << std::endl;
+	std::cout << DIVIDER2 << std::endl;
 
 	Parser parser;
 
-	stdout_t << L"Tokenizeing Expression: " << test_case_in.expression << std::endl;
-	stdout_t << parser.get_tokens(test_case_in.expression) << std::endl;
-	stdout_t << std::endl;
+	std::cout << "Tokenizeing Expression: " << test_case_in.expression << std::endl;
+	std::cout << parser.get_tokens(test_case_in.expression) << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << DIVIDER3 << std::endl;
-	stdout_t << L"Parsing Expression: " << test_case_in.expression << std::endl;
+	std::cout << DIVIDER3 << std::endl;
+	std::cout << "Parsing Expression: " << test_case_in.expression << std::endl;
 	Expression* tree = nullptr;
 	try
 	{
 		tree = parser.parse(test_case_in.expression);
-		stdout_t << L"Parsing Complete..." << std::endl;
-		stdout_t << std::endl;
-		this->verify_ne<void*>(tree, nullptr);
-		this->verify_eq<uint64_t>(test_case_in.verify.exceptions, 0U);
-		stdout_t << std::endl;
-		stdout_t << std::endl;
+		std::cout << "Parsing Complete..." << std::endl;
+		std::cout << std::endl;
+		this->verify_gt<void*>(tree, nullptr);
+		this->verify_false(test_case_in.verify.exception);
+		std::cout << std::endl;
+		std::cout << std::endl;
 
-		stdout_t << DIVIDER3 << std::endl;
-		stdout_t << L"Post Parse Expression: " << std::endl;
+		
+		std::cout << DIVIDER3 << std::endl;
+		std::cout << "Post Parse Expression: " << std::endl;
 		TokenList_t tokens = tree->infix();
 		TokenStream_t out;
 		for (auto token : tokens)
 		{
 			out << token;
 		}
-		stdout_t << out.str() << std::endl;
-		stdout_t << std::endl;
+		std::cout << out.str() << std::endl;
+		std::cout << std::endl;
 		this->verify_eq<Token_t>(out.str(), test_case_in.expression);
-		stdout_t << std::endl;
+		std::cout << std::endl;
 
-		stdout_t << DIVIDER3 << std::endl;
-		stdout_t << L"Tree Output: " << std::endl;
-		stdout_t << L"Infix  : " << tree->infix() << std::endl;
-		stdout_t << L"Prefix : " << tree->prefix() << std::endl;
-		stdout_t << L"Postfix: " << tree->postfix() << std::endl;
-		stdout_t << L"Size   : " << tree->size() << std::endl;
-		stdout_t << L"Height : " << tree->height() << std::endl;
-		stdout_t << std::endl;
+		std::cout << DIVIDER3 << std::endl;
+		std::cout << "Tree Output: " << std::endl;
+		std::cout << "Infix  : " << tree->infix() << std::endl;
+		std::cout << "Prefix : " << tree->prefix() << std::endl;
+		std::cout << "Postfix: " << tree->postfix() << std::endl;
+		std::cout << "Size   : " << tree->size() << std::endl;
+		std::cout << "Height : " << tree->height() << std::endl;
+		std::cout << std::endl;
 
-		stdout_t << L"Variable List: " << std::endl;
-		stdout_t << tree->get_variables() << std::endl;
-		stdout_t << std::endl;
+		std::cout << "Variable List: " << std::endl;
+		std::cout << tree->get_variables() << std::endl;
+		std::cout << std::endl;
 
-		stdout_t << DIVIDER3 << std::endl;
-		stdout_t << L"Tree Solutions:" << std::endl;
+		std::cout << DIVIDER3 << std::endl;
+		std::cout << "Tree Solutions:" << std::endl;
 		for (size_t i = 0U;
 			(i < test_case_in.verify.x.size() && i < test_case_in.verify.y.size());
 			i++)
 		{
-			TokenValueMap_t variables = { {L"x", test_case_in.verify.x[i]},};
+			TokenValueMap_t variables = { {"x", test_case_in.verify.x[i]},};
 			Real sol = tree->solution(variables);
-			stdout_t << L"Solution: y(" << test_case_in.verify.x[i] << L") = " << sol << std::endl;
+			std::cout << "Solution: y(" << test_case_in.verify.x[i] << ") = " << sol << std::endl;
 			this->verify_eq<Real>(sol, test_case_in.verify.y[i]);
-			stdout_t << std::endl;
+			std::cout << std::endl;
 		}
-		stdout_t << std::endl;
+		std::cout << std::endl;
 
-		stdout_t << DIVIDER3 << std::endl;
-		stdout_t << L"Expression Tree: " << std::endl;
-		stdout_t << tree->print();
-		stdout_t << std::endl;
+		std::cout << DIVIDER3 << std::endl;
+		std::cout << "Expression Tree: " << std::endl;
+		std::cout << tree->pretty_tree();
+		std::cout << std::endl;
 
 		this->derivative_test(test_case_in, tree);
 		this->integral_test(test_case_in, tree);
 	}
-	catch (Mathematics::Exceptions::Malformed& error)
+	catch (Mathematics::Expressions::Malformed& error)
 	{
-		stdout_t << L"Error: " << error.what_utf16() << std::endl;
-		this->verify_ne<uint64_t>(test_case_in.verify.exceptions, 0U);
+		std::cout << "Error: " << error.what() << std::endl;
+		this->verify_true(test_case_in.verify.exception);
 	}
 }
 
@@ -178,56 +180,56 @@ void Mathematics::Expressions::Tests::ExpressionTest::derivative_test(
 	const ExpressionTestCase_t& test_case_in,
 	const Expression* tree_in)
 {
-	stdout_t << DIVIDER2 << std::endl;
-	stdout_t << L"Taking Derivative: " << test_case_in.expression << std::endl;
-	Expression* derivative = tree_in->derivative(L"x");
-	stdout_t << L"Differentiation Complete..." << std::endl;
-	stdout_t << std::endl;
+	this->push_heading(test_case_in.name + " Derivative Tests");
+	std::cout << DIVIDER2 << std::endl;
+	std::cout << "Taking Derivative: " << test_case_in.expression << std::endl;
+	Expression* derivative = tree_in->derivative("x");
+	std::cout << "Differentiation Complete..." << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << L"Derivative Expression: " << std::endl;
+	std::cout << "Derivative Expression: " << std::endl;
 	TokenList_t tokens = derivative->infix();
 	for (auto token : tokens)
 	{
-		stdout_t << token;
+		std::cout << token;
 	}
-	stdout_t << std::endl;
-	stdout_t << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << L"Derivative Tree Output: " << std::endl;
-	stdout_t << L"Infix  : " << derivative->infix() << std::endl;
-	stdout_t << L"Prefix : " << derivative->prefix() << std::endl;
-	stdout_t << L"Postfix: " << derivative->postfix() << std::endl;
-	stdout_t << L"Size   : " << derivative->size() << std::endl;
-	stdout_t << L"Height : " << derivative->height() << std::endl;
-	stdout_t << std::endl;
+	std::cout << "Derivative Tree Output: " << std::endl;
+	std::cout << "Infix  : " << derivative->infix() << std::endl;
+	std::cout << "Prefix : " << derivative->prefix() << std::endl;
+	std::cout << "Postfix: " << derivative->postfix() << std::endl;
+	std::cout << "Size   : " << derivative->size() << std::endl;
+	std::cout << "Height : " << derivative->height() << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << L"Derivative Variable List: " << std::endl;
-	stdout_t << derivative->get_variables() << std::endl;
-	stdout_t << std::endl;
+	std::cout << "Derivative Variable List: " << std::endl;
+	std::cout << derivative->get_variables() << std::endl;
+	std::cout << std::endl;
 
-
-	stdout_t << DIVIDER3 << std::endl;
-	stdout_t << L"Derivative Tree Solution:" << std::endl;
+	std::cout << DIVIDER3 << std::endl;
+	std::cout << "Derivative Tree Solution:" << std::endl;
 	for (size_t i = 0U;
 		(i < test_case_in.verify.x.size() && i < test_case_in.verify.y_prime.size());
 		i++)
 	{
-		TokenValueMap_t variables = { {L"x", test_case_in.verify.x[i]},};
+		TokenValueMap_t variables = { {"x", test_case_in.verify.x[i]},};
 		Real sol = derivative->solution(variables);
-		stdout_t << L"Solution: y'(" << test_case_in.verify.x[i] << L") = " << sol << std::endl;
+		std::cout << "Solution: y'(" << test_case_in.verify.x[i] << ") = " << sol << std::endl;
 		this->verify_eq<Real>(sol, test_case_in.verify.y_prime[i]);
-		stdout_t << std::endl;
+		std::cout << std::endl;
 	}
-	stdout_t << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << DIVIDER3 << std::endl;
-	stdout_t << L"Derivative Tree: " << std::endl;
-	stdout_t << derivative->print();
-	stdout_t << std::endl;
+	std::cout << DIVIDER3 << std::endl;
+	std::cout << "Derivative Tree: " << std::endl;
+	std::cout << derivative->pretty_tree();
+	std::cout << std::endl;
 
 	// End of DerivativeTestCase.
-	stdout_t << DIVIDER2 << std::endl;
-	stdout_t << std::endl;
+	std::cout << DIVIDER2 << std::endl;
+	std::cout << std::endl;
 }
 
 
@@ -240,53 +242,54 @@ void Mathematics::Expressions::Tests::ExpressionTest::integral_test(
 	const ExpressionTestCase_t& test_case_in,
 	const Expression* tree_in)
 {
-	stdout_t << DIVIDER2 << std::endl;
-	stdout_t << L"Taking Integral: " << test_case_in.expression << std::endl;
-	Expression* integral = tree_in->integral(L"x");
-	stdout_t << L"Integration Complete..." << std::endl;
-	stdout_t << std::endl;
+	this->push_heading(test_case_in.name + " Integral Tests");
+	std::cout << DIVIDER2 << std::endl;
+	std::cout << "Taking Integral: " << test_case_in.expression << std::endl;
+	Expression* integral = tree_in->integral("x");
+	std::cout << "Integration Complete..." << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << L"Integral Expression: " << std::endl;
+	std::cout << "Integral Expression: " << std::endl;
 	TokenList_t tokens = integral->infix();
 	for (auto token : tokens)
 	{
-		stdout_t << token;
+		std::cout << token;
 	}
-	stdout_t << std::endl;
-	stdout_t << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << L"Integral Tree Output: " << std::endl;
-	stdout_t << L"Infix  : " << integral->infix() << std::endl;
-	stdout_t << L"Prefix : " << integral->prefix() << std::endl;
-	stdout_t << L"Postfix: " << integral->postfix() << std::endl;
-	stdout_t << L"Size   : " << integral->size() << std::endl;
-	stdout_t << L"Height : " << integral->height() << std::endl;
-	stdout_t << std::endl;
+	std::cout << "Integral Tree Output: " << std::endl;
+	std::cout << "Infix  : " << integral->infix() << std::endl;
+	std::cout << "Prefix : " << integral->prefix() << std::endl;
+	std::cout << "Postfix: " << integral->postfix() << std::endl;
+	std::cout << "Size   : " << integral->size() << std::endl;
+	std::cout << "Height : " << integral->height() << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << L"Integral Variable List: " << std::endl;
-	stdout_t << integral->get_variables() << std::endl;
-	stdout_t << std::endl;
+	std::cout << "Integral Variable List: " << std::endl;
+	std::cout << integral->get_variables() << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << DIVIDER3 << std::endl;
-	stdout_t << L"Integral Tree Solution:" << std::endl;
+	std::cout << DIVIDER3 << std::endl;
+	std::cout << "Integral Tree Solution:" << std::endl;
 	for (size_t i = 0U; 
 		(i < test_case_in.verify.x.size() && i < test_case_in.verify.Dy.size());
 		i++)
 	{
-		TokenValueMap_t variables = { {L"x", test_case_in.verify.x[i]},};
+		TokenValueMap_t variables = { {"x", test_case_in.verify.x[i]},};
 		Real sol = integral->solution(variables);
-		stdout_t << L"Solution: Dy(" << test_case_in.verify.x[i] << L") = " << sol << std::endl;
+		std::cout << "Solution: Dy(" << test_case_in.verify.x[i] << ") = " << sol << std::endl;
 		this->verify_eq<Real>(sol, test_case_in.verify.Dy[i]);
-		stdout_t << std::endl;
+		std::cout << std::endl;
 	}
-	stdout_t << std::endl;
+	std::cout << std::endl;
 
-	stdout_t << DIVIDER3 << std::endl;
-	stdout_t << L"Integral Tree: " << std::endl;
-	stdout_t << integral->print();
-	stdout_t << std::endl;
+	std::cout << DIVIDER3 << std::endl;
+	std::cout << "Integral Tree: " << std::endl;
+	std::cout << integral->pretty_tree();
+	std::cout << std::endl;
 
 	// End of Integral Test Case.
-	stdout_t << DIVIDER2 << std::endl;
-	stdout_t << std::endl;
+	std::cout << DIVIDER2 << std::endl;
+	std::cout << std::endl;
 }

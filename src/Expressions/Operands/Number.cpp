@@ -43,6 +43,12 @@ Mathematics::Expressions::Operands::Number::Number(const Real& value_in,
     Operand(value_in, parentheses_in),
     value(value_in)
 {
+    if (this->get_type() != Type_t::NUMBER)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an Numer!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 
@@ -168,7 +174,7 @@ Mathematics::Expressions::Expression*
 Mathematics::Expressions::Operands::Number::integral(
         const Token_t& token_in) const
 {
-    return new Operations::Arithmatic::InfixBinary(L"*" , 
+    return new Operations::Arithmatic::InfixBinary("*" , 
         this->copy(),
         new Variable(token_in));
 }
@@ -208,7 +214,12 @@ Mathematics::Expressions::Operands::Number::get_variables() const
 bool Mathematics::Expressions::Operands::Number::is_token(
         const Token_t& token_in)
 {
-    return (token_in.find_first_not_of(L"0123456789.") == 
+	if (token_in.empty())
+	{
+		return false;
+	}
+
+    return (token_in.find_first_not_of("0123456789.") == 
         Token_t::npos);
 }
 
@@ -225,18 +236,4 @@ Mathematics::Expressions::Operands::Number::get_precedence(Type_t type_in,
 
     return MAX_PRECEDENCE;
 }
-
-//  __________________________________________________________________________
-// |                                                                          |
-// | Class: Number                                                            |
-// | Function: Constructor                                                    |
-// |__________________________________________________________________________|
-void Mathematics::Expressions::Operands::Number::print(TokenStream_t& stream,
-    const Token_t& prefix_in,
-    bool is_last) const
-{
-    stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-        this->value << L")" << std::endl;
-}
-
 

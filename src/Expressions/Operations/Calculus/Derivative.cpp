@@ -45,44 +45,44 @@ const Mathematics::Expressions::Operations::Calculus::Derivative::UnaryDerivativ
 Mathematics::Expressions::Operations::Calculus::Derivative::unary_common =
 {
 // Unary Operations
-	{L"ln",		&Derivative::ln},
-//	{L"sqrt",	&Derivative::sqrt},
-	{L"exp",	&Derivative::exp},
-//	{L"abs",	&Derivative::abs},
+	{"ln",		&Derivative::ln},
+//	{"sqrt",	&Derivative::sqrt},
+	{"exp",	&Derivative::exp},
+//	{"abs",	&Derivative::abs},
 
 	// Trigonometric Operations
-	{L"sin",	&Derivative::sin},
-	{L"cos",	&Derivative::cos},
-	{L"tan",	&Derivative::tan},
-//	{L"csc",	&Derivative::csc},
-//	{L"sec",	&Derivative::sec},
-//	{L"cot",	&Derivative::cot},
+	{"sin",	&Derivative::sin},
+	{"cos",	&Derivative::cos},
+	{"tan",	&Derivative::tan},
+//	{"csc",	&Derivative::csc},
+//	{"sec",	&Derivative::sec},
+//	{"cot",	&Derivative::cot},
 
-//	{L"asin",	&Derivative::asin},
-//	{L"acos",	&Derivative::acos},
-//	{L"atan",	&Derivative::atan},
-//	{L"acsc",	&Derivative::acsc},
-//	{L"asec",	&Derivative::asec},
-//	{L"acot",	Derivative::acot},
+//	{"asin",	&Derivative::asin},
+//	{"acos",	&Derivative::acos},
+//	{"atan",	&Derivative::atan},
+//	{"acsc",	&Derivative::acsc},
+//	{"asec",	&Derivative::asec},
+//	{"acot",	Derivative::acot},
 
-//	{L"sinh",	&Derivative::sinh},
-//	{L"cosh",	&Derivative::cosh},
-//	{L"tanh",	&Derivative::tanh},
-//	{L"csch",	&Derivative::csch},
-//	{L"sech",	&Derivative::sech},
-//	{L"coth",	&Derivative::coth},
-//	{L"asinh",	&Derivative::asinh},
-//	{L"acosh",	&Derivative::acosh},
-//	{L"atanh",	&Derivative::atanh},
-//	{L"acsch",	&Derivative::acsch},
-//	{L"asech",	&Derivative::asech},
-//	{L"acoth",	&Derivative::acoth},
+//	{"sinh",	&Derivative::sinh},
+//	{"cosh",	&Derivative::cosh},
+//	{"tanh",	&Derivative::tanh},
+//	{"csch",	&Derivative::csch},
+//	{"sech",	&Derivative::sech},
+//	{"coth",	&Derivative::coth},
+//	{"asinh",	&Derivative::asinh},
+//	{"acosh",	&Derivative::acosh},
+//	{"atanh",	&Derivative::atanh},
+//	{"acsch",	&Derivative::acsch},
+//	{"asech",	&Derivative::asech},
+//	{"acoth",	&Derivative::acoth},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-//	{L"√",		&Derivative::sqrt},
-//	{L"ℯ^",		&Derivative::exp},
+//	{"√",		&Derivative::sqrt},
+//	{"ℯ^",		&Derivative::exp},
 #endif
 };
 
@@ -90,22 +90,22 @@ const Mathematics::Expressions::Operations::Calculus::Derivative::BinaryDerivati
 Mathematics::Expressions::Operations::Calculus::Derivative::binary_common =
 {
 	// Binary Operations
-	{L"^",		&Derivative::power_rule},
-	{L"*",		&Derivative::product_rule},
-	{L"/",		&Derivative::quotient_rule},
-	{L"+",		&Derivative::sum_and_difference},
-	{L"-",		&Derivative::sum_and_difference},
+	{"^",		&Derivative::power_rule},
+	{"*",		&Derivative::product_rule},
+	{"/",		&Derivative::quotient_rule},
+	{"+",		&Derivative::sum_and_difference},
+	{"-",		&Derivative::sum_and_difference},
 
-//	{L"log",	&Derivative::log},
-//	{L"nrt",	&Derivative::nrt},
+//	{"log",	&Derivative::log},
+//	{"nrt",	&Derivative::nrt},
 
 #if defined(__UTF16_EXPRESSIONS__) || \
     defined(__WCHAR_EXPRESSIONS__) || \
     defined(__UTF32_EXPRESSIONS__)
-	{L"∙",		&Derivative::product_rule},
-	{L"⨉",		&Derivative::product_rule},
-	{L"÷",		&Derivative::quotient_rule},
-//	{L"n√",		&Derivative::nrt},
+	{"∙",		&Derivative::product_rule},
+	{"⨉",		&Derivative::product_rule},
+	{"÷",		&Derivative::quotient_rule},
+//	{"n√",		&Derivative::nrt},
 #endif
 };
 
@@ -368,10 +368,10 @@ Mathematics::Expressions::Operations::Calculus::Derivative::ln(
 {
 	if (expression_in->contains_variable())
 	{
-		return new Arithmatic::InfixBinary(L"*",
-			new Arithmatic::InfixBinary(L"/",
+		return new Arithmatic::InfixBinary("*",
+			new Arithmatic::InfixBinary("/",
 				new Operands::Number(1),
-				expression_in->get_left()->copy({ L"(",L")" })),
+				expression_in->get_left()->copy({ "(",")" })),
 			// Chain Rule
 			expression_in->get_left()->derivative(token_in));
 	}
@@ -394,9 +394,9 @@ Mathematics::Expressions::Operations::Calculus::Derivative::exp(
 {
 	if (expression_in->contains_variable())
 	{
-		return new Arithmatic::InfixBinary(L"*",
-			new Arithmatic::PrefixUnary(L"exp",
-				expression_in->get_left()->copy({ L"(", L")" })),
+		return new Arithmatic::InfixBinary("*",
+			new Arithmatic::PrefixUnary("exp",
+				expression_in->get_left()->copy({ "(", ")" })),
 			// Chain Rule
 			expression_in->get_left()->derivative(token_in));
 	}
@@ -419,9 +419,9 @@ Mathematics::Expressions::Operations::Calculus::Derivative::sin(
 {
 	if (expression_in->contains_variable())
 	{
-		return new Arithmatic::InfixBinary(L"*",
-			new Arithmatic::PrefixUnary(L"cos",
-				expression_in->get_left()->copy({ L"(",L")" })),
+		return new Arithmatic::InfixBinary("*",
+			new Arithmatic::PrefixUnary("cos",
+				expression_in->get_left()->copy({ "(",")" })),
 			// Chain Rule...
 			expression_in->get_left()->derivative(token_in));
 	}
@@ -444,11 +444,11 @@ Mathematics::Expressions::Operations::Calculus::Derivative::cos(
 {
 	if (expression_in->contains_variable())
 	{
-		return new Arithmatic::PrefixUnary(L"~",
-			new Arithmatic::InfixBinary(L"*",
+		return new Arithmatic::PrefixUnary("~",
+			new Arithmatic::InfixBinary("*",
 				// Chain Rule...
-				new Arithmatic::PrefixUnary(L"sin",
-					expression_in->get_left()->copy({ L"(",L")" })),
+				new Arithmatic::PrefixUnary("sin",
+					expression_in->get_left()->copy({ "(",")" })),
 				// Chain Rule...
 				expression_in->get_left()->derivative(token_in)));
 	}
@@ -471,11 +471,11 @@ Mathematics::Expressions::Operations::Calculus::Derivative::tan(
 {
 	if (expression_in->contains_variable())
 	{
-		return new Arithmatic::InfixBinary(L"*",
-			new Arithmatic::InfixBinary(L"^",
-				new Arithmatic::PrefixUnary(L"sec",
-					expression_in->get_left()->copy({ L"(",L")" }),
-					{ L"(",L")" }),
+		return new Arithmatic::InfixBinary("*",
+			new Arithmatic::InfixBinary("^",
+				new Arithmatic::PrefixUnary("sec",
+					expression_in->get_left()->copy({ "(",")" }),
+					{ "(",")" }),
 				new Operands::Number(2)),
 			// Chain Rule...
 			expression_in->get_left()->derivative(token_in));
@@ -504,14 +504,14 @@ Mathematics::Expressions::Operations::Calculus::Derivative::power_rule(
 		// Derive by using the power rule and the product rule. Create the 
 		// rearranged expression on the stack so it will be garbage collected
 		// upon return.
-		Arithmatic::PrefixUnary expression(L"exp",
-			new Arithmatic::InfixBinary(L"*",
+		Arithmatic::PrefixUnary expression("exp",
+			new Arithmatic::InfixBinary("*",
 				expression_in->get_right()->copy(),
-				new Arithmatic::PrefixUnary(L"ln",
+				new Arithmatic::PrefixUnary("ln",
 					expression_in->get_left()->copy(),
-					{ L"",L"" },
-					{ L"(",L")" }),
-				{ L"(",L")" }));
+					{ "","" },
+					{ "(",")" }),
+				{ "(",")" }));
 		return expression.derivative(token_in);
 	}
 	else if (expression_in->get_left()->contains(token_in))
@@ -519,15 +519,15 @@ Mathematics::Expressions::Operations::Calculus::Derivative::power_rule(
 		if (expression_in->get_right()->contains_variable())
 		{
 			// This is the classic power rule.
-			return new Arithmatic::InfixBinary(L"*",
-				new Arithmatic::InfixBinary(L"*",
+			return new Arithmatic::InfixBinary("*",
+				new Arithmatic::InfixBinary("*",
 					expression_in->get_right()->copy(),
-					new Arithmatic::InfixBinary(L"^",
+					new Arithmatic::InfixBinary("^",
 						expression_in->get_left()->copy(),
-						new Arithmatic::InfixBinary(L"-",
+						new Arithmatic::InfixBinary("-",
 							expression_in->get_right()->copy(),
 							new Operands::Number(1),
-							{ L"(",L")" }))),
+							{ "(",")" }))),
 				// Chain Rule...
 				expression_in->get_left()->derivative(token_in));
 		}
@@ -535,10 +535,10 @@ Mathematics::Expressions::Operations::Calculus::Derivative::power_rule(
 		{
 			TokenValueMap_t values;
 			// This is the classic power rule.
-			return new Arithmatic::InfixBinary(L"*",
-				new Arithmatic::InfixBinary(L"*",
+			return new Arithmatic::InfixBinary("*",
+				new Arithmatic::InfixBinary("*",
 					expression_in->get_right()->copy(),
-					new Arithmatic::InfixBinary(L"^",
+					new Arithmatic::InfixBinary("^",
 						expression_in->get_left()->copy(),
 						new Operands::Number(
 							expression_in->get_right()->solution(values) - 1.0))),
@@ -548,13 +548,13 @@ Mathematics::Expressions::Operations::Calculus::Derivative::power_rule(
 	}
 	else if (expression_in->get_right()->contains(token_in))
 	{
-		return new Arithmatic::InfixBinary(L"*",
-			new Arithmatic::InfixBinary(L"*",
+		return new Arithmatic::InfixBinary("*",
+			new Arithmatic::InfixBinary("*",
 				expression_in->copy(),
-				new Arithmatic::PrefixUnary(L"ln",
+				new Arithmatic::PrefixUnary("ln",
 					expression_in->get_left()->copy(),
-					{ L"",L"" },
-					{ L"(",L")" })),
+					{ "","" },
+					{ "(",")" })),
 			// Chain Rule...
 			expression_in->get_right()->derivative(token_in));
 	}
@@ -579,24 +579,24 @@ Mathematics::Expressions::Operations::Calculus::Derivative::product_rule(
 		(expression_in->get_right()->contains(token_in)))
 	{
 		// Product Rule...
-		return new Arithmatic::InfixBinary(L"+",
-			new Arithmatic::InfixBinary(L"*",
+		return new Arithmatic::InfixBinary("+",
+			new Arithmatic::InfixBinary("*",
 				expression_in->get_left()->derivative(token_in),
 				expression_in->get_right()->copy()),
-			new Arithmatic::InfixBinary(L"*",
+			new Arithmatic::InfixBinary("*",
 				expression_in->get_left()->copy(),
 				expression_in->get_right()->derivative(token_in)),
-			{ L"(",L")" });
+			{ "(",")" });
 	}
 	else if (expression_in->get_left()->contains(token_in))
 	{
-		return new Arithmatic::InfixBinary(L"*",
+		return new Arithmatic::InfixBinary("*",
 			expression_in->get_left()->derivative(token_in),
 			expression_in->get_right()->copy());
 	}
 	else if (expression_in->get_right()->contains(token_in))
 	{
-		return new Arithmatic::InfixBinary(L"*",
+		return new Arithmatic::InfixBinary("*",
 			expression_in->get_left()->copy(),
 			expression_in->get_right()->derivative(token_in));
 	}
@@ -621,33 +621,33 @@ Mathematics::Expressions::Operations::Calculus::Derivative::quotient_rule(
 		(expression_in->get_right()->contains(token_in)))
 	{
 		// Quotient Rule...
-		return new Arithmatic::InfixBinary(L"/",
-			new Arithmatic::InfixBinary(L"-",
-				new Arithmatic::InfixBinary(L"*",
+		return new Arithmatic::InfixBinary("/",
+			new Arithmatic::InfixBinary("-",
+				new Arithmatic::InfixBinary("*",
 					expression_in->get_left()->derivative(token_in),
 					expression_in->get_right()->copy()),
-				new Arithmatic::InfixBinary(L"*",
+				new Arithmatic::InfixBinary("*",
 					expression_in->get_left()->copy(),
 					expression_in->get_right()->derivative(token_in)),
-				{ L"(",L")" }),
-			new Arithmatic::InfixBinary(L"^",
+				{ "(",")" }),
+			new Arithmatic::InfixBinary("^",
 				expression_in->get_right()->copy(),
 				new Operands::Number(2.0),
-				{ L"(",L")" }));
+				{ "(",")" }));
 	}
 	else if (expression_in->get_left()->contains(token_in))
 	{
-		return new Arithmatic::InfixBinary(L"/",
+		return new Arithmatic::InfixBinary("/",
 			expression_in->get_left()->derivative(token_in),
-			expression_in->get_right()->copy({ L"(",L")" }));
+			expression_in->get_right()->copy({ "(",")" }));
 	}
 	else if (expression_in->get_right()->contains(token_in))
 	{
-		Arithmatic::InfixBinary expression(L"^",
+		Arithmatic::InfixBinary expression("^",
 			expression_in->get_left()->copy(),
-			new Arithmatic::PrefixUnary(L"~",
+			new Arithmatic::PrefixUnary("~",
 				expression_in->get_right()->copy(),
-				{ L"(",L")" }));
+				{ "(",")" }));
 		return expression.derivative(token_in);
 	}
 	else

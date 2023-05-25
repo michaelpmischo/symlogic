@@ -178,7 +178,7 @@ Mathematics::Expressions::Separators::Bracket::get_opposing(
     }
     else
     {
-        return L"";
+        return "";
     }
 }
 

@@ -37,13 +37,13 @@
 const Mathematics::Expressions::Operands::Constant::ConstantHash_t 
 Mathematics::Expressions::Operands::Constant::constants =
 {
-    {L"pi",	    Mathematics::𝝅},
-    {L"e",	    Mathematics::ℯ},
+    {"pi",	    Mathematics::𝝅},
+    {"e",	    Mathematics::ℯ},
 
 #if defined(__UTF16_EXPRESSIONS__)
-    {L"𝝅",      Mathematics::𝝅},
-    {L"ℯ",      Mathematics::ℯ},
-    {L"φ",      Mathematics::φ},
+    {"𝝅",      Mathematics::𝝅},
+    {"ℯ",      Mathematics::ℯ},
+    {"φ",      Mathematics::φ},
 #endif
 
 };
@@ -58,6 +58,12 @@ Mathematics::Expressions::Operands::Constant::Constant(const Token_t& token_in,
         const TokenPair_t& parentheses_in) :
     Operand(token_in, parentheses_in)
 {
+    if (this->get_type() != Type_t::CONSTANT)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an Constant!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 
@@ -171,7 +177,7 @@ Mathematics::Expressions::Operands::Constant::integral(
 {
     if (this->contains(token_in))
     {
-        return new Operations::Arithmatic::InfixBinary(L"*", 
+        return new Operations::Arithmatic::InfixBinary("*", 
             this->copy(),
             new Variable(token_in));
     }
@@ -230,6 +236,18 @@ Mathematics::Expressions::Operands::Constant::get_precedence(
         const Token_t& token_in)
 {
     return MAX_PRECEDENCE;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Constant                                                          |
+// | Function: get_precedence                                                 |
+// |__________________________________________________________________________|
+Mathematics::Real
+Mathematics::Expressions::Operands::Constant::value(const Token_t& token_in)
+{
+    return constants.find(token_in)->second;
 }
 
 

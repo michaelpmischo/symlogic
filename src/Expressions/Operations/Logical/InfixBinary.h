@@ -51,8 +51,8 @@ public:
     InfixBinary(const Token_t& token_in,
             Expression* left_in,
             Expression* right_in,
-            const TokenPair_t& parentheses_in = { L"",L"" },
-            const TokenPair_t& argumant_parentheses_in = { L"",L"" });
+            const TokenPair_t& parentheses_in = { "","" },
+            const TokenPair_t& argumant_parentheses_in = { "","" });
 
     InfixBinary(const InfixBinary& rhs);
     InfixBinary(const InfixBinary& rhs,
@@ -69,7 +69,7 @@ public:
     virtual Expression* integral(const Token_t& token_in) const override;
     virtual Real solution(const TokenValueMap_t& values_in = {}) const override;
     virtual Expression* copy(
-        const TokenPair_t& parentheses_in = { L"",L"" }) const override;
+        const TokenPair_t& parentheses_in = { "","" }) const override;
 
     static bool is_token(const Token_t& token_in);
     static TokenPrecedence_t get_precedence(Type_t type_in,

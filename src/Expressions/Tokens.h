@@ -27,49 +27,56 @@
 //! file. If not, please write to: , or visit :
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
-#ifndef __MATHEMATICS_EXPRESSIONS_TOKENS_H_
-#define __MATHEMATICS_EXPRESSIONS_TOKENS_H_
-#include <Types.h>		        // Real, Imaginary, Integer, Natural, etc...
-#include <string>				// std::wstring
-#include <list>					// std::list
-#include <set>					// std::set
-#include <map>					// std::map
-#include <iostream>				// std::wostream
-#include <sstream>				// std::wstringsyream
+#ifndef __MATHEMATICS_TOKENS_H_
+#define __MATHEMATICS_TOKENS_H_
+#include <Types.h>		                // Real, Imaginary, Integer, Natural, etc...
+#include <string>				        // std::string
+#include <list>					        // std::list
+#include <set>					        // std::set
+#include <map>					        // std::map
+#include <iostream>				        // std::ostream
+#include <sstream>				        // std::stringsyream
+#include <codecvt>                      // coverter
 
 namespace Mathematics
 {
 namespace Expressions
 {
 #if defined(__WCHAR_EXPRESSIONS__)
-  // Generic Token. This is a Unicode string for use with the Unicode 
-  // mathematics characters 'u2200' - 'u22FF'.
   typedef std::basic_string<wchar_t>			Token_t;
 
   // Token Streams for easy I/O.
   typedef std::basic_stringstream<wchar_t>		TokenStream_t;
   typedef std::basic_istream<wchar_t>			TokenInputStream_t;
   typedef std::basic_ostream<wchar_t>			TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> ToTokenConverter_t;
 
 #elif defined(__UTF32_EXPRESSIONS__)
-  // Generic Token. This is a Unicode string for use with the Unicode 
-  // mathematics characters 'u2200' - 'u22FF'.
   typedef std::basic_string<char32_t>			Token_t;
 
   // Token Streams for easy I/O.
   typedef std::basic_stringstream<char32_t>		TokenStream_t;
   typedef std::basic_istream<char32_t>			TokenInputStream_t;
   typedef std::basic_ostream<char32_t>			TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char32_t>> ToTokenConverter_t;
 
 #elif defined(__UTF16_EXPRESSIONS__)
-  // Generic Token. This is a Unicode string for use with the Unicode 
-  // mathematics characters 'u2200' - 'u22FF'.
   typedef std::basic_string<char16_t>			Token_t;
 
   // Token Streams for easy I/O.
   typedef std::basic_stringstream<char16_t>	    TokenStream_t;
   typedef std::basic_istream<char16_t>		    TokenInputStream_t;
   typedef std::basic_ostream<char16_t>		    TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char16_t>> ToTokenConverter_t;
+
+#elif defined(__UTF8_EXPRESSIONS__)
+t  ypedef std::basic_string<char8_t>			 Token_t;
+
+  // Token Streams for easy I/O.
+  typedef std::basic_stringstream<char8_t>	    TokenStream_t;
+  typedef std::basic_istream<char8_t>		    TokenInputStream_t;
+  typedef std::basic_ostream<char8_t>		    TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char8_t>> ToTokenConverter_t;
 
 #else //  __UTF8_EXPRESSIONS__
   typedef std::basic_string<char>		        Token_t;
@@ -78,7 +85,11 @@ namespace Expressions
   typedef std::basic_stringstream<char>	        TokenStream_t;
   typedef std::basic_istream<char>			    TokenInputStream_t;
   typedef std::basic_ostream<char>			    TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char>> ToTokenConverter_t;
+
 #endif
+
+typedef std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> WConverter_t;
 
 // A token's precedence in order of operations.
 typedef uint8_t TokenPrecedence_t;
@@ -100,7 +111,7 @@ typedef std::pair<Token_t, Token_t>				TokenPair_t;
 inline TokenOutputStream_t& operator<<(TokenOutputStream_t& stream,
     const TokenPair_t& rhs)
 {
-    stream << "<" << rhs.first << "," << rhs.second << L">";
+    stream << "<" << rhs.first << "," << rhs.second << ">";
     return stream;
 }
 
@@ -120,7 +131,7 @@ typedef std::pair<Token_t, Real>				TokenValuePair_t;
 inline TokenOutputStream_t& operator<<(TokenOutputStream_t& stream,
     const TokenValuePair_t& rhs)
 {
-    stream << "<" << rhs.first << "=" << rhs.second << L">";
+    stream << "<" << rhs.first << "=" << rhs.second << ">";
     return stream;
 }
 
@@ -140,11 +151,11 @@ typedef std::list<Token_t>						TokenList_t;
 inline TokenOutputStream_t& operator<<(TokenOutputStream_t& stream,
     const TokenList_t& rhs)
 {
-    Token_t separator = L"";
+    Token_t separator = "";
     for (auto token : rhs)
     {
-        stream << separator << L"<" << token << L">";
-        separator = L",";
+        stream << separator << "<" << token << ">";
+        separator = ",";
     }
     return stream;
 }
@@ -165,11 +176,11 @@ typedef std::set<Token_t>						TokenSet_t;
 inline TokenOutputStream_t& operator<<(TokenOutputStream_t& stream,
     const TokenSet_t& rhs)
 {
-    Token_t separator = L"";
+    Token_t separator = "";
     for (auto token : rhs)
     {
-        stream << separator << L"<" << token << L">";
-        separator = L",";
+        stream << separator << "<" << token << ">";
+        separator = ",";
     }
     return stream;
 }
@@ -190,11 +201,11 @@ typedef std::map<Token_t, Token_t>				TokenMap_t;
 inline TokenOutputStream_t& operator<<(TokenOutputStream_t& stream,
     const TokenMap_t& rhs)
 {
-    Token_t separator = L"";
+    Token_t separator = "";
     for (auto token : rhs)
     {
         stream << separator << token;
-        separator = L",";
+        separator = ",";
     }
     return stream;
 }
@@ -215,16 +226,15 @@ typedef std::map<Token_t, Real>					TokenValueMap_t;
 inline TokenOutputStream_t& operator<<(TokenOutputStream_t& stream,
     const TokenValueMap_t& rhs)
 {
-    Token_t separator = L"";
+    Token_t separator = "";
     for (auto token : rhs)
     {
         stream << separator << token;
-        separator = L",";
+        separator = ",";
     }
     return stream;
 }
-
 } // namespace Expressions
 } // namespace Mathematics
 
-#endif // __MATHEMATICS_EXPRESSIONS_TOKENS_H_
+#endif // __MATHEMATICS_TOKENS_H_

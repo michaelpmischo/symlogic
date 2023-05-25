@@ -11,7 +11,7 @@
 //! file. If not, please write to: , or visit :
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
-#include <Exceptions/Malformed.h>
+#include <Exceptions/Expressions/Malformed.h>
 #include <codecvt>
 #include <string>
 
@@ -21,22 +21,24 @@
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Malformed::Malformed(const wchar_t* explanation_in,
-        const Expressions::Token_t& malformaed_expression_in,
-        size_t malformed_location_in) :
+Mathematics::Expressions::Malformed::Malformed(const char* explanation_in,
+        const Token_t& expression_in,
+        size_t location_in) :
     std::exception(),
-    explanation(L"Expression is Malformed! "),
-    malformed_expression(L"    "),
-    malformed_location(L"    ")
+    explanation("Expression is Malformed! ")
 {
     this->explanation.append(explanation_in);
-    this->malformed_expression.append(malformaed_expression_in);
+    this->explanation.append("\n");
+    this->explanation.append(expression_in);
+    this->explanation.append("\n");
 
-	this->malformed_location.insert(
-        this->malformed_location.begin(), 
-        malformed_location_in,
-        L' ');
-    this->malformed_location.append(L"^");
+    std::string location;
+	location.insert(location.begin(), location_in,' ');
+    location.append("^");
+
+    this->explanation.append(location);
+
+
 }
 
 
@@ -45,23 +47,22 @@ Mathematics::Exceptions::Malformed::Malformed(const wchar_t* explanation_in,
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Malformed::Malformed(
-        const Expressions::Token_t& explanation_in,
-	    const Expressions::Token_t& malformaed_expression_in,
-	    size_t malformed_location_in) :
+Mathematics::Expressions::Malformed::Malformed(const std::string& explanation_in,
+	    const Token_t& expression_in,
+	    size_t location_in) :
 	std::exception(),
-	explanation(L"Expression is Malformed! "),
-	malformed_expression(L"    "),
-	malformed_location(L"    ")
+	explanation("Expression is Malformed! ")
 {
 	this->explanation.append(explanation_in);
-	this->malformed_expression.append(malformaed_expression_in);
+	this->explanation.append("\n");
+	this->explanation.append(expression_in);
+	this->explanation.append("\n");
 
-	this->malformed_location.insert(
-		this->malformed_location.begin(),
-        malformed_location_in,
-		L' ');
-    this->malformed_location.append(L"^");
+	std::string location;
+	location.insert(location.begin(), location_in, ' ');
+	location.append("^");
+
+	this->explanation.append(location);
 }
 
 
@@ -70,7 +71,7 @@ Mathematics::Exceptions::Malformed::Malformed(
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Malformed::Malformed(const Malformed& rhs) :
+Mathematics::Expressions::Malformed::Malformed(const Malformed& rhs) :
     std::exception(),
     explanation(rhs.explanation)
 {
@@ -82,9 +83,9 @@ Mathematics::Exceptions::Malformed::Malformed(const Malformed& rhs) :
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Malformed::Malformed(const Malformed&& rhs) :
+Mathematics::Expressions::Malformed::Malformed(const Malformed&& rhs) :
     std::exception(),
-    explanation(rhs.explanation)
+	explanation(rhs.explanation)
 {
 }
 
@@ -94,21 +95,8 @@ Mathematics::Exceptions::Malformed::Malformed(const Malformed&& rhs) :
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Malformed& 
-Mathematics::Exceptions::Malformed::operator=(const Malformed& rhs)
-{
-    this->explanation = rhs.explanation;
-    return *this;
-}
-
-
-//  __________________________________________________________________________
-// |                                                                          |
-// | Class: Malformed                                                         |
-// | Function: Constructor                                                    |
-// |__________________________________________________________________________|
-Mathematics::Exceptions::Malformed& 
-Mathematics::Exceptions::Malformed::operator=(Malformed&& rhs)
+Mathematics::Expressions::Malformed& 
+Mathematics::Expressions::Malformed::operator=(const Malformed& rhs)
 {
     this->explanation = rhs.explanation;
     return *this;
@@ -120,14 +108,11 @@ Mathematics::Exceptions::Malformed::operator=(Malformed&& rhs)
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-const char* Mathematics::Exceptions::Malformed::what() const noexcept
+Mathematics::Expressions::Malformed& 
+Mathematics::Expressions::Malformed::operator=(Malformed&& rhs)
 {
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-    std::stringstream error;
-    error << converter.to_bytes(this->explanation) << std::endl <<  
-        converter.to_bytes(this->malformed_expression) << std::endl <<
-        converter.to_bytes(this->malformed_location);
-	return error.str().c_str();
+    this->explanation = rhs.explanation;
+    return *this;
 }
 
 
@@ -136,14 +121,9 @@ const char* Mathematics::Exceptions::Malformed::what() const noexcept
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Token_t 
-Mathematics::Exceptions::Malformed::what_utf16() const noexcept
+const char* Mathematics::Expressions::Malformed::what() const noexcept
 {
-    Expressions::TokenStream_t error;
-    error << this->explanation << std::endl <<
-        this->malformed_expression << std::endl <<
-        this->malformed_location << std::endl;
-	return error.str();
+	return this->explanation.c_str();
 }
 
 
@@ -152,6 +132,6 @@ Mathematics::Exceptions::Malformed::what_utf16() const noexcept
 // | Class: Malformed                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Malformed::~Malformed()
+Mathematics::Expressions::Malformed::~Malformed()
 {
 }

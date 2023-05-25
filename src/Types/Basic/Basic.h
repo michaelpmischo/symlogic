@@ -74,22 +74,6 @@ typedef unsigned long long umax_t;
   #define uint128_t umax_t;
 #endif
 
-#if defined(__WCHAR_IO__)
-  typedef std::wostream ostream_t;
-  typedef std::wistream istream_t;
-  #define __IO__ std::wostream& stdout_t = std::wcout; \
-                 std::wistream& stdin_t = std::wcin; \
-                 std::wostream& stderr_t = std::wcerr;
-#elif defined(__UTF32_IO__)
-#elif defined(__UTF16_IO__)
-#else
-  typedef std::ostream ostream_t;
-  typedef std::istream istream_t;
-  #define __IO__ std::ostream& stdout_t = std::cout; \
-                 std::istream& stdin_t = std::cin; \
-                 std::ostream& stderr_t = std::cerr;
-#endif
-
 #ifdef __CHECK_FOR_INT128__
   #ifdef __SIZEOF_INT128__ 
     #error 128-bit integers are available!

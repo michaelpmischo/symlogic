@@ -279,11 +279,13 @@ Mathematics::Expressions::Operands::Operand::get_precedence(Type_t type_in,
 // | Class: Operand                                                           |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Operands::Operand::print(TokenStream_t& stream, 
-        const Token_t& prefix_in,
+void Mathematics::Expressions::Operands::Operand::pretty_tree(
+        std::stringstream& stream,
+        const std::string& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-        this->get_token() << L")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 }
 

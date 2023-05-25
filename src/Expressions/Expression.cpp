@@ -80,7 +80,7 @@ Mathematics::Expressions::Expression::Expression(
 // |__________________________________________________________________________|
 Mathematics::Expressions::Expression::Expression(Real number_in,
 		const TokenPair_t& parentheses_in) :
-	token(L""),
+	token(""),
 	type(Type_t::UNKNOWN),
 	parentheses(parentheses_in)
 {
@@ -218,16 +218,17 @@ Mathematics::Expressions::Expression::get_type(const Token_t& token_in)
 	}
 }
 
+
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Expression                                                        |
 // | Function: print                                                          |
 // |__________________________________________________________________________|
-Mathematics::Expressions::Token_t 
-Mathematics::Expressions::Expression::print() const
+std::string Mathematics::Expressions::Expression::pretty_tree() const
 {
-	TokenStream_t stream;
-	this->print(stream, L"", true);
+	std::stringstream stream;
+	std::string string;
+	this->pretty_tree(stream, string, true);
 	return stream.str();
 }
 

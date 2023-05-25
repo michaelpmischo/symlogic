@@ -32,7 +32,7 @@
 const Mathematics::Expressions::Operations::Calculus::Derivative::DerivativeHash_t
 Mathematics::Expressions::Operations::Calculus::PostfixDerivative::operations =
 {
-	{L"'",		&PostfixDerivative::prime},
+	{"'",		&PostfixDerivative::prime},
 };
 
 

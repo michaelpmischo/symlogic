@@ -74,7 +74,7 @@ public:
 	virtual bool contains(const Token_t& token_in) const override;
 	virtual bool contains_variable() const override;
 	virtual Expression* copy(
-			const TokenPair_t& parentheses_in = { L"",L"" }) const override;
+			const TokenPair_t& parentheses_in = { "","" }) const override;
 
 	static bool is_token(const Token_t& token_in);
 	static TokenPrecedence_t get_precedence(Type_t type_in,
@@ -85,7 +85,7 @@ public:
 
 protected:
 
-	void print(TokenStream_t& stream, const Token_t& prefix_in, 
+	void pretty_tree(std::stringstream& stream, const std::string& prefix_in, 
 			bool last_in) const override;
 
 	inline Expression* get_inside() const;

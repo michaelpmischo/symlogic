@@ -32,7 +32,7 @@
 const Mathematics::Expressions::Operations::Calculus::Derivative::DerivativeHash_t
 Mathematics::Expressions::Operations::Calculus::PrefixDerivative::operations = 
 {
-    {L"derivative",	&PrefixDerivative::differentiate},
+    {"derivative",	&PrefixDerivative::differentiate},
 };
 
 //  __________________________________________________________________________

@@ -52,7 +52,7 @@ class Bracket : public Separator
 public:
 
     Bracket(const Token_t& token_in,
-            const TokenPair_t& parenethesis_in = { L"",L"" });
+            const TokenPair_t& parenethesis_in = { "","" });
     Bracket(const Bracket& rhs);
     Bracket(const Bracket& rhs, const TokenPair_t& parenethesis_in);
     Bracket(Bracket&& rhs);

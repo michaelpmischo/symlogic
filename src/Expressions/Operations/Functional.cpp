@@ -286,17 +286,19 @@ Mathematics::Expressions::Operations::Functional::~Functional()
 // | Class: Functional                                                        |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Operations::Functional::print(
-        TokenStream_t& stream, 
-        const Token_t& prefix_in,
+void Mathematics::Expressions::Operations::Functional::pretty_tree(
+        std::stringstream& stream, 
+        const std::string& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? L"├──" : L"└──") << L"(" <<
-        this->get_token() << L")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 
-    std::wstring new_prefix = prefix_in + (!is_last ? L"│   " : L"    ");
+    std::string new_prefix = prefix_in + (!is_last ? "\xB3   " : "    ");
 
-    // Enter the next tree level - function and right branch
-    stream << new_prefix << L"│   " << std::endl;
-    this->get_function()->print(stream, new_prefix, true);
+	// Enter the next tree level - left and right branch
+	stream << new_prefix << "\xB3   " << std::endl;
+	stream << new_prefix << "\xB3   " << std::endl;
+	this->get_function()->pretty_tree(stream, new_prefix, true);
 }
