@@ -98,13 +98,23 @@
   #endif
 #endif
 
-#ifndef __UNSETMODE__
+#ifndef __SETWMODE__
   #ifdef _WIN32
-    #define __UNSETMODE__ _setmode(_fileno(stdout), _O_TEXT); \
-                          _setmode(_fileno(stdin), _O_TEXT); \
-                          _setmode(_fileno(stderr), _O_TEXT);
+    #define __SETWMODE__ _setmode(_fileno(stdout), _O_WTEXT); \
+                         _setmode(_fileno(stdin), _O_WTEXT); \
+                         _setmode(_fileno(stderr), _O_WTEXT);
   #else
-    #define __UNSETMODE__
+    #define __SETWMODE__
+  #endif
+#endif
+
+#ifndef __UNSETWMODE__
+  #ifdef _WIN32
+    #define __UNSETWMODE__ _setmode(_fileno(stdout), _O_TEXT); \
+                           _setmode(_fileno(stdin), _O_TEXT); \
+                           _setmode(_fileno(stderr), _O_TEXT);
+  #else
+    #define __UNSETWMODE__
   #endif
 #endif
 

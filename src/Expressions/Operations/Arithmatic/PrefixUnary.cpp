@@ -90,6 +90,12 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::PrefixUnary(
         const TokenPair_t& argument_parentheses_in) :
     Unary(token_in, left_in, parentheses_in, argument_parentheses_in)
 {
+    if (this->get_type() != Type_t::ARITHMATIC_PREFIX_UNARY)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an InfixBinary!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 
@@ -163,7 +169,7 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::operator=(
 // | Class: PrefixUnary                                                       |
 // | Function: expression                                                     |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::infix() const
 {
     TokenList_t output;
@@ -269,7 +275,7 @@ bool Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::is_token(
 // | Class: PrefixUnary                                                       |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t 
+Mathematics::Expressions::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

@@ -82,7 +82,7 @@ public:
 
 protected:
     // Private Pure Virtual Functions
-    virtual void print(TokenStream_t& stream, const Token_t& prefix_in,
+    virtual void pretty_tree(std::stringstream& stream, const std::string& prefix_in,
         bool is_last) const override;
 }; // class Operand
 } // namespace Operands

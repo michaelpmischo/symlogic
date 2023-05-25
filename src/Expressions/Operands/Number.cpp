@@ -45,7 +45,9 @@ Mathematics::Expressions::Operands::Number::Number(const Real& value_in,
 {
     if (this->get_type() != Type_t::NUMBER)
     {
-        throw("Number is not a Number!")
+        std::stringstream stream;
+        stream << this->get_token() << " is not an Numer!" << std::endl;
+        throw(stream.str());
     }
 }
 
@@ -197,7 +199,7 @@ Mathematics::Expressions::Operands::Number::solution(
 // | Class: Number                                                            |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operands::Number::get_variables() const
 {
     return {};
@@ -227,25 +229,11 @@ bool Mathematics::Expressions::Operands::Number::is_token(
 // | Class: Number                                                            |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Operands::Number::get_precedence(Type_t type_in, 
         const Token_t& token_in)
 {
 
     return MAX_PRECEDENCE;
 }
-
-//  __________________________________________________________________________
-// |                                                                          |
-// | Class: Number                                                            |
-// | Function: Constructor                                                    |
-// |__________________________________________________________________________|
-void Mathematics::Expressions::Operands::Number::print(TokenStream_t& stream,
-    const Token_t& prefix_in,
-    bool is_last) const
-{
-    stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
-        this->value << ")" << std::endl;
-}
-
 

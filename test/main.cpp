@@ -3,8 +3,6 @@
 
 int main(int argc, char* atgv[])
 {
-	__SETMODE__
-	Mathematics::Tests::ExpressionTest test1;
+	Mathematics::Expressions::Tests::ExpressionTest test1;
 	test1.run();
-	__UNSETMODE__
 }

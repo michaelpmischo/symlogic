@@ -58,6 +58,12 @@ Mathematics::Expressions::Operands::Constant::Constant(const Token_t& token_in,
         const TokenPair_t& parentheses_in) :
     Operand(token_in, parentheses_in)
 {
+    if (this->get_type() != Type_t::CONSTANT)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an Constant!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 
@@ -200,7 +206,7 @@ Mathematics::Real Mathematics::Expressions::Operands::Constant::solution(
 // | Class: Constant                                                          |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t
+Mathematics::Expressions::TokenList_t
 Mathematics::Expressions::Operands::Constant::get_variables() const
 {
     return {};
@@ -224,12 +230,24 @@ bool Mathematics::Expressions::Operands::Constant::is_token(
 // | Class: Constant                                                          |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Operands::Constant::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)
 {
     return MAX_PRECEDENCE;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Constant                                                          |
+// | Function: get_precedence                                                 |
+// |__________________________________________________________________________|
+Mathematics::Real
+Mathematics::Expressions::Operands::Constant::value(const Token_t& token_in)
+{
+    return constants.find(token_in)->second;
 }
 
 

@@ -36,8 +36,11 @@
 #include <map>					        // std::map
 #include <iostream>				        // std::ostream
 #include <sstream>				        // std::stringsyream
+#include <codecvt>                      // coverter
 
 namespace Mathematics
+{
+namespace Expressions
 {
 #if defined(__WCHAR_EXPRESSIONS__)
   typedef std::basic_string<wchar_t>			Token_t;
@@ -46,6 +49,7 @@ namespace Mathematics
   typedef std::basic_stringstream<wchar_t>		TokenStream_t;
   typedef std::basic_istream<wchar_t>			TokenInputStream_t;
   typedef std::basic_ostream<wchar_t>			TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> ToTokenConverter_t;
 
 #elif defined(__UTF32_EXPRESSIONS__)
   typedef std::basic_string<char32_t>			Token_t;
@@ -54,6 +58,7 @@ namespace Mathematics
   typedef std::basic_stringstream<char32_t>		TokenStream_t;
   typedef std::basic_istream<char32_t>			TokenInputStream_t;
   typedef std::basic_ostream<char32_t>			TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char32_t>> ToTokenConverter_t;
 
 #elif defined(__UTF16_EXPRESSIONS__)
   typedef std::basic_string<char16_t>			Token_t;
@@ -62,14 +67,16 @@ namespace Mathematics
   typedef std::basic_stringstream<char16_t>	    TokenStream_t;
   typedef std::basic_istream<char16_t>		    TokenInputStream_t;
   typedef std::basic_ostream<char16_t>		    TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char16_t>> ToTokenConverter_t;
 
 #elif defined(__UTF8_EXPRESSIONS__)
-    typedef std::basic_string<char8_t>			    Token_t;
+t  ypedef std::basic_string<char8_t>			 Token_t;
 
-    // Token Streams for easy I/O.
-    typedef std::basic_stringstream<char8_t>	TokenStream_t;
-    typedef std::basic_istream<char8_t>		    TokenInputStream_t;
-    typedef std::basic_ostream<char8_t>		    TokenOutputStream_t;
+  // Token Streams for easy I/O.
+  typedef std::basic_stringstream<char8_t>	    TokenStream_t;
+  typedef std::basic_istream<char8_t>		    TokenInputStream_t;
+  typedef std::basic_ostream<char8_t>		    TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char8_t>> ToTokenConverter_t;
 
 #else //  __UTF8_EXPRESSIONS__
   typedef std::basic_string<char>		        Token_t;
@@ -78,7 +85,11 @@ namespace Mathematics
   typedef std::basic_stringstream<char>	        TokenStream_t;
   typedef std::basic_istream<char>			    TokenInputStream_t;
   typedef std::basic_ostream<char>			    TokenOutputStream_t;
+  typedef std::wstring_convert<std::codecvt_utf8_utf16<char>> ToTokenConverter_t;
+
 #endif
+
+typedef std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> WConverter_t;
 
 // A token's precedence in order of operations.
 typedef uint8_t TokenPrecedence_t;
@@ -223,7 +234,7 @@ inline TokenOutputStream_t& operator<<(TokenOutputStream_t& stream,
     }
     return stream;
 }
-
+} // namespace Expressions
 } // namespace Mathematics
 
 #endif // __MATHEMATICS_TOKENS_H_

@@ -87,23 +87,18 @@ public:
     bool operator||(const Complex& rhs) const;
     bool operator!() const;
 
-    friend ostream_t& operator<<(ostream_t& stream, const Complex& number_in)
+    friend std::ostream& operator<<(std::ostream& stream, const Complex& number_in)
     {
         stream << number_in.real;
         if (number_in.imaginary != 0.0)
         {
-            stream << ((number_in.imaginary < 0.0) ?
-#ifdef __WCHAR_IO__
-			 "-ⅈ" : "+ⅈ");
-#else
-            "-i" : "+i");
-#endif
+            stream << ((number_in.imaginary < 0.0) ? "-i" : "+i");
 			stream << abs(number_in.imaginary);
         }
         return stream;
     }
 
-    friend istream_t& operator>>(istream_t& stream, Complex& number_in)
+    friend std::istream& operator>>(std::istream& stream, Complex& number_in)
     {
         std::cout << "Enter the Real factor:";
         stream >> number_in.real;

@@ -218,16 +218,17 @@ Mathematics::Expressions::Expression::get_type(const Token_t& token_in)
 	}
 }
 
+
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Expression                                                        |
 // | Function: print                                                          |
 // |__________________________________________________________________________|
-Mathematics::Token_t 
-Mathematics::Expressions::Expression::print() const
+std::string Mathematics::Expressions::Expression::pretty_tree() const
 {
-	TokenStream_t stream;
-	this->print(stream, "", true);
+	std::stringstream stream;
+	std::string string;
+	this->pretty_tree(stream, string, true);
 	return stream.str();
 }
 
@@ -237,7 +238,7 @@ Mathematics::Expressions::Expression::print() const
 // | Class: Expression                                                        |
 // | Function: precedence                                                     |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t 
+Mathematics::Expressions::TokenPrecedence_t 
 Mathematics::Expressions::Expression::get_precedence(
 		Type_t type_in,
 		const Token_t& token_in)

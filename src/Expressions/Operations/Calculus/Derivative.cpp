@@ -228,7 +228,7 @@ bool Mathematics::Expressions::Operations::Calculus::Derivative::is_token(
 // | Class: Derivative                                                        |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t 
+Mathematics::Expressions::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Calculus::Derivative::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

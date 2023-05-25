@@ -167,7 +167,7 @@ bool Mathematics::Expressions::Operands::Operand::is_bracket() const
 // | Class: Operand                                                           |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operands::Operand::prefix() const
 {
     return this->infix();
@@ -179,7 +179,7 @@ Mathematics::Expressions::Operands::Operand::prefix() const
 // | Class: Operand                                                           |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operands::Operand::infix() const
 {
     TokenList_t output;
@@ -195,7 +195,7 @@ Mathematics::Expressions::Operands::Operand::infix() const
 // | Class: Operand                                                           |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operands::Operand::postfix() const
 {
     return this->infix();
@@ -266,7 +266,7 @@ bool Mathematics::Expressions::Operands::Operand::is_token(
 // | Class: Operand                                                           |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Operands::Operand::get_precedence(Type_t type_in, 
         const Token_t& token_in)
 {
@@ -279,11 +279,13 @@ Mathematics::Expressions::Operands::Operand::get_precedence(Type_t type_in,
 // | Class: Operand                                                           |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Operands::Operand::print(TokenStream_t& stream, 
-        const Token_t& prefix_in,
+void Mathematics::Expressions::Operands::Operand::pretty_tree(
+        std::stringstream& stream,
+        const std::string& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
-        this->get_token() << ")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 }
 

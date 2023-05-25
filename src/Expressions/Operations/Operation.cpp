@@ -179,7 +179,7 @@ bool Mathematics::Expressions::Operations::Operation::is_token(
 // | Class: Operation                                                         |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Operations::Operation::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

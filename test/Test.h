@@ -13,7 +13,7 @@
 //! (at your option) any later version.
 //!
 //! This program is distributed in the hope that it will be useful,
-//! but WITHstdout_t ANY WARRANTY; without even the implied warranty of
+//! but WITHstd::cout ANY WARRANTY; without even the implied warranty of
 //! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
 //! GNU General Public License for more details.
 //! 
@@ -37,36 +37,33 @@
 
 namespace Mathematics
 {
-	static const Token_t DIVIDER0("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-	static const Token_t DIVIDER1("*******************************************************************************");
-	static const Token_t DIVIDER2("===============================================================================");
-	static const Token_t DIVIDER3("-------------------------------------------------------------------------------");
-	static const Token_t DIVIDER4("_______________________________________________________________________________");
-	static const Token_t DIVIDER5("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	static const Token_t VERIFY(" -- Verifying ...");
+	static const std::string DIVIDER0("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+	static const std::string DIVIDER1("*******************************************************************************");
+	static const std::string DIVIDER2("===============================================================================");
+	static const std::string DIVIDER3("-------------------------------------------------------------------------------");
+	static const std::string DIVIDER4("_______________________________________________________________________________");
+	static const std::string DIVIDER5("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+	static const std::string VERIFY(" -- Verifying ...");
+	static const std::string PASS(" -- PASSED --- ");
+	static const std::string FAIL(" -- FAILED --- ");
 
-namespace Tests
-{
 class Test
 {
 public:
-	Test(const Token_t& log_name = "test.log");
+	Test(const std::string& log_name = "test.log");
 	virtual void run() = 0;
 
 	float64_t grade() const;
-	void summary(TokenOutputStream_t& steam) const;
-
-	// Declare the variables stdout_t, stdin_t, stderr_t
-	__IO__
+	void summary(std::ostream& steam) const;
 
 protected:
-	typedef std::deque<std::deque<Token_t>> Record_t;
+	typedef std::deque<std::deque<std::string>> Record_t;
 	virtual ~Test();
 
 	inline void reset();
 	inline void begin_test();
 	inline void end_test();
-	inline void push_heading(const Token_t& heading_in);
+	inline void push_heading(const std::string& heading_in);
 
 	template <typename T>
 	void verify_eq(const T& a, const T& b);
@@ -74,7 +71,16 @@ protected:
 	template<typename T>
 	void verify_ne(const T& a, const T& b);
 
-	std::wofstream log;
+	template<typename T>
+	void verify_lt(const T& a, const T& b);
+
+	template<typename T>
+	void verify_gt(const T& a, const T& b);
+
+	void verify_true(bool a);
+	void verify_false(bool a);
+
+	std::ofstream log;
 	Record_t results;
 
 private:
@@ -82,67 +88,105 @@ private:
 	uint64_t passed;
 
 	uint64_t test_number;
-};
-}
-}
+}; // class Test
+} // Namespace Mathematics
 
-void Mathematics::Tests::Test::reset()
+void Mathematics::Test::reset()
 {
 	this->total = this->passed = this->test_number = 0;
 	this->results.clear();
 }
 
-void Mathematics::Tests::Test::begin_test()
+void Mathematics::Test::begin_test()
 {
 	this->results.push_back({});
 }
 
-void Mathematics::Tests::Test::end_test()
+void Mathematics::Test::end_test()
 {
 	this->test_number++;
 }
 
-void Mathematics::Tests::Test::push_heading(const Token_t& heading_in)
+void Mathematics::Test::push_heading(const std::string& heading_in)
 {
 	this->results[this->test_number].push_back(heading_in);
 }
 
 template <typename T>
-void Mathematics::Tests::Test::verify_eq(const T& a, const T& b)
+void Mathematics::Test::verify_eq(const T& a, const T& b)
 {
-	TokenStream_t stream;
-	stdout_t << VERIFY << std::endl;
+	std::stringstream stream;
+	std::cout << VERIFY << std::endl;
 	this->total++;
 	if (a == b)
 	{
-		stream << " -- PASSED: [" << a << " == " << b << "]";
+		stream << PASS << "[" << a << " == " << b << "]";
 		this->passed++;
 	}
 	else
 	{
-		stream << " -- FAILED: [" << a << " == " << b << "]" ;
+		stream << FAIL << "[" << a << " == " << b << "]" ;
 	}
 	this->results[this->test_number].push_back(stream.str());
-	stdout_t << stream.str() << std::endl << std::endl;
+	std::cout << stream.str() << std::endl << std::endl;
 }
 
 template<typename T>
-void Mathematics::Tests::Test::verify_ne(const T& a, const T& b)
+void Mathematics::Test::verify_ne(const T& a, const T& b)
 {
-	TokenStream_t stream;
-	stdout_t << VERIFY << std::endl;
+	std::stringstream stream;
+	std::cout << VERIFY << std::endl;
 	this->total++;
 	if (a != b)
 	{
-		stream << " -- PASSED: [" << a << " != " << b << "]";
+		stream << PASS << "[" << a << " != " << b << "]";
 		this->passed++;
 	}
 	else
 	{
-		stream << " -- FAILED: [" << a << " != " << b << "]";
+		stream << FAIL << "[" << a << " != " << b << "]";
 	}
 	this->results[this->test_number].push_back(stream.str());
-	stdout_t << stream.str() << std::endl << std::endl;
+	std::cout << stream.str() << std::endl << std::endl;
 }
+
+template<typename T>
+void Mathematics::Test::verify_lt(const T& a, const T& b)
+{
+	std::stringstream stream;
+	std::cout << VERIFY << std::endl;
+	this->total++;
+	if (a < b)
+	{
+		stream << PASS << "[" << a << " < " << b << "]";
+		this->passed++;
+	}
+	else
+	{
+		stream << FAIL << "[" << a << " < " << b << "]";
+	}
+	this->results[this->test_number].push_back(stream.str());
+	std::cout << stream.str() << std::endl << std::endl;
+}
+
+template<typename T>
+void Mathematics::Test::verify_gt(const T& a, const T& b)
+{
+	std::stringstream stream;
+	std::cout << VERIFY << std::endl;
+	this->total++;
+	if (a > b)
+	{
+		stream << PASS << "[" << a << " > " << b << "]";
+		this->passed++;
+	}
+	else
+	{
+		stream << FAIL << "[" << a << " > " << b << "]";
+	}
+	this->results[this->test_number].push_back(stream.str());
+	std::cout << stream.str() << std::endl << std::endl;
+}
+
 
 #endif // __TEST_UTILS_H_

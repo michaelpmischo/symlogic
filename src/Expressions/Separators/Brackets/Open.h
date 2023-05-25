@@ -85,7 +85,7 @@ public:
 
 protected:
 
-	void print(TokenStream_t& stream, const Token_t& prefix_in, 
+	void pretty_tree(std::stringstream& stream, const std::string& prefix_in, 
 			bool last_in) const override;
 
 	inline Expression* get_inside() const;

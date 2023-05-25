@@ -11,25 +11,25 @@
 //! file. If not, please write to: , or visit :
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
-#ifndef __MATHEMATICS_MALFORMED_H_
-#define __MATHEMATICS_MALFORMED_H_
-#include <Types.h>
+#ifndef __MATHEMATICS_EXPRESSIONS_MALFORMED_H_
+#define __MATHEMATICS_EXPRESSIONS_MALFORMED_H_
+#include <Expressions/Tokens.h>
 #include <exception>
 #include <string>
 
 namespace Mathematics
 {
-namespace Exceptions
+namespace Expressions
 {
 class Malformed : public std::exception
 {
 public:
-    Malformed(const wchar_t* explanation_in, 
-            const Token_t& malformaed_expression_in,
-            size_t malformed_location_in);
-    Malformed(const Token_t& explanation_in,
-            const Token_t& malformaed_expression_in,
-            size_t malformed_location_in);
+    Malformed(const char* explanation_in, 
+            const Token_t& expression_in,
+            size_t location_in);
+    Malformed(const Expressions::Token_t& explanation_in,
+            const Token_t& expression_in,
+            size_t location_in);
 
     Malformed(const Malformed& rhs);
     Malformed(const Malformed&& rhs);
@@ -47,11 +47,9 @@ public:
     ~Malformed();
 
 protected:
-    Token_t                         explanation;
-    Token_t                         malformed_expression;
-    Token_t                         malformed_location;
+    std::string                     explanation;
 }; // class Malformed
-} // namespace Exceptions
+} // namespace Expressions
 } // namespace Mathematics
 
-#endif // __MATHEMATICS_MALFORMED_H_
+#endif // __MATHEMATICS_EXPRESSIONS_MALFORMED_H_

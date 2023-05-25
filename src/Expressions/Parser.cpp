@@ -53,7 +53,7 @@
 #include <Expressions/Separators/Brackets/Close.h>
 
 // Exceptions
-#include <Exceptions/Malformed.h>
+#include <Exceptions/Expressions/Malformed.h>
 
 // Standard C++ STL
 #include <algorithm>
@@ -206,11 +206,16 @@ Mathematics::Expressions::Parser::parse(
                 break;
 
             case Expression::Type_t::VARIABLE:
-            default:
                 this->process_variable(expression_stack, 
                     operator_stack, 
                     token);
                 break;
+
+            default:
+                std::stringstream stream;
+                stream << "Unknown Token: " << token.token;
+                throw Malformed(stream.str(), this->passed_expression,
+                    token.location);
         }
     }
 
@@ -225,7 +230,7 @@ Mathematics::Expressions::Parser::parse(
     // more then the expression is malformed.
     if (expression_stack.size() > 1U)
     {
-        throw Exceptions::Malformed(
+        throw Malformed(
             "Too many Operands and not enough Operators!",
             this->passed_expression,
             expression_stack.top().location);
@@ -241,7 +246,7 @@ Mathematics::Expressions::Parser::parse(
 // | Class: Parser                                                            |
 // | Function: get_tokens                                                     |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t
+Mathematics::Expressions::TokenList_t
 Mathematics::Expressions::Parser::get_tokens(
         const Token_t& token_in) const
 {
@@ -310,6 +315,7 @@ Mathematics::Expressions::Parser::tokenize(
         // Get the last token if there is one and we are at the expression.
         if (!collector.empty() && ((character_location + 1) >= token_in.length()))
         {
+            collector_type = Expression::get_type(collector);
 			tokens.push_back({ collector,
 	            collector_type,
 	            collector_location });
@@ -405,7 +411,7 @@ void Mathematics::Expressions::Parser::process_close_bracket(
         Token_t comment = "Did you forget a matching \"" +
             Separators::Bracket::get_opposing(token_in.token) +
             "\"?";
-        throw Exceptions::Malformed(comment,
+        throw Malformed(comment,
             this->passed_expression,
             token_in.location);
     }
@@ -484,7 +490,7 @@ void Mathematics::Expressions::Parser::process_arithmatic_post_prefix_unary(
             " on the top of the stack." << std::endl <<
             "And " << expressions_in.size() << " operands on the stack." <<
             std::endl;
-        throw Exceptions::Malformed(comment.str(),
+        throw Malformed(comment.str(),
             this->passed_expression,
             token_in.location);
     }
@@ -518,7 +524,7 @@ void Mathematics::Expressions::Parser::process_arithmatic_postfix_unary(
 			" on the top of the stack." << std::endl <<
 			"And " << expressions_in.size() << " operands on the stack." <<
 			std::endl;
-		throw Exceptions::Malformed(comment.str(),
+		throw Malformed(comment.str(),
 			this->passed_expression,
 			token_in.location);
     }
@@ -564,7 +570,7 @@ void Mathematics::Expressions::Parser::process_arithmatic_post_prefix_binary(
 			" on the top of the stack." << std::endl <<
 			"And " << expressions_in.size() << " operands on the stack." <<
 			std::endl;
-		throw Exceptions::Malformed(comment.str(),
+		throw Malformed(comment.str(),
 			this->passed_expression,
 			token_in.location);
     }
@@ -605,7 +611,7 @@ void Mathematics::Expressions::Parser::process_arithmatic_infix_binary(
         {
             Token_t comment = "Two operands are required for operator \"" +
                 token_in.token + "\"!";
-            throw Exceptions::Malformed(comment, this->passed_expression,
+            throw Malformed(comment, this->passed_expression,
                 token_in.location);
         }
     }
@@ -657,7 +663,7 @@ void Mathematics::Expressions::Parser::process_arithmatic_post_prefix_sequence(
 			" on the top of the stack." << std::endl <<
 			"And " << expressions_in.size() << " operands on the stack." <<
 			std::endl;
-		throw Exceptions::Malformed(comment.str(),
+		throw Malformed(comment.str(),
 			this->passed_expression,
 			token_in.location);
     }
@@ -703,7 +709,7 @@ void Mathematics::Expressions::Parser::process_calculus_post_prefix_derivative(
 			" on the top of the stack." << std::endl <<
 			"And " << expressions_in.size() << " operands on the stack." <<
 			std::endl;
-		throw Exceptions::Malformed(comment.str(),
+		throw Malformed(comment.str(),
 			this->passed_expression,
 			token_in.location);
     }
@@ -737,7 +743,7 @@ void Mathematics::Expressions::Parser::process_calculus_postfix_derivative(
 			" on the top of the stack." << std::endl <<
 			"And " << expressions_in.size() << " operands on the stack." <<
 			std::endl;
-		throw Exceptions::Malformed(comment.str(),
+		throw Malformed(comment.str(),
 			this->passed_expression,
 			token_in.location);
 	}
@@ -769,7 +775,7 @@ void Mathematics::Expressions::Parser::process_logical_infix_binary(
     }
     else
     {
-        throw Exceptions::Malformed(
+        throw Malformed(
             "Left side of the equation was not found!",
             this->passed_expression,
             token_in.location);
@@ -889,6 +895,7 @@ void Mathematics::Expressions::Parser::handle_stacks(
         ExpressionStack_t& expressions_in,
         OperatorStack_t& operators_in) const
 {
+    bool error = false;
     // Ensure that the top of the operator stack is actually an operator.
     // If it is not an operator then the expression is malformed. So, throw
     // an exception. Otherwise, process the operator and create new Expression 
@@ -897,77 +904,110 @@ void Mathematics::Expressions::Parser::handle_stacks(
     {
         case Expression::Type_t::ARITHMATIC_PREFIX_UNARY:
         {
-            Expression* left = expressions_in.top().expression;
-            expressions_in.pop();
+            if (expressions_in.size() > 0)
+            {
+				Expression* left = expressions_in.top().expression;
+				expressions_in.pop();
 
-            // Add the new output operator to the expression node stack.
-            expressions_in.push({ 
-                new Operations::Arithmatic::PrefixUnary(
-                    operators_in.top().token, 
-                    left),
-                operators_in.top().location });
+				// Add the new output operator to the expression node stack.
+				expressions_in.push({
+					new Operations::Arithmatic::PrefixUnary(
+						operators_in.top().token,
+						left),
+					operators_in.top().location });
 
-            // Pop the operator off the stack.
-            operators_in.pop();
+				// Pop the operator off the stack.
+				operators_in.pop();
+            }
+            else
+            {
+				// Malformed ...
+				error = true;
+            }
+
             break;
         }
 
         case Expression::Type_t::ARITHMATIC_POSTFIX_UNARY:
         {
-            Expression* left = expressions_in.top().expression;
-            expressions_in.pop();
+            if (expressions_in.size() > 0)
+            {
+                Expression* left = expressions_in.top().expression;
+                expressions_in.pop();
 
-            // Add the new output operator to the expression node stack.
-            expressions_in.push({ 
-                new Operations::Arithmatic::PostfixUnary(
-                    operators_in.top().token, 
-                    left),
-                operators_in.top().location });
+                // Add the new output operator to the expression node stack.
+                expressions_in.push({
+                    new Operations::Arithmatic::PostfixUnary(
+                        operators_in.top().token,
+                        left),
+                    operators_in.top().location });
 
-            // Pop the operator off the stack.
-            operators_in.pop();
+                // Pop the operator off the stack.
+                operators_in.pop();
+            }
+            else
+            {
+				// Malformed ...
+				error = true;
+            }
             break;
         }
 
         case Expression::Type_t::ARITHMATIC_PREFIX_BINARY:
         {
-            Expression* right = expressions_in.top().expression;
-            expressions_in.pop();
-            Expression* left = expressions_in.top().expression;
-            expressions_in.pop();
+            if (expressions_in.size() > 1)
+            {
+                Expression* right = expressions_in.top().expression;
+                expressions_in.pop();
+                Expression* left = expressions_in.top().expression;
+                expressions_in.pop();
 
-            // Add the new output operator to the expression node stack.
-            expressions_in.push({
-                new Operations::Arithmatic::PrefixBinary(
-                    operators_in.top().token,
-                    left,
-                    right,
-                    { "","" },
-                    { "(",")" }),
-                operators_in.top().location });
+                // Add the new output operator to the expression node stack.
+                expressions_in.push({
+                    new Operations::Arithmatic::PrefixBinary(
+                        operators_in.top().token,
+                        left,
+                        right,
+                        { "","" },
+                        { "(",")" }),
+                    operators_in.top().location });
 
-            // Pop the operator off the stack.
-            operators_in.pop();
+                // Pop the operator off the stack.
+                operators_in.pop();
+            }
+            else
+            {
+                // Malformed ...
+                error = true;
+            }
             break;
         }
 
         case Expression::Type_t::ARITHMATIC_INFIX_BINARY:
         {
-            Expression* right = expressions_in.top().expression;
-            expressions_in.pop();
-            Expression* left = expressions_in.top().expression;
-            expressions_in.pop();
+            if (expressions_in.size() > 1)
+            {
+                Expression* right = expressions_in.top().expression;
+                expressions_in.pop();
+                Expression* left = expressions_in.top().expression;
+                expressions_in.pop();
 
-            // Add the new output operator to the expression node stack.
-            expressions_in.push({
-                new Operations::Arithmatic::InfixBinary(
-                    operators_in.top().token,
-                    left,
-                    right),
-                operators_in.top().location });
+                // Add the new output operator to the expression node stack.
+                expressions_in.push({
+                    new Operations::Arithmatic::InfixBinary(
+                        operators_in.top().token,
+                        left,
+                        right),
+                    operators_in.top().location });
 
-            // Pop the operator off the stack.
-            operators_in.pop();
+                // Pop the operator off the stack.
+                operators_in.pop();
+            }
+            else
+            {
+				// Malformed ...
+				error = true;
+            }
             break;
         }
 
@@ -986,41 +1026,57 @@ void Mathematics::Expressions::Parser::handle_stacks(
 
         case Expression::Type_t::CALCULUS_PREFIX_DERIVATIVE:
         {
-            Expression* function = expressions_in.top().expression;
-            expressions_in.pop();
-            Expression* variable = expressions_in.top().expression;
-            expressions_in.pop();
+            if (expressions_in.size() > 1)
+            {
+                Expression* function = expressions_in.top().expression;
+                expressions_in.pop();
+                Expression* variable = expressions_in.top().expression;
+                expressions_in.pop();
 
-            // Add the new output operator to the expression node stack.
-            expressions_in.push({
-                new Operations::Calculus::PrefixDerivative(
-                    operators_in.top().token,
-                    variable,
-                    function),
-                operators_in.top().location });
+                // Add the new output operator to the expression node stack.
+                expressions_in.push({
+                    new Operations::Calculus::PrefixDerivative(
+                        operators_in.top().token,
+                        variable,
+                        function),
+                    operators_in.top().location });
 
-            // Pop the operator off the stack.
-            operators_in.pop();
+                // Pop the operator off the stack.
+                operators_in.pop();
+            }
+            else
+            {
+				// Malformed ...
+				error = true;
+            }
             break;
         }
 
         case Expression::Type_t::CALCULUS_POSTFIX_DERIVATIVE:
         {
-            Expression* function = expressions_in.top().expression;
-            expressions_in.pop();
-            Expression* variable = expressions_in.top().expression;
-            expressions_in.pop();
+            if (expressions_in.size() > 1)
+            {
+                Expression* function = expressions_in.top().expression;
+                expressions_in.pop();
+                Expression* variable = expressions_in.top().expression;
+                expressions_in.pop();
 
-            // Add the new output operator to the expression node stack.
-            expressions_in.push({
-                new Operations::Calculus::PrefixDerivative(
-                    operators_in.top().token,
-                    variable,
-                    function),
-                operators_in.top().location });
+                // Add the new output operator to the expression node stack.
+                expressions_in.push({
+                    new Operations::Calculus::PrefixDerivative(
+                        operators_in.top().token,
+                        variable,
+                        function),
+                    operators_in.top().location });
 
-            // Pop the operator off the stack.
-            operators_in.pop();
+                // Pop the operator off the stack.
+                operators_in.pop();
+            }
+            else
+            {
+				// Malformed ...
+				error = true;
+            }
             break;
         }
         case Expression::Type_t::CALCULUS_IMPLICIT_DERIVATIVE:
@@ -1031,21 +1087,29 @@ void Mathematics::Expressions::Parser::handle_stacks(
 
         case Expression::Type_t::LOGICAL_INFIX_BINARY:
         {
-            Expression* right = expressions_in.top().expression;
-            expressions_in.pop();
-            Expression* left = expressions_in.top().expression;
-            expressions_in.pop();
+            if (expressions_in.size() > 1)
+            {
+                Expression* right = expressions_in.top().expression;
+                expressions_in.pop();
+                Expression* left = expressions_in.top().expression;
+                expressions_in.pop();
 
-            // Add the new output operator to the expression node stack.
-            expressions_in.push({
-                new Operations::Logical::InfixBinary(
-                    operators_in.top().token,
-                    left, 
-                    right),
-                operators_in.top().location });
+                // Add the new output operator to the expression node stack.
+                expressions_in.push({
+                    new Operations::Logical::InfixBinary(
+                        operators_in.top().token,
+                        left,
+                        right),
+                    operators_in.top().location });
 
-            // Pop the operator off the stack.
-            operators_in.pop();
+                // Pop the operator off the stack.
+                operators_in.pop();
+            }
+            else
+            {
+				// Malformed ...
+				error = true;
+            }
             break;
         }
 
@@ -1055,7 +1119,7 @@ void Mathematics::Expressions::Parser::handle_stacks(
             comment << "Did you forget a matching \"" <<
                 Separators::Bracket::get_opposing(operators_in.top().token) <<
                 "\" somewhere?";
-            throw Exceptions::Malformed(comment.str(),
+            throw Malformed(comment.str(),
                 this->passed_expression,
                 operators_in.top().location);
         }
@@ -1063,11 +1127,19 @@ void Mathematics::Expressions::Parser::handle_stacks(
         case Expression::Type_t::CLOSE_BRACKET:
         default:
         {
-            throw Exceptions::Malformed("Unexpected Token Found!",
+            throw Malformed("Unexpected Token Found!",
                 this->passed_expression,
                 operators_in.top().location);
             break;
         }
+    }
+    if (error)
+    {
+		TokenStream_t stream;
+		stream << "Operator: " << operators_in.top().token <<
+			" Does not have enough Operands.";
+		throw Malformed(stream.str(), this->passed_expression,
+			operators_in.top().location);
     }
 }
 

@@ -44,7 +44,7 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::operations =
 };
 
 
-const Mathematics::PrecedenceHash_t
+const Mathematics::Expressions::PrecedenceHash_t
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::precedences =
 {
     {"log", 50U},
@@ -71,6 +71,12 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::PrefixBinary(
     Binary(token_in, left_in, right_in, parentheses_in, 
             argument_parentheses_in)
 {
+    if (this->get_type() != Type_t::ARITHMATIC_PREFIX_BINARY)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an PrefixBinary!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 
@@ -144,7 +150,7 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::operator=(
 // | Class: PrefixBinary                                                      |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::infix() const
 {
     TokenList_t output;
@@ -251,7 +257,7 @@ bool Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::is_token(
 // | Class: PrefixBinary                                                      |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t 
+Mathematics::Expressions::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Arithmatic::PrefixBinary::get_precedence(
         Type_t type_in,
         const Token_t& token_in)

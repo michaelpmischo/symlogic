@@ -55,7 +55,7 @@ Mathematics::Expressions::Operations::Logical::InfixBinary::operations =
 };
 
 
-const Mathematics::PrecedenceHash_t
+const Mathematics::Expressions::PrecedenceHash_t
 Mathematics::Expressions::Operations::Logical::InfixBinary::precedences =
 {
 };
@@ -148,7 +148,7 @@ Mathematics::Expressions::Operations::Logical::InfixBinary::operator=(
 // | Class: InfixBinary                                                       |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operations::Logical::InfixBinary::infix() const
 {
     TokenList_t output;
@@ -254,7 +254,7 @@ bool Mathematics::Expressions::Operations::Logical::InfixBinary::is_token(
 // | Class: InfixBinary                                                       |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t 
+Mathematics::Expressions::TokenPrecedence_t 
 Mathematics::Expressions::Operations::Logical::InfixBinary::get_precedence(
         Type_t type_in,
         const Token_t& token_in)

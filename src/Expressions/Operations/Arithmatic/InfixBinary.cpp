@@ -50,7 +50,7 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operations =
 };
 
 
-const Mathematics::PrecedenceHash_t
+const Mathematics::Expressions::PrecedenceHash_t
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary::precedences =
 {
     {"^",		5U},
@@ -80,6 +80,12 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::InfixBinary(
     Binary(token_in, left_in, right_in, parentheses_in, 
             argument_parentheses_in)
 {
+    if (this->get_type() != Type_t::ARITHMATIC_INFIX_BINARY)
+    {
+        std::stringstream stream;
+        stream << this->get_token() << " is not an InfixBinary!" << std::endl;
+        throw(stream.str());
+    }
 }
 
 
@@ -153,7 +159,7 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operator=(
 // | Class: InfixBinary                                                       |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary::infix() const
 {
     TokenList_t output;
@@ -265,7 +271,7 @@ bool Mathematics::Expressions::Operations::Arithmatic::InfixBinary::is_token(
 // | Class: InfixBinary                                                       |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Operations::Arithmatic::InfixBinary::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

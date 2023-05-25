@@ -81,9 +81,6 @@ public:
     virtual ~Number() = default;
 
 protected:
-
-    virtual void print(TokenStream_t& stream, const Token_t& prefix_in,
-        bool is_last) const override;
     Real value;
 };
 } // namespace Operands

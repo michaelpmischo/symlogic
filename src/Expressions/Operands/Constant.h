@@ -75,6 +75,7 @@ public:
     static bool is_token(const Token_t& token_in);
     static TokenPrecedence_t get_precedence(Type_t type_in, 
             const Token_t& token_in);
+    static Real value(const Token_t& token_in);
 
     virtual ~Constant() = default;
 

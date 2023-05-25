@@ -100,7 +100,7 @@ public:
 protected:
 
     // Protected Pure Virtual Functions
-    virtual void print(TokenStream_t& stream, const Token_t& prefix_in, 
+    virtual void pretty_tree(std::stringstream& stream, const std::string& prefix_in, 
             bool left_in) const override;
 
 private:

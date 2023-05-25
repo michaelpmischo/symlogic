@@ -76,7 +76,7 @@ Mathematics::Rational::Rational(Integer numerator_in,
 {
     if (this->denominator == 0)
     {
-        throw Exceptions::Undefined(
+        throw Undefined(
             "Rational is undefined when the Denominator is 0.");
     }
     this->reduce();

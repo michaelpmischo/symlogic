@@ -44,18 +44,13 @@
 Mathematics::Expressions::Operands::Variable::Variable(
         const Token_t& token_in,
         const TokenPair_t& parentheses_in) :
-#ifdef __UTF16_EXPRESSIONS__
-    Operand(((unicode(token_in) != token_in) ? 
-        (unicode(token_in)) : 
-        (pretty(token_in))), 
-        parentheses_in)
-#else
 	Operand(token_in, parentheses_in)
-#endif
 {
     if (this->get_type() != Type_t::VARIABLE)
     {
-        throw("Variable is Not a Variable");
+        std::stringstream stream;
+        stream << this->get_token() << " is not an Variable!" << std::endl;
+        throw(stream.str());
     }
 }
 
@@ -218,7 +213,7 @@ Mathematics::Expressions::Operands::Variable::solution(
 // | Class: Variable                                                          |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Operands::Variable::get_variables() const
 {
     return {this->get_token()};
@@ -241,7 +236,7 @@ bool Mathematics::Expressions::Operands::Variable::is_token(
     return (!Constant::is_token(token_in) && !Number::is_token(token_in) && 
         token_in.find_first_not_of(
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._"
-        ) != Token_t::npos);
+        ) == Token_t::npos);
 }
 
 
@@ -250,7 +245,7 @@ bool Mathematics::Expressions::Operands::Variable::is_token(
 // | Class: Variable                                                          |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Operands::Variable::get_precedence(
         Type_t type_in, 
         const Token_t& token_in)

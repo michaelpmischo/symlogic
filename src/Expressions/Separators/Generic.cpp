@@ -29,7 +29,7 @@
 // ============================================================================
 #include <Expressions/Separators/Generic.h>
 
-const Mathematics::TokenSet_t 
+const Mathematics::Expressions::TokenSet_t 
 Mathematics::Expressions::Separators::Generic::generics =
 {
     ",",
@@ -126,7 +126,7 @@ Mathematics::Expressions::Separators::Generic::operator=(Generic&& rhs)
 // | Class: Generic                                                           |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Generic::prefix() const
 {
     TokenList_t tokens;
@@ -141,7 +141,7 @@ Mathematics::Expressions::Separators::Generic::prefix() const
 // | Class: Generic                                                           |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Generic::infix() const
 {
     return this->prefix();
@@ -153,7 +153,7 @@ Mathematics::Expressions::Separators::Generic::infix() const
 // | Class: Generic                                                           |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Generic::postfix() const
 {
     TokenList_t tokens;
@@ -240,7 +240,7 @@ Mathematics::Real Mathematics::Expressions::Separators::Generic::solution(
 // | Class: Generic                                                           |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Generic::get_variables() const
 {
     return this->get_next()->get_variables();
@@ -311,7 +311,7 @@ bool Mathematics::Expressions::Separators::Generic::is_token(
 // | Class: Generic                                                           |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Separators::Generic::get_precedence(
         Type_t type_in,
         const Token_t& token_in)
@@ -335,18 +335,19 @@ Mathematics::Expressions::Separators::Generic::~Generic()
 // | Class: Generic                                                           |
 // | Function: print                                                          |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Separators::Generic::print(
-        TokenStream_t& stream, 
-        const Token_t& prefix_in,
+void Mathematics::Expressions::Separators::Generic::pretty_tree(
+        std::stringstream& stream, 
+        const std::string& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
-        this->get_token() << ")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 
-    std::wstring new_prefix = prefix_in + (!is_last ? "│   " : "    ");
+    std::string new_prefix = prefix_in + (!is_last ? "\xB3   " : "    ");
 
-    // Enter the next tree level - next and right branch
-    stream << new_prefix << "│   " << std::endl;
-    this->get_next()->print(stream, new_prefix, true);
+	// Enter the next tree level - left and right branch
+	stream << new_prefix << "\xB3   " << std::endl;
+	this->get_next()->pretty_tree(stream, new_prefix, true);
 }
 

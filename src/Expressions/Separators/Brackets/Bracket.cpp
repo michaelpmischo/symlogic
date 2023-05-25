@@ -137,7 +137,7 @@ bool Mathematics::Expressions::Separators::Bracket::is_token(
 // | Class: Bracket                                                           |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t 
+Mathematics::Expressions::TokenPrecedence_t 
 Mathematics::Expressions::Separators::Bracket::get_precedence(
         Type_t type_in,
         const Token_t& token_in)
@@ -164,7 +164,7 @@ Mathematics::Expressions::Separators::Bracket::get_precedence(
 // | Class: Bracket                                                           |
 // | Function: is_token                                                       |
 // |__________________________________________________________________________|
-Mathematics::Token_t 
+Mathematics::Expressions::Token_t 
 Mathematics::Expressions::Separators::Bracket::get_opposing(
         const Token_t& token_in)
 {

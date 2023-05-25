@@ -21,7 +21,7 @@
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined::Undefined(const char* explanation_in) :
+Mathematics::Undefined::Undefined(const char* explanation_in) :
     std::exception(),
     explanation("Value is Undefined! ")
 {
@@ -34,7 +34,7 @@ Mathematics::Exceptions::Undefined::Undefined(const char* explanation_in) :
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined::Undefined(
+Mathematics::Undefined::Undefined(
         const std::string& explanation_in) :
     std::exception(),
     explanation("Value is Undefined! ")
@@ -48,7 +48,7 @@ Mathematics::Exceptions::Undefined::Undefined(
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined::Undefined(const Undefined& rhs) :
+Mathematics::Undefined::Undefined(const Undefined& rhs) :
     std::exception(),
     explanation(rhs.explanation)
 {
@@ -60,7 +60,7 @@ Mathematics::Exceptions::Undefined::Undefined(const Undefined& rhs) :
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined::Undefined(const Undefined&& rhs) :
+Mathematics::Undefined::Undefined(const Undefined&& rhs) :
     std::exception(),
     explanation(rhs.explanation)
 {
@@ -72,8 +72,8 @@ Mathematics::Exceptions::Undefined::Undefined(const Undefined&& rhs) :
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined& 
-Mathematics::Exceptions::Undefined::operator=(const Undefined& rhs)
+Mathematics::Undefined& 
+Mathematics::Undefined::operator=(const Undefined& rhs)
 {
     this->explanation = rhs.explanation;
     return *this;
@@ -85,8 +85,8 @@ Mathematics::Exceptions::Undefined::operator=(const Undefined& rhs)
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined& 
-Mathematics::Exceptions::Undefined::operator=(Undefined&& rhs)
+Mathematics::Undefined& 
+Mathematics::Undefined::operator=(Undefined&& rhs)
 {
     this->explanation = rhs.explanation;
     return *this;
@@ -98,11 +98,9 @@ Mathematics::Exceptions::Undefined::operator=(Undefined&& rhs)
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-const char* Mathematics::Exceptions::Undefined::what() const noexcept
+const char* Mathematics::Undefined::what() const noexcept
 {
-	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-	std::string error = converter.to_bytes(this->explanation);
-    return error.c_str();
+    return this->explanation.c_str();
 }
 
 
@@ -111,6 +109,6 @@ const char* Mathematics::Exceptions::Undefined::what() const noexcept
 // | Class: Undefined                                                         |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-Mathematics::Exceptions::Undefined::~Undefined()
+Mathematics::Undefined::~Undefined()
 {
 }

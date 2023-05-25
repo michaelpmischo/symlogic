@@ -29,7 +29,7 @@
 // ============================================================================
 #include <Expressions/Separators/Brackets/Close.h>
 
-const Mathematics::TokenMap_t 
+const Mathematics::Expressions::TokenMap_t 
 Mathematics::Expressions::Separators::Brackets::Close::brackets =
 {
 	// "[]"
@@ -111,7 +111,7 @@ Mathematics::Expressions::Separators::Brackets::Close::operator=(Close&& rhs)
 // | Class: Close                                                             |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::prefix() const
 {
 	return { this->get_token() };
@@ -123,7 +123,7 @@ Mathematics::Expressions::Separators::Brackets::Close::prefix() const
 // | Class: Close                                                             |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::infix() const
 {
 	return this->prefix();
@@ -135,7 +135,7 @@ Mathematics::Expressions::Separators::Brackets::Close::infix() const
 // | Class: Close                                                             |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::postfix() const
 {
 	return this->prefix();
@@ -221,7 +221,7 @@ Mathematics::Expressions::Separators::Brackets::Close::solution(
 // | Class: Close                                                             |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Close::get_variables() const
 {
 	return {};
@@ -281,7 +281,7 @@ bool Mathematics::Expressions::Separators::Brackets::Close::is_token(
 // | Class: Close                                                             |
 // | Function: is_token                                                       |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Separators::Brackets::Close::get_precedence(
 		Type_t type_in,
 		const Token_t& token_in)
@@ -295,7 +295,7 @@ Mathematics::Expressions::Separators::Brackets::Close::get_precedence(
 // | Class: Close                                                             |
 // | Function: opposing                                                       |
 // |__________________________________________________________________________|
-Mathematics::Token_t
+Mathematics::Expressions::Token_t
 Mathematics::Expressions::Separators::Brackets::Close::get_opposing(
 		const Token_t& token_in)
 {
@@ -315,12 +315,13 @@ Mathematics::Expressions::Separators::Brackets::Close::get_opposing(
 // | Class: Close                                                             |
 // | Function: print                                                          |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Separators::Brackets::Close::print(
-		TokenStream_t& stream, 
-		const Token_t& prefix_in,
+void Mathematics::Expressions::Separators::Brackets::Close::pretty_tree(
+		std::stringstream& stream, 
+		const std::string& prefix_in,
 		bool is_last) const
 {
-	stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
-		this->get_token() << ")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 }
 

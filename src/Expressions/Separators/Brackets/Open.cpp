@@ -29,7 +29,7 @@
 // ============================================================================
 #include <Expressions/Separators/Brackets/Open.h>
 
-const Mathematics::TokenMap_t 
+const Mathematics::Expressions::TokenMap_t 
 Mathematics::Expressions::Separators::Brackets::Open::brackets =
 {
     // "[]"
@@ -117,7 +117,7 @@ Mathematics::Expressions::Separators::Brackets::Open::operator=(Open&& rhs)
 // | Class: Open                                                              |
 // | Function: prefix                                                         |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Open::prefix() const
 {
     TokenList_t output;
@@ -133,7 +133,7 @@ Mathematics::Expressions::Separators::Brackets::Open::prefix() const
 // | Class: Open                                                              |
 // | Function: infix                                                          |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Open::infix() const
 {
     TokenList_t output;
@@ -149,7 +149,7 @@ Mathematics::Expressions::Separators::Brackets::Open::infix() const
 // | Class: Open                                                              |
 // | Function: postfix                                                        |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Open::postfix() const
 {
     TokenList_t output;
@@ -239,7 +239,7 @@ Mathematics::Expressions::Separators::Brackets::Open::solution(
 // | Class: Open                                                              |
 // | Function: solution                                                       |
 // |__________________________________________________________________________|
-Mathematics::TokenList_t 
+Mathematics::Expressions::TokenList_t 
 Mathematics::Expressions::Separators::Brackets::Open::get_variables() const
 {
     return this->get_inside()->get_variables();
@@ -299,7 +299,7 @@ bool Mathematics::Expressions::Separators::Brackets::Open::is_token(
 // | Class: Open                                                              |
 // | Function: get_precedence                                                 |
 // |__________________________________________________________________________|
-Mathematics::TokenPrecedence_t
+Mathematics::Expressions::TokenPrecedence_t
 Mathematics::Expressions::Separators::Brackets::Open::get_precedence(
         Type_t type_in,
         const Token_t& token_in)
@@ -313,7 +313,7 @@ Mathematics::Expressions::Separators::Brackets::Open::get_precedence(
 // | Class: Open                                                              |
 // | Function: opposing                                                       |
 // |__________________________________________________________________________|
-Mathematics::Token_t
+Mathematics::Expressions::Token_t
 Mathematics::Expressions::Separators::Brackets::Open::get_opposing(
         const Token_t& token_in)
 {
@@ -343,17 +343,18 @@ Mathematics::Expressions::Separators::Brackets::Open::~Open()
 // | Class: Open                                                              |
 // | Function: print                                                          |
 // |__________________________________________________________________________|
-void Mathematics::Expressions::Separators::Brackets::Open::print(
-        TokenStream_t& stream, 
-        const Token_t& prefix_in,
+void Mathematics::Expressions::Separators::Brackets::Open::pretty_tree(
+        std::stringstream& stream, 
+        const std::string& prefix_in,
         bool is_last) const
 {
-    stream << prefix_in << (!is_last ? "├──" : "└──") << "(" <<
-        this->get_token() << ")" << std::endl;
+	stream << prefix_in <<
+		(!is_last ? "\xC3\xC4\xC4" : "\xC0\xC4\xC4") <<
+		"(" << this->get_token() << ")" << std::endl;
 
-    std::wstring new_prefix = prefix_in + (!is_last ? "│   " : "    ");
+    std::string new_prefix = prefix_in + (!is_last ? "\xB3   " : "    ");
 
-    // Enter the next tree level - inside and right branch
-    stream << new_prefix << "│   " << std::endl;
-    this->get_inside()->print(stream, new_prefix, true);
+	// Enter the next tree level - left and right branch
+	stream << new_prefix << "\xB3   " << std::endl;
+	this->get_inside()->pretty_tree(stream, new_prefix, true);
 }
