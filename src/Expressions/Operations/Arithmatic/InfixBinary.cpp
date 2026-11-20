@@ -28,6 +28,7 @@
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
 #include <Expressions/Operations/Arithmatic/InfixBinary.h>
+#include <cmath>
 
 // For the Derivatives and Integrals
 #include <Expressions/Operations/Calculus/Derivative.h>
@@ -38,15 +39,9 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::operations =
     {"^",		&InfixBinary::pow},
     {"*",		&InfixBinary::mul},
     {"/",		&InfixBinary::div},
+    {"\xF6",	&InfixBinary::div},
     {"+",		&InfixBinary::add},
     {"-",		&InfixBinary::sub},
-
-#if defined(__UTF16_EXPRESSIONS__) || \
-    defined(__WCHAR_EXPRESSIONS__) || \
-    defined(__UTF32_EXPRESSIONS__)
-    {"⨉",		&InfixBinary::mul},
-    {"÷",		&InfixBinary::div},
-#endif
 };
 
 
@@ -56,13 +51,9 @@ Mathematics::Expressions::Operations::Arithmatic::InfixBinary::precedences =
     {"^",		5U},
     {"*",		3U},
     {"/",		3U},
+    {"\xF6",    3U},
     {"+",		1U},
     {"-",		1U},
-
-#ifdef __UTF16_EXPRESSIONS__
-    {"⨉",		3U},
-    {"÷",		3U},
-#endif
 };
 
 

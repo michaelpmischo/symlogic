@@ -206,9 +206,9 @@ size_t Mathematics::Expressions::Operations::Ternary::size() const
 // |__________________________________________________________________________|
 size_t Mathematics::Expressions::Operations::Ternary::height() const
 {
-    return 1U + std::max({ this->get_left()->height(),
-            this->get_middle()->height(),
-            this->get_right()->height() });
+    return 1U + std::max(std::max(this->get_left()->height(),
+            this->get_middle()->height()),
+            this->get_right()->height());
 }
 
 
@@ -254,6 +254,18 @@ Mathematics::Expressions::Operations::Ternary::get_variables() const
     variables.sort();
     variables.unique();
     return variables;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Ternary                                                           |
+// | Function: get_branches                                                    |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Operations::Ternary::get_branches() const
+{
+	return { this->get_left(), this->get_middle(), this->get_right() };
 }
 
 

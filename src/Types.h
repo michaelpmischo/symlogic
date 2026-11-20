@@ -28,9 +28,9 @@
 // ____________________________________________________________________________
 #ifndef __MATHEMATICS_TYPES_H_
 #define __MATHEMATICS_TYPES_H_
-#include <Types/Basic/Basic.h>
-#include <Types/Numbers/Constants.h>
+#include <Types/Primative.h>
+#include <Types/Numbers/Number.h>
+#include <Types/Numbers/Complex.h>
+#include <Types/Numbers/Rational.h>
 #include <Types/Unicode/Unicode.h>
-
-
 #endif // __MATHEMATICS_TYPES_H_

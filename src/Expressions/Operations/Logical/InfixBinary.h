@@ -64,7 +64,7 @@ public:
 
     // Public Pure Virtual Functions of Expression Implemented.
     virtual TokenList_t infix() const override;
-    virtual Expression* simplify() const override;;
+    virtual Expression* simplify() const override;
     virtual Expression* derivative(const Token_t& token_in) const override;
     virtual Expression* integral(const Token_t& token_in) const override;
     virtual Real solution(const TokenValueMap_t& values_in = {}) const override;
@@ -91,8 +91,8 @@ private:
     static bool less_than_or_equal(const Real& x, const Real& y);
     static bool greater_than_or_equal(const Real& x, const Real& y);
     static bool implies(const Real& x, const Real& y);
-    static bool and(const Real& x, const Real& y);
-    static bool or(const Real& x, const Real& y);
+    static bool AND(const Real& x, const Real& y);
+    static bool OR(const Real& x, const Real& y);
 }; // class InfixBinary
 } // namespace Logical
 } // namespace Operations

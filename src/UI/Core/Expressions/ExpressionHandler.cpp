@@ -32,6 +32,7 @@
 #include <Expressions/Operands/Number.h>
 #include <UI/Core/Terminal.h>
 #include <limits>
+#include <cmath>
 
 Mathematics::UI::Core::ExpressionHandler* 
 Mathematics::UI::Core::ExpressionHandler::singleton(0);

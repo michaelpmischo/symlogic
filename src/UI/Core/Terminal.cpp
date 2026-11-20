@@ -32,6 +32,7 @@
 #include <UI/Core/Expressions/ExpressionHandler.h>
 #include <Exceptions/Commands/Syntax.h>
 #include <Exceptions/Expressions/Malformed.h>
+#include <Version.h>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -61,7 +62,7 @@ Mathematics::UI::Core::Terminal* Mathematics::UI::Core::Terminal::instance()
 int Mathematics::UI::Core::Terminal::run()
 {
 	std::time_t now = std::time(0);
-	std::cout << this->name() << std::endl <<
+	std::cout << this->title() << std::endl <<
 		std::asctime(std::localtime(&now));
 	while (true)
 	{
@@ -71,20 +72,22 @@ int Mathematics::UI::Core::Terminal::run()
 		std::cout << std::endl << "[" << count << "]" << input_prompt;
 		std::getline(std::cin, input);
 
-		try
+		if (!input.empty())
 		{
-			CommandHandler::instance()->handle(input);
-			count++;
+			try
+			{
+				CommandHandler::instance()->handle(input);
+				count++;
+			}
+			catch (Syntax& error)
+			{
+				this->output(error.what());
+			}
+			catch (Expressions::Malformed& error)
+			{
+				this->output(error.what());
+			}
 		}
-		catch (Syntax& error)
-		{
-			this->output(error.what());
-		}
-		catch (Expressions::Malformed& error)
-		{
-			this->output(error.what());
-		}
-		
 	}
 	this->exit_failure();
 }
@@ -150,7 +153,22 @@ Mathematics::UI::Core::Terminal::Terminal() :
 // | Class: Terminal                                                          |
 // | Function: Constructor                                                    |
 // |__________________________________________________________________________|
-std::string Mathematics::UI::Core::Terminal::name() const
+std::string Mathematics::UI::Core::Terminal::title() const
 {
-	return "Symbolic Mathematics Core Terminal Version 0.0.1";
+	return "\n"
+"\xC9\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xBB\n"
+"\xBA      +\xEC                                                                      \xBA\n"
+"\xBA       \xF4 \xDA                                           \xDA  0.0.1  \xBF\xBF             \xBA\n"
+"\xBA       \xB3 \xB3Symbolic Mathematics Core Terminal Version \xB3 ------- \xB3\xB3 dx          \xBA\n"
+"\xBA       \xF5 \xC0                                           \xC0    1    \xD9\xD9             \xBA\n"
+"\xBA      -\xEC                                                                      \xBA\n"
+"\xC8\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD\xCD"
+"\xCD\xCD\xCD\xBC\n";
 }

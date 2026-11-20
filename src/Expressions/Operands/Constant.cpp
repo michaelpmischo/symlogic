@@ -37,15 +37,16 @@
 const Mathematics::Expressions::Operands::Constant::ConstantHash_t 
 Mathematics::Expressions::Operands::Constant::constants =
 {
-    {"pi",	    Mathematics::𝝅},
-    {"e",	    Mathematics::ℯ},
+	//! Archimedes' Constant (pi) -
+    //! The ratio between the circumference and diameter of a circle.
+    {"pi",	    3.141592653589793238462643383279503},
+    {"\xE3",    3.141592653589793238462643383279503},
 
-#if defined(__UTF16_EXPRESSIONS__)
-    {"𝝅",      Mathematics::𝝅},
-    {"ℯ",      Mathematics::ℯ},
-    {"φ",      Mathematics::φ},
-#endif
-
+	//! Euler's Number
+    //! The constant occurs in many natural models. Also known as the 
+    //! exponential growth constant. This occurs in finance, population,
+    //! decay, and many other natural models.
+    {"e",	    2.718281828459045235360287471352662},
 };
 
 

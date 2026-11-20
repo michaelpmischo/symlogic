@@ -70,7 +70,7 @@ Mathematics::Rational::Rational(Integer numerator_in) :
 // | Function:                                                                |
 // |__________________________________________________________________________|
 Mathematics::Rational::Rational(Integer numerator_in, 
-        Integer denominator_in) throw() :
+        Integer denominator_in) :
     numerator(numerator_in),
     denominator(denominator_in)
 {

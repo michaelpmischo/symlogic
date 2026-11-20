@@ -110,6 +110,7 @@ public:
         std::cout << "Enter the Denominator:";
         is >> number_in.denominator;
         number_in.reduce();
+        return is;
     }
 
     // Casting Operators

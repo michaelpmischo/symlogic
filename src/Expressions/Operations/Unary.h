@@ -76,6 +76,7 @@ public:
     virtual bool contains(const Token_t& token_in) const override;
     virtual bool contains_variable() const override;
     virtual TokenList_t get_variables() const override;
+    virtual ExpressionList_t get_branches() const override;
 
     virtual Natural arity() const override;
 

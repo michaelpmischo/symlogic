@@ -297,6 +297,18 @@ Mathematics::Expressions::Separators::Generic::copy(
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Generic                                                           |
+// | Function: get_branches                                                   |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Separators::Generic::get_branches() const
+{
+	return { this->get_next() };
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Generic                                                           |
 // | Function: is_token                                                       |
 // |__________________________________________________________________________|
 bool Mathematics::Expressions::Separators::Generic::is_token(

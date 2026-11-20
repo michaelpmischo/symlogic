@@ -47,6 +47,7 @@ Mathematics::Expressions::Operations::Calculus::Derivative::unary_common =
 // Unary Operations
 	{"ln",		&Derivative::ln},
 //	{"sqrt",	&Derivative::sqrt},
+//	{"\xFB",	&Derivative::sqrt},
 	{"exp",	&Derivative::exp},
 //	{"abs",	&Derivative::abs},
 
@@ -77,13 +78,6 @@ Mathematics::Expressions::Operations::Calculus::Derivative::unary_common =
 //	{"acsch",	&Derivative::acsch},
 //	{"asech",	&Derivative::asech},
 //	{"acoth",	&Derivative::acoth},
-
-#if defined(__UTF16_EXPRESSIONS__) || \
-    defined(__WCHAR_EXPRESSIONS__) || \
-    defined(__UTF32_EXPRESSIONS__)
-//	{"√",		&Derivative::sqrt},
-//	{"ℯ^",		&Derivative::exp},
-#endif
 };
 
 const Mathematics::Expressions::Operations::Calculus::Derivative::BinaryDerivativeHash_t
@@ -93,20 +87,12 @@ Mathematics::Expressions::Operations::Calculus::Derivative::binary_common =
 	{"^",		&Derivative::power_rule},
 	{"*",		&Derivative::product_rule},
 	{"/",		&Derivative::quotient_rule},
+	{"\xF6",	&Derivative::quotient_rule},
 	{"+",		&Derivative::sum_and_difference},
 	{"-",		&Derivative::sum_and_difference},
 
-//	{"log",	&Derivative::log},
-//	{"nrt",	&Derivative::nrt},
-
-#if defined(__UTF16_EXPRESSIONS__) || \
-    defined(__WCHAR_EXPRESSIONS__) || \
-    defined(__UTF32_EXPRESSIONS__)
-	{"∙",		&Derivative::product_rule},
-	{"⨉",		&Derivative::product_rule},
-	{"÷",		&Derivative::quotient_rule},
-//	{"n√",		&Derivative::nrt},
-#endif
+//	{"log",		&Derivative::log},
+//	{"nrt",		&Derivative::nrt},
 };
 
 const Mathematics::Expressions::Operations::Calculus::Derivative::TernaryDerivativeHash_t

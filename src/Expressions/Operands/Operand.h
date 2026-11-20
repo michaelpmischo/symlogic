@@ -73,6 +73,7 @@ public:
     virtual size_t height() const override;
     virtual bool contains(const Token_t& token_in) const override;
     virtual Expression* simplify() const override;
+    virtual ExpressionList_t get_branches() const override;
 
     static bool is_token(const Token_t& token_in);
     static TokenPrecedence_t get_precedence(Type_t type_in,

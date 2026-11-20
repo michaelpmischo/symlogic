@@ -285,6 +285,18 @@ Mathematics::Expressions::Separators::Brackets::Open::copy(
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Open                                                              |
+// | Function: get_branches                                                   |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Separators::Brackets::Open::get_branches() const
+{
+	return { this->get_inside() };
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Open                                                              |
 // | Function: is_token                                                       |
 // |__________________________________________________________________________|
 bool Mathematics::Expressions::Separators::Brackets::Open::is_token(

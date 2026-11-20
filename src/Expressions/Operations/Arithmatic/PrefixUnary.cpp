@@ -28,6 +28,7 @@
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
 #include <Expressions/Operations/Arithmatic/PrefixUnary.h>
+#include <cmath>
 
 // Common derivatives...
 #include <Expressions/Operations/Calculus/Derivative.h>
@@ -38,8 +39,9 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::operations =
     {"~",		&PrefixUnary::negate},
     {"ln",		&PrefixUnary::ln},
     {"sqrt",	&PrefixUnary::sqrt},
-    {"exp",	&PrefixUnary::exp},
-    {"abs",	&PrefixUnary::abs},
+    {"\xFB",	&PrefixUnary::sqrt},
+    {"exp",	    &PrefixUnary::exp},
+    {"abs",	    &PrefixUnary::abs},
 
     // Trigonometric Operations
     {"sin",	&PrefixUnary::sin},
@@ -68,13 +70,6 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::operations =
     {"acsch",	&PrefixUnary::acsch},
     {"asech",	&PrefixUnary::asech},
     {"acoth",	&PrefixUnary::acoth},
-
-#if defined(__UTF16_EXPRESSIONS__) || \
-    defined(__WCHAR_EXPRESSIONS__) || \
-    defined(__UTF32_EXPRESSIONS__)
-    {"√",		&PrefixUnary::sqrt},
-    {"ℯ^",		&PrefixUnary::exp},
-#endif
 };
 
 
@@ -93,7 +88,7 @@ Mathematics::Expressions::Operations::Arithmatic::PrefixUnary::PrefixUnary(
     if (this->get_type() != Type_t::ARITHMATIC_PREFIX_UNARY)
     {
         std::stringstream stream;
-        stream << this->get_token() << " is not an InfixBinary!" << std::endl;
+        stream << this->get_token() << " is not an Prefix Unary!" << std::endl;
         throw(stream.str());
     }
 }

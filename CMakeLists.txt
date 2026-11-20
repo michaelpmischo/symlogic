@@ -21,9 +21,9 @@ add_compile_options(${CCFLAGS})
 
 # If you set any CMAKE_ variables, that can go here.
 # (But usually don't do this, except maybe for C++ standard)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ./lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ./lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../../../lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../../../lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../../bin)
 
 #add_compile_definitions(__WCHAR_EXPRESSIONS__)
 #add_compile_definitions(__UTF32_EXPRESSIONS__)
@@ -32,7 +32,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./bin)
 add_compile_definitions(__ASCII_EXPRESSIONS__)
 
 ## Test to see if int128 is availabe.
-add_compile_definitions(__CHECK_FOR_INT128__)
+#add_compile_definitions(__CHECK_FOR_INT128__)
 
 set(CMAKE_EXE_LINKER_FLAGS)
 

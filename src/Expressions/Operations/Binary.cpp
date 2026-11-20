@@ -195,8 +195,8 @@ size_t Mathematics::Expressions::Operations::Binary::size() const
 // |__________________________________________________________________________|
 size_t Mathematics::Expressions::Operations::Binary::height() const
 {
-    return 1U + std::max({ this->get_left()->height(),
-            this->get_right()->height() });
+    return 1U + std::max(this->get_left()->height(),
+            this->get_right()->height());
 }
 
 
@@ -239,6 +239,18 @@ Mathematics::Expressions::Operations::Binary::get_variables() const
     variables.sort();
     variables.unique();
     return variables;
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Binary                                                            |
+// | Function: get_branches                                                    |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Operations::Binary::get_branches() const
+{
+	return { this->get_left(), this->get_right() };
 }
 
 

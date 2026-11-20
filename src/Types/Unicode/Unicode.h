@@ -234,7 +234,7 @@ const UnicodeMap_t GREEK =
 	{U"pi",			U"𝝅"},
 	{U"rho",		U"𝝆"},
 	{U"sigma",		U"𝝈"},
-	{U"ta",		U"𝝉"},
+	{U"tau",		U"𝝉"},
 	{U"upsilon",	U"𝝊"},
 	{U"phi",		U"𝝓"},
 	{U"chi",		U"𝝌"},

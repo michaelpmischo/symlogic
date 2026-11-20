@@ -251,6 +251,18 @@ Mathematics::Expressions::Operands::Operand::simplify() const
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Operand                                                           |
+// | Function: get_branches                                                   |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Operands::Operand::get_branches() const
+{
+    return {};
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Operand                                                           |
 // | Function: is_token                                                       |
 // |__________________________________________________________________________|
 bool Mathematics::Expressions::Operands::Operand::is_token(

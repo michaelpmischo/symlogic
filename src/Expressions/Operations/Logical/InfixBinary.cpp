@@ -32,26 +32,20 @@
 const Mathematics::Expressions::Operations::Binary::LogicalBinaryHash_t 
 Mathematics::Expressions::Operations::Logical::InfixBinary::operations = 
 {
+    {"\xF7",	&InfixBinary::approximation},
     {"=",		&InfixBinary::equal},
     {"!=",		&InfixBinary::not_equal},
     {">",		&InfixBinary::greater_than},
     {"<",		&InfixBinary::less_than},
     {">=",		&InfixBinary::greater_than_or_equal},
+    {"\xF2",    &InfixBinary::greater_than_or_equal},
     {"<=",		&InfixBinary::less_than_or_equal},
+    {"\xF3",	&InfixBinary::less_than_or_equal},
     {"->",		&InfixBinary::implies},
-    {"and",	&InfixBinary::and},
-    {"or",		&InfixBinary::or},
-
-#if defined(__UTF16_EXPRESSIONS__) || \
-    defined(__WCHAR_EXPRESSIONS__) || \
-    defined(__UTF32_EXPRESSIONS__)
-    {"≈",		&InfixBinary::approximation},
-    {"≠",		&InfixBinary::not_equal},
-    {"≥",		&InfixBinary::greater_than_or_equal},
-    {"≤",		&InfixBinary::less_than_or_equal},
-    {"⋀",		&InfixBinary:: and},
-    {"⋁",		&InfixBinary:: or},
-#endif
+    {"and",	    &InfixBinary::AND},
+    {"/\\",	    &InfixBinary::AND},
+    {"or",		&InfixBinary::OR},
+    {"\\/",		&InfixBinary::OR },
 };
 
 
@@ -372,7 +366,7 @@ bool Mathematics::Expressions::Operations::Logical::InfixBinary::implies(
 // | Class: InfixBinary                                                       |
 // | Function: and                                                            |
 // |__________________________________________________________________________|
-bool Mathematics::Expressions::Operations::Logical::InfixBinary::and(
+bool Mathematics::Expressions::Operations::Logical::InfixBinary::AND(
         const Real& x,
         const Real& y)
 {
@@ -385,7 +379,7 @@ bool Mathematics::Expressions::Operations::Logical::InfixBinary::and(
 // | Class: InfixBinary                                                       |
 // | Function: or                                                             |
 // |__________________________________________________________________________|
-bool Mathematics::Expressions::Operations::Logical::InfixBinary::or(
+bool Mathematics::Expressions::Operations::Logical::InfixBinary::OR(
         const Real& x,
         const Real& y)
 {

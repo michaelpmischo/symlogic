@@ -29,6 +29,7 @@
 // ============================================================================
 #include <Types/Numbers/Complex.h>
 #include <Exceptions/Undefined.h>
+#include <cmath>
 
 #include <sstream>
 

@@ -1,7 +1,7 @@
 // ============================================================================
-//! @file Basic.h
+//! @file ExpressionPrinter.h
 //! @author Michael P. MIscho
-//! @date May 4, 2023
+//! @date May 22, 2023
 //! @brief This file is the header for the Integer number type header.
 //! @see 
 // ____________________________________________________________________________
@@ -27,61 +27,46 @@
 //! file. If not, please write to: , or visit :
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
-#ifndef __MATHEMATICS_TYPES_BASIC_H_
-#define __MATHEMATICS_TYPES_BASIC_H_
-#include <Types/Basic/Definitions.h>
-#include <cstdint>
-#include <iostream>
+#ifndef __MATHEMATICS_UI_CORE_EXPRESSIONPRINTER_H_
+#define __MATHEMATICS_UI_CORE_EXPRESSIONPRINTER_H_
+#include <string>
+#include <deque>
+#include <map>
 
-// Definition of the floating point types.
-typedef float float32_t;
-typedef double float64_t;
-typedef long double float128_t;
 
-// IEEE-Std. 754 Types
-typedef float32_t ieee754_single;
-typedef float64_t ieee754_double;
-typedef float64_t ieee754_quadruple;
+namespace Mathematics
+{
+namespace Expressions
+{
+class Expression;
+}
+namespace UI
+{
+namespace Core
+{
+class ExpressionPrinter
+{
+public:
+	typedef std::deque<std::string> ExpressionOutput_t;
+	ExpressionPrinter(const Expressions::Expression* expression_in);
 
-typedef long long smax_t;
-typedef unsigned long long umax_t;
+	std::string get_string() const;
 
-    // Try to define a larger integer type.
-#ifndef int128_t
-  #ifdef __int128
-    typedef __int128 int128_t;
-  #endif
-#endif
+	ExpressionPrinter& operator+=(const ExpressionPrinter& rhs);
 
-#ifdef int128_t
-  #undef smax_t
-  #define int128_t smax_t;
-#endif
+private:
+	typedef std::map<std::string, std::string> CharacterMap_t;
 
-    // Try to define a larger unsigned type
-#ifndef uint128_t
-  #ifdef __uint128
-    typedef __uint128 uint128_t;
-  #else
-    #ifdef __int128
-      typedef unsigned __int128 uint128_t;
-    #endif
-  #endif
-#endif
+	static const CharacterMap_t characters;
+	static std::string to_string(const Expressions::Expression* expression_in);
 
-#ifdef uint128_t
-  #undef umax_t
-  #define uint128_t umax_t;
-#endif
+	std::string expression;
+	ExpressionOutput_t strngs;
 
-#ifdef __CHECK_FOR_INT128__
-  #ifdef __SIZEOF_INT128__ 
-    #error 128-bit integers are available!
-  #endif 
-  #ifdef __int128
-    #error 128-bit integers are available!
-  #endif
-#endif
+}; // class ExpressionPrinter
+} // namespace Core
+} // namespace Core
+} // namespace Mathematics
 
-#endif // __MATHEMATICS_TYPES_BASIC_H_
 
+#endif // __MATHEMATICS_UI_CORE_EXPRESSIONPRINTER_H_

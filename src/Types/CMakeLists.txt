@@ -15,7 +15,7 @@ set(VERSIONS 3.0...3.26)
 set(DEPTH 0)
 
 set(ROOT "./src/Types")
-set(LIBRARY libTypes)
+set(LIBRARY Types)
 
 # Almost all CMake files should start with this
 # You should always specify a range with the newest

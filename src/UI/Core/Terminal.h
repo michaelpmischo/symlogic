@@ -29,7 +29,6 @@
 // ============================================================================
 #ifndef __MATHEMATICS_UI_CORE_TERMINAL_H_
 #define __MATHEMATICS_UI_CORE_TERMINAL_H_
-#include <Types/Basic/Definitions.h>
 #include <string>
 
 namespace Mathematics
@@ -60,7 +59,7 @@ public:
 	int exit_success();
 	int exit_failure();
     void output(const std::string& output_in);
-    std::string name() const;
+    std::string title() const;
 
     ~Terminal();
 

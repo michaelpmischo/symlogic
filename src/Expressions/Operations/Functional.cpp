@@ -232,6 +232,18 @@ Mathematics::Expressions::Operations::Functional::get_variables() const
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Functional                                                        |
+// | Function: get_branches                                                    |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Operations::Functional::get_branches() const
+{
+	return { this->get_function() };
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Functional                                                        |
 // | Function: arity                                                          |
 // |__________________________________________________________________________|
 Mathematics::Natural 

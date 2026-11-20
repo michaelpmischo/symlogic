@@ -34,6 +34,7 @@
 #include <iostream>
 #include <fstream>
 #include <deque>
+#include <sstream>
 
 namespace Mathematics
 {
@@ -43,9 +44,9 @@ namespace Mathematics
 	static const std::string DIVIDER3("-------------------------------------------------------------------------------");
 	static const std::string DIVIDER4("_______________________________________________________________________________");
 	static const std::string DIVIDER5("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	static const std::string VERIFY(" -- Verifying ...");
-	static const std::string PASS(" -- PASSED --- ");
-	static const std::string FAIL(" -- FAILED --- ");
+	static const std::string VERIFY(" --- Verifying ...");
+	static const std::string PASS(" --- PASSED --- ");
+	static const std::string FAIL(" --- FAILED --- ");
 
 class Test
 {

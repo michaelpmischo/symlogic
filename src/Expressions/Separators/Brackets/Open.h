@@ -75,6 +75,7 @@ public:
 	virtual bool contains_variable() const override;
 	virtual Expression* copy(
 			const TokenPair_t& parentheses_in = { "","" }) const override;
+	virtual ExpressionList_t get_branches() const override;
 
 	static bool is_token(const Token_t& token_in);
 	static TokenPrecedence_t get_precedence(Type_t type_in,

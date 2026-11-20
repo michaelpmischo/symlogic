@@ -229,6 +229,18 @@ Mathematics::Expressions::Operations::Unary::get_variables() const
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Unary                                                             |
+// | Function: get_branches                                                    |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Operations::Unary::get_branches() const
+{
+	return { this->get_left() };
+}
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Unary                                                             |
 // | Function: arity                                                          |
 // |__________________________________________________________________________|
 Mathematics::Natural 

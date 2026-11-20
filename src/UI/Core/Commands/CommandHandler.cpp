@@ -138,6 +138,19 @@ void Mathematics::UI::Core::CommandHandler::process_command(
 	{
 		this->solvefor(command_info_in);
 	}
+	else if (command_info_in.command.string == "derivative")
+	{
+		//this->derivative(command_info_in);
+	}
+	else if (command_info_in.command.string == "integral")
+	{
+		//this->integral(command_info_in);
+	}
+	else if (command_info_in.command.string == "simplify")
+	{
+		//this->simplify(command_info_in);
+	}
+
 	else if (command_info_in.command.string == "clear")
 	{
 		ExpressionHandler::instance()->clear();
@@ -148,9 +161,11 @@ void Mathematics::UI::Core::CommandHandler::process_command(
 	}
 	else if (command_info_in.command.string == "save")
 	{
+		//this->save(command_info_in);
 	}
 	else if (command_info_in.command.string == "load")
 	{
+		//this->load(command_info_in);
 	}
 	else if (command_info_in.command.string == "help")
 	{
@@ -192,7 +207,7 @@ void Mathematics::UI::Core::CommandHandler::set(
 			{
 				// TODO -- Throw an error.
 				this->syntax_error("Argument for \"set\" must use the "
-					"form VARIABLE \"=\" VALUE",
+					"form VARIABLE=VALUE.",
 					argument.location);
 				return;
 			}
@@ -314,7 +329,7 @@ void Mathematics::UI::Core::CommandHandler::solvefor(
 void Mathematics::UI::Core::CommandHandler::help() const
 {
 	std::stringstream stream;
-	stream << Terminal::instance()->name() << std::endl;
+	stream << Terminal::instance()->title() << std::endl;
 	stream << " --- Available Commands: " << std::endl;
 	stream << std::setiosflags(std::ios::left) << std::setw(20) << 
 		"Command" << "| " << "Description" << std::endl;
@@ -411,7 +426,7 @@ Mathematics::UI::Core::CommandHandler::parse_command(
 			stream << "No closing parentheses for call to \"" <<
 				command.command.string << "\"";
 			this->syntax_error(stream.str(),
-				command.command.location);
+				arguments_begin);
 		}
 
 		// Split the arguments at the commas.

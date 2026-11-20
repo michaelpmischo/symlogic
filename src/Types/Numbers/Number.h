@@ -29,7 +29,7 @@
 // ============================================================================
 #ifndef __MATHEMATICS_TYPES_NUMBER_H_
 #define __MATHEMATICS_TYPES_NUMBER_H_
-#include <Types/Basic/Basic.h>
+#include <Types/Primative.h>
 
 namespace Mathematics
 {

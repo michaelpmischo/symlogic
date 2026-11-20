@@ -62,7 +62,7 @@ public:
 
     // Public Pure Virtual Functions of Expression Implemented.
     virtual TokenList_t infix() const override;
-    virtual Expression* simplify() const override;;
+    virtual Expression* simplify() const override;
     virtual Expression* derivative(const Token_t& token_in) const override;
     virtual Expression* integral(const Token_t& token_in) const override;
     virtual Real solution(const TokenValueMap_t& values_in = {}) const override;

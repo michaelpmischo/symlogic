@@ -88,7 +88,6 @@ void Mathematics::Expressions::Tests::ExpressionTest::run()
 void Mathematics::Expressions::Tests::ExpressionTest::execute_test(
 		const ExpressionTestCase_t& test_case_in)
 {
-	uint64_t exceptions = 0;
 	std::cout << DIVIDER2 << std::endl;
 	std::cout << test_case_in.name << std::endl;
 	this->push_heading(test_case_in.name);

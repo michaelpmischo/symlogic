@@ -30,6 +30,7 @@
 #include <Expressions/Operands/Variable.h>
 #include <Expressions/Operands/Constant.h>
 #include <Expressions/Operands/Number.h>
+#include <cmath>
 
 
 #include <Expressions/Operations/Arithmatic/InfixBinary.h>

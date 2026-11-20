@@ -15,7 +15,7 @@ set(VERSIONS 3.0...3.26)
 set(DEPTH 0)
 
 set(ROOT "./src/Expressions")
-set(LIBRARY libExpressions)
+set(LIBRARY Expressions)
 
 # Almost all CMake files should start with this
 # You should always specify a range with the newest

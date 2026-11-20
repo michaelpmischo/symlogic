@@ -44,7 +44,7 @@ add_executable(${EXE} ${SRCS} ${HDRS})
 
 # Make sure you link your targets with this command. It can also link libraries and
 # even flags, so linking a target that does not exist will not give a configure-time error.
-target_link_libraries(${EXE} PRIVATE libExceptions libExpressions libTypes)
+target_link_libraries(${EXE} PRIVATE Exceptions Expressions Types)
 
 message("CMake [${DEPTH}] Leaving ${ROOT}")
 MATH(EXPR DEPTH "${DEPTH}-1")

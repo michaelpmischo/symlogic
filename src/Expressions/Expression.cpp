@@ -222,7 +222,7 @@ Mathematics::Expressions::Expression::get_type(const Token_t& token_in)
 //  __________________________________________________________________________
 // |                                                                          |
 // | Class: Expression                                                        |
-// | Function: print                                                          |
+// | Function: pretty_tree                                                    |
 // |__________________________________________________________________________|
 std::string Mathematics::Expressions::Expression::pretty_tree() const
 {

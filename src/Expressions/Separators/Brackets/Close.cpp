@@ -28,6 +28,7 @@
 //! https://www.gnu.org/licenses/gpl-3.0.en.html
 // ============================================================================
 #include <Expressions/Separators/Brackets/Close.h>
+#include <cmath>
 
 const Mathematics::Expressions::TokenMap_t 
 Mathematics::Expressions::Separators::Brackets::Close::brackets =
@@ -261,6 +262,19 @@ Mathematics::Expressions::Separators::Brackets::Close::copy(
 	const TokenPair_t& parentheses_in) const
 {
 	return new Close(*this);
+}
+
+
+
+//  __________________________________________________________________________
+// |                                                                          |
+// | Class: Close                                                             |
+// | Function: get_branches                                                   |
+// |__________________________________________________________________________|
+Mathematics::Expressions::Expression::ExpressionList_t
+Mathematics::Expressions::Separators::Brackets::Close::get_branches() const
+{
+	return { };
 }
 
 

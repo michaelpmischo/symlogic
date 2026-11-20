@@ -37,6 +37,7 @@
 #include <iostream>				        // std::ostream
 #include <sstream>				        // std::stringsyream
 #include <codecvt>                      // coverter
+#include <locale>                       // std::stringconverter
 
 namespace Mathematics
 {

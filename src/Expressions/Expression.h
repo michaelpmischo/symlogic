@@ -30,6 +30,7 @@
 #ifndef __MATHEMATICS_EXPRESSIONS_EXPRESSION_H_
 #define __MATHEMATICS_EXPRESSIONS_EXPRESSION_H_
 #include <Expressions/Tokens.h>
+#include <deque>
 
 namespace Mathematics
 {
@@ -48,6 +49,7 @@ namespace Expressions
 class Expression
 {
 public:
+    typedef std::deque<Expression*> ExpressionList_t;
     enum : TokenPrecedence_t
     {
         MIN_PRECEDENCE = 0U,
@@ -92,6 +94,7 @@ public:
         NUMBER,
         CONSTANT,
         VARIABLE,
+        SET,
 
         // Unknown Type, currently we default to a 
         // variable type. So, we should not encounter this
@@ -144,6 +147,7 @@ public:
     // Management Operations
     virtual Expression* copy(
             const TokenPair_t& parentheses_in = { "","" }) const = 0;
+    virtual ExpressionList_t get_branches() const = 0;
 
     // This should be protected but because this is a tree the inherited
     // node types cannot call this function on a cousin instance of a
